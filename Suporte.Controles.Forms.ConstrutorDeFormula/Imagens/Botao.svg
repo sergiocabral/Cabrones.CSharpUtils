@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.1 "
+   sodipodi:docname="Botao.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.113685"
+     inkscape:cx="349.15539"
+     inkscape:cy="453.05615"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1168"
+     inkscape:window-height="998"
+     inkscape:window-x="108"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g4004"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigitoVirgula.png"
+       inkscape:export-xdpi="74.550003"
+       inkscape:export-ydpi="74.550003"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         y="507.15115"
+         x="234.78857"
+         height="13.28"
+         width="13.28"
+         id="rect4010"
+         style="fill:none;stroke:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         x="241.55429"
+         y="517.42865"
+         id="text4012"
+         sodipodi:linespacing="89.999998%"><tspan
+           sodipodi:role="line"
+           id="tspan4014"
+           x="241.55429"
+           y="517.42865"
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;font-family:Arial;-inkscape-font-specification:Arial Bold">,</tspan></text>
+    </g>
+    <g
+       id="g3793"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Desktop\OperadorSubtracao.png"
+       inkscape:export-xdpi="92"
+       inkscape:export-ydpi="92"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         y="443.79117"
+         x="151.42857"
+         height="20"
+         width="20"
+         id="rect3021"
+         style="fill:none;stroke:none" />
+      <rect
+         ry="1.4566731"
+         y="451.83377"
+         x="153.90904"
+         height="3.9148088"
+         width="15.039067"
+         id="rect3791"
+         style="fill:#000000;stroke:none" />
+    </g>
+    <g
+       id="g3211">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3805"
+         width="20"
+         height="20"
+         x="291.71112"
+         y="512.36218" />
+      <path
+         id="rect3807"
+         d="M 301.21875 514.84375 C 300.41175 514.84375 299.75 515.5055 299.75 516.3125 L 299.75 520.40625 L 295.65625 520.40625 C 294.84925 520.40625 294.1875 521.068 294.1875 521.875 L 294.1875 522.875 C 294.1875 523.682 294.84925 524.3125 295.65625 524.3125 L 299.75 524.3125 L 299.75 528.4375 C 299.75 529.2445 300.41175 529.875 301.21875 529.875 L 302.21875 529.875 C 303.02575 529.875 303.65625 529.2445 303.65625 528.4375 L 303.65625 524.3125 L 307.78125 524.3125 C 308.58825 524.3125 309.21875 523.682 309.21875 522.875 L 309.21875 521.875 C 309.21875 521.068 308.58825 520.40625 307.78125 520.40625 L 303.65625 520.40625 L 303.65625 516.3125 C 303.65625 515.5055 303.02575 514.84375 302.21875 514.84375 L 301.21875 514.84375 z "
+         style="fill:#000000;stroke:none" />
+    </g>
+    <g
+       id="g3837"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Desktop\OperadorMultiplicacao.png"
+       inkscape:export-xdpi="92"
+       inkscape:export-ydpi="92"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         y="463.79117"
+         x="171.42857"
+         height="20"
+         width="20"
+         id="rect3825"
+         style="fill:none;stroke:none" />
+      <g
+         transform="matrix(-0.70710678,0.70710678,-0.70710678,-0.70710678,630.59677,694.66488)"
+         id="g3827">
+        <rect
+           style="fill:#000000;stroke:none"
+           id="rect3829"
+           width="15.039067"
+           height="3.9148088"
+           x="153.90904"
+           y="471.83377"
+           ry="1.4566731" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           ry="1.4566731"
+           y="-163.38599"
+           x="466.27164"
+           height="3.9148088"
+           width="15.039067"
+           id="rect3831"
+           style="fill:#000000;stroke:none" />
+      </g>
+    </g>
+    <g
+       id="g3862"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Desktop\OperadorDivisao.png"
+       inkscape:export-xdpi="92"
+       inkscape:export-ydpi="92"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3845"
+         width="20"
+         height="20"
+         x="171.42857"
+         y="443.79117" />
+      <g
+         id="g3857">
+        <rect
+           ry="1.4566731"
+           y="451.83377"
+           x="173.90904"
+           height="3.9148088"
+           width="15.039067"
+           id="rect3847"
+           style="fill:#000000;stroke:none" />
+        <path
+           sodipodi:type="arc"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+           id="path3853"
+           sodipodi:cx="181.74107"
+           sodipodi:cy="451.38004"
+           sodipodi:rx="3.1696429"
+           sodipodi:ry="2.7678571"
+           d="m 184.91072,451.38004 c 0,1.52864 -1.4191,2.76785 -3.16965,2.76785 -1.75054,0 -3.16964,-1.23921 -3.16964,-2.76785 0,-1.52865 1.4191,-2.76786 3.16964,-2.76786 1.75055,0 3.16965,1.23921 3.16965,2.76786 z"
+           transform="matrix(0.61757745,0,0,0.70722582,69.189387,128.64866)" />
+        <path
+           transform="matrix(0.61757745,0,0,0.70722582,69.189387,140.47846)"
+           d="m 184.91072,451.38004 c 0,1.52864 -1.4191,2.76785 -3.16965,2.76785 -1.75054,0 -3.16964,-1.23921 -3.16964,-2.76785 0,-1.52865 1.4191,-2.76786 3.16964,-2.76786 1.75055,0 3.16965,1.23921 3.16965,2.76786 z"
+           sodipodi:ry="2.7678571"
+           sodipodi:rx="3.1696429"
+           sodipodi:cy="451.38004"
+           sodipodi:cx="181.74107"
+           id="path3855"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+           sodipodi:type="arc" />
+      </g>
+    </g>
+    <g
+       id="g3891"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoAgrupadorEsquerdo.png"
+       inkscape:export-xdpi="92"
+       inkscape:export-ydpi="92"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3871"
+         width="20"
+         height="20"
+         x="151.42857"
+         y="503.79117" />
+      <text
+         sodipodi:linespacing="89.999998%"
+         id="text3877"
+         y="518.23328"
+         x="157.9545"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:start;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Heavy'"
+         xml:space="preserve"><tspan
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Heavy'"
+           y="518.23328"
+           x="157.9545"
+           id="tspan3879"
+           sodipodi:role="line">(</tspan></text>
+    </g>
+    <g
+       id="g3907"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoAgrupadorDireito.png"
+       inkscape:export-xdpi="92"
+       inkscape:export-ydpi="92"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         y="503.79117"
+         x="171.42857"
+         height="20"
+         width="20"
+         id="rect3898"
+         style="fill:none;stroke:none" />
+      <text
+         transform="scale(-1,-1)"
+         xml:space="preserve"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:start;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Heavy'"
+         x="-184.90263"
+         y="-509.34903"
+         id="text3900"
+         sodipodi:linespacing="89.999998%"><tspan
+           sodipodi:role="line"
+           id="tspan3902"
+           x="-184.90263"
+           y="-509.34903"
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Heavy'">(</tspan></text>
+    </g>
+    <g
+       id="g4024"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigito7.png"
+       inkscape:export-xdpi="77.449997"
+       inkscape:export-ydpi="77.449997"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         y="447.40005"
+         x="215.03746"
+         height="12.782222"
+         width="12.782222"
+         id="rect3947"
+         style="fill:none;stroke:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         x="222.14937"
+         y="459.95984"
+         id="text3949"
+         sodipodi:linespacing="89.999998%"><tspan
+           sodipodi:role="line"
+           id="tspan3951"
+           x="222.14937"
+           y="459.95984"
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial Bold">7</tspan></text>
+    </g>
+    <g
+       id="g4019"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigito4.png"
+       inkscape:export-xdpi="75.970001"
+       inkscape:export-ydpi="75.970001"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3956"
+         width="13.031111"
+         height="13.031111"
+         x="214.91302"
+         y="467.2756" />
+      <text
+         sodipodi:linespacing="89.999998%"
+         id="text3958"
+         y="479.95984"
+         x="222.14937"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           y="479.95984"
+           x="222.14937"
+           id="tspan3960"
+           sodipodi:role="line">4</tspan></text>
+    </g>
+    <g
+       id="g4014"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigito1.png"
+       inkscape:export-xdpi="77.449997"
+       inkscape:export-ydpi="77.449997"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         y="487.40005"
+         x="215.03746"
+         height="12.782222"
+         width="12.782222"
+         id="rect3962"
+         style="fill:none;stroke:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         x="222.14937"
+         y="499.95984"
+         id="text3964"
+         sodipodi:linespacing="89.999998%"><tspan
+           sodipodi:role="line"
+           id="tspan3966"
+           x="222.14937"
+           y="499.95984"
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial Bold">1</tspan></text>
+    </g>
+    <g
+       id="g4029"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigito8.png"
+       inkscape:export-xdpi="75.970001"
+       inkscape:export-ydpi="75.970001"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3968"
+         width="13.031111"
+         height="13.031111"
+         x="234.91302"
+         y="447.2756" />
+      <text
+         sodipodi:linespacing="89.999998%"
+         id="text3970"
+         y="459.95984"
+         x="242.14937"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           y="459.95984"
+           x="242.14937"
+           id="tspan3972"
+           sodipodi:role="line">8</tspan></text>
+    </g>
+    <g
+       id="g4034"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigito5.png"
+       inkscape:export-xdpi="74.550003"
+       inkscape:export-ydpi="74.550003"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         y="467.15115"
+         x="234.78857"
+         height="13.28"
+         width="13.28"
+         id="rect3974"
+         style="fill:none;stroke:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         x="242.14937"
+         y="479.95984"
+         id="text3976"
+         sodipodi:linespacing="89.999998%"><tspan
+           sodipodi:role="line"
+           id="tspan3978"
+           x="242.14937"
+           y="479.95984"
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial Bold">5</tspan></text>
+    </g>
+    <g
+       id="g4039"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigito2.png"
+       inkscape:export-xdpi="76.699997"
+       inkscape:export-ydpi="76.699997"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3980"
+         width="12.906667"
+         height="12.906667"
+         x="234.97523"
+         y="487.33783" />
+      <text
+         sodipodi:linespacing="89.999998%"
+         id="text3982"
+         y="499.95984"
+         x="242.14937"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           y="499.95984"
+           x="242.14937"
+           id="tspan3984"
+           sodipodi:role="line">2</tspan></text>
+    </g>
+    <g
+       id="g4054"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigito9.png"
+       inkscape:export-xdpi="75.970001"
+       inkscape:export-ydpi="75.970001"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         y="447.2756"
+         x="254.91302"
+         height="13.031111"
+         width="13.031111"
+         id="rect3986"
+         style="fill:none;stroke:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         x="262.14935"
+         y="459.95984"
+         id="text3988"
+         sodipodi:linespacing="89.999998%"><tspan
+           sodipodi:role="line"
+           id="tspan3990"
+           x="262.14935"
+           y="459.95984"
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial Bold">9</tspan></text>
+    </g>
+    <g
+       id="g4049"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigito6.png"
+       inkscape:export-xdpi="75.970001"
+       inkscape:export-ydpi="75.970001"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3992"
+         width="13.031111"
+         height="13.031111"
+         x="254.91302"
+         y="467.2756" />
+      <text
+         sodipodi:linespacing="89.999998%"
+         id="text3994"
+         y="479.95984"
+         x="262.14935"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           y="479.95984"
+           x="262.14935"
+           id="tspan3996"
+           sodipodi:role="line">6</tspan></text>
+    </g>
+    <g
+       id="g4044"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigito3.png"
+       inkscape:export-xdpi="75.25"
+       inkscape:export-ydpi="75.25"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         y="487.21338"
+         x="254.8508"
+         height="13.155556"
+         width="13.155556"
+         id="rect3998"
+         style="fill:none;stroke:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         x="262.14935"
+         y="499.95984"
+         id="text4000"
+         sodipodi:linespacing="89.999998%"><tspan
+           sodipodi:role="line"
+           id="tspan4002"
+           x="262.14935"
+           y="499.95984"
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial Bold">3</tspan></text>
+    </g>
+    <g
+       id="g4009"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigito0.png"
+       inkscape:export-xdpi="75.970001"
+       inkscape:export-ydpi="75.970001"
+       transform="translate(140.28254,48.571014)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect4004"
+         width="13.031111"
+         height="13.031111"
+         x="214.91302"
+         y="507.2756" />
+      <text
+         sodipodi:linespacing="89.999998%"
+         id="text4006"
+         y="519.95984"
+         x="222.14937"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           y="519.95984"
+           x="222.14937"
+           id="tspan4008"
+           sodipodi:role="line">0</tspan></text>
+    </g>
+    <g
+       id="g3077"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoCursor.png"
+       inkscape:export-xdpi="75"
+       inkscape:export-ydpi="75"
+       style="opacity:0.2"
+       transform="translate(-33.039876,-3.9253781)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3229"
+         width="13.526272"
+         height="21.99"
+         x="327.98785"
+         y="592.52118" />
+      <text
+         sodipodi:linespacing="89.999998%"
+         id="text3231"
+         y="-592.0069"
+         x="-342.98141"
+         style="font-size:32.92080688px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:start;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Heavy'"
+         xml:space="preserve"
+         transform="scale(-1,-1)"><tspan
+           style="font-size:32.92080688px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;font-family:MS Mincho;-inkscape-font-specification:MS Mincho"
+           y="-592.0069"
+           x="-342.98141"
+           id="tspan3233"
+           sodipodi:role="line">I</tspan></text>
+    </g>
+    <g
+       id="g3840"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDirecaoCima.png"
+       inkscape:export-xdpi="34.830002"
+       inkscape:export-ydpi="34.830002">
+      <rect
+         y="628.91205"
+         x="281.31876"
+         height="20.93535"
+         width="38.763107"
+         id="rect3838"
+         style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+      <path
+         id="rect3063"
+         d="M 300.6875 630.6875 L 283.03125 648.3125 L 318.34375 648.3125 L 300.6875 630.6875 z "
+         style="fill:#000000;stroke:none" />
+    </g>
+    <g
+       id="g3844"
+       transform="matrix(-1,0,0,-1,661.40062,1278.7594)"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDirecaoBaixo.png"
+       inkscape:export-xdpi="34.830002"
+       inkscape:export-ydpi="34.830002">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3846"
+         width="38.763107"
+         height="20.93535"
+         x="281.31876"
+         y="628.91205" />
+      <path
+         style="fill:#000000;stroke:none"
+         d="m 300.6875,630.6875 -17.65625,17.625 35.3125,0 -17.65625,-17.625 z"
+         id="path3848"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       inkscape:export-ydpi="34.826942"
+       inkscape:export-xdpi="34.826942"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDirecaoDireita.png"
+       id="g3850"
+       transform="matrix(0,1,-1,0,940.08003,378.67941)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3852"
+         width="38.763107"
+         height="20.93535"
+         x="281.31876"
+         y="628.91205" />
+      <path
+         style="fill:#000000;stroke:none"
+         d="m 300.6875,630.6875 -17.65625,17.625 35.3125,0 -17.65625,-17.625 z"
+         id="path3854"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       inkscape:export-ydpi="34.826942"
+       inkscape:export-xdpi="34.826942"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDirecaoEsquerda.png"
+       transform="matrix(0,-1,1,0,-278.67941,980.07999)"
+       id="g3856">
+      <rect
+         y="628.91205"
+         x="281.31876"
+         height="20.93535"
+         width="38.763107"
+         id="rect3858"
+         style="fill:none;stroke:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3860"
+         d="m 300.6875,630.6875 -17.65625,17.625 35.3125,0 -17.65625,-17.625 z"
+         style="fill:#000000;stroke:none" />
+    </g>
+    <g
+       id="g3874"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoDigitoPontoVirgula.png"
+       inkscape:export-xdpi="74"
+       inkscape:export-ydpi="74">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3865"
+         width="13.28"
+         height="13.28"
+         x="395.07111"
+         y="555.72217" />
+      <text
+         sodipodi:linespacing="89.999998%"
+         id="text3867"
+         y="565.99963"
+         x="401.83682"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           y="565.99963"
+           x="401.83682"
+           id="tspan3869"
+           sodipodi:role="line">;</tspan></text>
+    </g>
+    <g
+       id="g3093"
+       inkscape:export-filename="D:\Documents and Settings\nsb2\Meus documentos\Suporte\Suporte.Controles.Forms.ConstrutorDeFormula\Imagens\BotaoInterrogacao.png"
+       inkscape:export-xdpi="92"
+       inkscape:export-ydpi="92">
+      <rect
+         y="595.78137"
+         x="355.13034"
+         height="13.161584"
+         width="13.161584"
+         id="rect3081"
+         style="fill:none;stroke:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Heavy'"
+         x="361.7153"
+         y="608.61047"
+         id="text3083"
+         sodipodi:linespacing="89.999998%"><tspan
+           sodipodi:role="line"
+           id="tspan3085"
+           x="361.7153"
+           y="608.61047"
+           style="font-size:17.16500854px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:center;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:middle;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Heavy'">?</tspan></text>
+    </g>
+  </g>
+</svg>
