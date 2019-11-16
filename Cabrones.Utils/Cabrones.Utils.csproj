@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+        <Version>2.0.0.9</Version>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>2.0.0.9</PackageVersion>
+        <Title>Cabrones.Utils</Title>
+        <Authors>sergio@cabral.br.com</Authors>
+        <Description>Utils for general use para .NET Core</Description>
+        <RootNamespace>Cabrones.Utils</RootNamespace>
+        <PackageProjectUrl>https://github.com/sergiocabral/Cabrones.CSharpUtils</PackageProjectUrl>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/sergiocabral/Cabrones.CSharpUtils/master/LICENSE</PackageLicenseUrl>
+        <PackageIconUrl>https://pt.gravatar.com/userimage/18417969/ae2007509611fb5b97b831bfc7e24ccd.jpeg</PackageIconUrl>
+        <RepositoryUrl>https://github.com/sergiocabral/Cabrones.CSharpUtils</RepositoryUrl>
+    </PropertyGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="..\IncrementBuildVersion.exe" />
+    </Target>
+
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <DebugType>embedded</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Copyright>sergiocabral.com</Copyright>
+    </PropertyGroup>
+
+</Project>
