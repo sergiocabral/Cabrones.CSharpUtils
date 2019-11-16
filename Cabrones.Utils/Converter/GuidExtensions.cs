@@ -35,7 +35,7 @@ namespace Cabrones.Utils.Converter
         /// <returns>Valor para banco de dados.</returns>
         public static object ToDatabaseText(this Guid guid) =>
             guid != Guid.Empty ? 
-                (object)guid.ToString("D") : 
+                (object)guid.ToString("") : 
                 DBNull.Value;
     }
 }
