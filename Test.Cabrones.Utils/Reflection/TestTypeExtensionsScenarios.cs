@@ -52,6 +52,8 @@ namespace Cabrones.Utils.Reflection
         public static void MétodoEstáticoPúblico()
         {
         }
+        
+        private static string PropriedadeEstáticaPrivada1 { get; set; }
     }
 
     internal class ClasseFilha : ClassePai, IInterface3
@@ -59,5 +61,9 @@ namespace Cabrones.Utils.Reflection
         public string MétodoString3(int parâmetroInteiro) => string.Empty;
 
         public new byte PropriedadeConcorrente { get; set; }
+ 
+        public static string PropriedadeEstáticaPública { get; set; }
+        
+        private static string PropriedadeEstáticaPrivada2 { get; set; }
     }
 }
