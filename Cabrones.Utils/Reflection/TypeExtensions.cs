@@ -52,5 +52,21 @@ namespace Cabrones.Utils.Reflection
                     !ignoreDeclaringType.Contains(a.DeclaringType) && 
                     !type.OnlyProperties(bindingFlags).Contains(a));
         }
+
+        /// <summary>
+        /// Retorna os métodos apenas das propriedades somente do tipo.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <param name="bindingFlags">Filtro.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<MethodInfo> OnlyMyProperties(this Type type, BindingFlags bindingFlags)
+        {
+            if (type == null) return new MethodInfo[0];
+            var allProperties = type.GetProperties(bindingFlags);
+            return
+                allProperties.Where(a => a.GetMethod != null).Select(a => a.GetMethod).Union(
+                        allProperties.Where(a => a.SetMethod != null).Select(a => a.SetMethod))
+                    .Where(a => a.DeclaringType == type);
+        }
     }
 }
