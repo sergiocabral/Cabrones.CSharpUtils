@@ -122,5 +122,28 @@ namespace Cabrones.Utils.Reflection
                 "Void set_PropriedadeEstáticaPrivada2(System.String)"
             );
         }
+        
+        [Fact]
+        public void funcionamento_do_método_OnlyMyMethods()
+        {
+            // Arrange, Given
+
+            var tipo = typeof(ClasseFilha);
+
+            // Act, When
+
+            var métodosPúblicosDaInstância = tipo.OnlyMyMethods(BindingFlags.Public | BindingFlags.Instance).Select(a => a.ToString()).ToList();
+            var métodosPúblicosEstáticos = tipo.OnlyMyMethods(BindingFlags.NonPublic | BindingFlags.Static).Select(a => a.ToString()).ToList();
+
+            // Assert, Then
+
+            métodosPúblicosDaInstância.Should().BeEquivalentTo(
+                "System.String MétodoString3(Int32)"
+            );
+            
+            métodosPúblicosEstáticos.Should().BeEquivalentTo(
+                "Void MétodoEstático()"
+            );
+        }
     }
 }

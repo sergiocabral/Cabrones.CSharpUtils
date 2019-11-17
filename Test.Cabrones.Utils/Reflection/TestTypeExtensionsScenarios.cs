@@ -62,7 +62,6 @@ namespace Cabrones.Utils.Reflection
 
         private static void MétodoEstático()
         {
-            
         }
 
         public new byte PropriedadeConcorrente { get; set; }
