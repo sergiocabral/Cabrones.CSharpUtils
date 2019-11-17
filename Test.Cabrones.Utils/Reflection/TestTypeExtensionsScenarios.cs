@@ -8,66 +8,82 @@ namespace Cabrones.Utils.Reflection
     
     internal interface IInterface1
     {
-        string MétodoString1(int parâmetroInteiro);
+        string Interface1Método();
 
-        int PropriedadeConcorrente { get; set; }
-    }
-
-    internal interface IInterface2
-    {
-        string MétodoString2(int parâmetroInteiro);
+        int Interface1Propriedade { get; set; }
 
         float PropriedadeConcorrente { get; set; }
     }
 
+    internal interface IInterface2
+    {
+        string Interface2Método();
+
+        int Interface2Propriedade { get; set; }
+
+        int PropriedadeConcorrente { get; set; }
+    }
+
     internal interface IInterface3 : IInterface1
     {
-        string MétodoString2(int parâmetroInteiro);
+        string Interface3Método();
+
+        int Interface3Propriedade { get; set; }
 
         new byte PropriedadeConcorrente { get; set; }
     }
 
-    internal class ClassePai : IInterface1, IInterface2
+    internal abstract class ClassePai : IInterface1, IInterface2
     {
-        public string MétodoString1(int parâmetroInteiro) => string.Empty;
+        public string Interface1Método() => string.Empty;
 
-        public string MétodoString2(int parâmetroInteiro) => string.Empty;
+        public int Interface1Propriedade { get; set; }
+        public string Interface2Método() => string.Empty;
 
-        float IInterface2.PropriedadeConcorrente { get; set; }
-
+        public int Interface2Propriedade { get; set; }
+        
         public int PropriedadeConcorrente { get; set; }
 
-        private void MétodoDaInstânciaPrivado()
-        {
-        }
+        float IInterface1.PropriedadeConcorrente { get; set; }
 
-        private static void MétodoEstáticoPrivado()
-        {
-        }
-
-        public void MétodoDaInstânciaPúblico()
-        {
-        }
-
-        public static void MétodoEstáticoPúblico()
-        {
-        }
+        public string ClassePaiMétodoPúblicoInstância() => string.Empty;
         
-        private static string PropriedadeEstáticaPrivada1 { get; set; }
+        private string ClassePaiMétodoPrivateInstância() => string.Empty;
+
+        public static string ClassePaiMétodoPúblicoEstático() => string.Empty;
+        
+        private static string ClassePaiMétodoPrivateEstático() => string.Empty;
+        
+        protected abstract string ClassePaiMétodoAbstrato();
     }
 
     internal class ClasseFilha : ClassePai, IInterface3
     {
-        public string MétodoString3(int parâmetroInteiro) => string.Empty;
+        public string Interface3Método() => string.Empty;
 
-        private static void MétodoEstático()
-        {
-        }
-
-        public new byte PropriedadeConcorrente { get; set; }
- 
-        public static string PropriedadeEstáticaPública { get; set; }
+        public int Interface3Propriedade { get; set; }
         
-        private static string PropriedadeEstáticaPrivada2 { get; set; }
+        public new byte PropriedadeConcorrente { get; set; }
+
+        protected override string ClassePaiMétodoAbstrato() => string.Empty;
+        
+        public int ClasseFilhaPropriedadePúblicaInstância { get; set; }
+        
+        public static int ClasseFilhaPropriedadePúblicaEstática { get; set; }
+        
+        private int ClasseFilhaPropriedadePrivadaInstância { get; set; }
+        
+        private static int ClasseFilhaPropriedadePrivadaEstática { get; set; }
+    }
+
+    internal class ClasseNeta : ClasseFilha
+    {
+        public int ClasseNetaPropriedadePúblicaInstância { get; set; }
+        
+        public static int ClasseNetaPropriedadePúblicaEstática { get; set; }
+        
+        private int ClasseNetaPropriedadePrivadaInstância { get; set; }
+        
+        private static int ClasseNetaPropriedadePrivadaEstática { get; set; }
     }
 }
