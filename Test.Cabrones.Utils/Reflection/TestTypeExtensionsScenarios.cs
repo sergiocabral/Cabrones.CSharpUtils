@@ -60,6 +60,11 @@ namespace Cabrones.Utils.Reflection
     {
         public string MétodoString3(int parâmetroInteiro) => string.Empty;
 
+        private static void MétodoEstático()
+        {
+            
+        }
+
         public new byte PropriedadeConcorrente { get; set; }
  
         public static string PropriedadeEstáticaPública { get; set; }

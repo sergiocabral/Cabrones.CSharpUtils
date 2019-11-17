@@ -26,6 +26,7 @@ namespace Cabrones.Utils.Reflection
             métodoPróprioResultado.Should().BeTrue();
             métodoNãoPróprioResultado.Should().BeFalse();
         }
+        
         [Fact]
         public void funcionamento_do_método_OnlyProperties()
         {
@@ -35,10 +36,16 @@ namespace Cabrones.Utils.Reflection
 
             // Act, When
 
+            var propriedadesPúblicasDaInstânciaIgnorandoClassPai = tipo.OnlyProperties(BindingFlags.Public | BindingFlags.Instance, typeof(ClassePai)).Select(a => a.ToString()).ToList();
             var propriedadesPúblicasDaInstância = tipo.OnlyProperties(BindingFlags.Public | BindingFlags.Instance).Select(a => a.ToString()).ToList();
             var propriedadesPúblicasEstáticas = tipo.OnlyProperties(BindingFlags.NonPublic | BindingFlags.Static).Select(a => a.ToString()).ToList();
 
             // Assert, Then
+
+            propriedadesPúblicasDaInstânciaIgnorandoClassPai.Should().BeEquivalentTo(
+                "Byte get_PropriedadeConcorrente()",
+                "Void set_PropriedadeConcorrente(Byte)"
+            );
 
             propriedadesPúblicasDaInstância.Should().BeEquivalentTo(
                 "Byte get_PropriedadeConcorrente()",
@@ -50,6 +57,44 @@ namespace Cabrones.Utils.Reflection
             propriedadesPúblicasEstáticas.Should().BeEquivalentTo(
                 "System.String get_PropriedadeEstáticaPrivada2()",
                 "Void set_PropriedadeEstáticaPrivada2(System.String)"
+            );
+        }
+        
+        [Fact]
+        public void funcionamento_do_método_OnlyMethods()
+        {
+            // Arrange, Given
+
+            var tipo = typeof(ClasseFilha);
+
+            // Act, When
+
+            var métodosPúblicosDaInstânciaIgnorandoObject = tipo.OnlyMethods(BindingFlags.Public | BindingFlags.Instance, typeof(object)).Select(a => a.ToString()).ToList();
+            var métodosPúblicosDaInstância = tipo.OnlyMethods(BindingFlags.Public | BindingFlags.Instance).Select(a => a.ToString()).ToList();
+            var métodosPúblicosEstáticos = tipo.OnlyMethods(BindingFlags.NonPublic | BindingFlags.Static).Select(a => a.ToString()).ToList();
+
+            // Assert, Then
+
+            métodosPúblicosDaInstânciaIgnorandoObject.Should().BeEquivalentTo(
+                "System.String MétodoString3(Int32)",
+                "System.String MétodoString1(Int32)",
+                "System.String MétodoString2(Int32)",
+                "Void MétodoDaInstânciaPúblico()"
+            );
+
+            métodosPúblicosDaInstância.Should().BeEquivalentTo(
+                "System.String MétodoString3(Int32)",
+                "System.String MétodoString1(Int32)",
+                "System.String MétodoString2(Int32)",
+                "Void MétodoDaInstânciaPúblico()",
+                "System.Type GetType()",
+                "System.String ToString()",
+                "Boolean Equals(System.Object)",
+                "Int32 GetHashCode()"
+            );
+            
+            métodosPúblicosEstáticos.Should().BeEquivalentTo(
+                "Void MétodoEstático()"
             );
         }
     }

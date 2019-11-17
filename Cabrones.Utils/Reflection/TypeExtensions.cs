@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -26,14 +25,32 @@ namespace Cabrones.Utils.Reflection
         /// </summary>
         /// <param name="type">Tipo.</param>
         /// <param name="bindingFlags">Filtro.</param>
+        /// <param name="ignoreDeclaringType">Não retorna declarações pertencentes aos itens dessa lista.</param>
         /// <returns>Lista.</returns>
-        public static IEnumerable<MethodInfo> OnlyProperties(this Type type, BindingFlags bindingFlags)
+        public static IEnumerable<MethodInfo> OnlyProperties(this Type type, BindingFlags bindingFlags, params Type[] ignoreDeclaringType)
         {
             if (type == null) return new MethodInfo[0];
             var allProperties = type.GetProperties(bindingFlags);
             return
                 allProperties.Where(a => a.GetMethod != null).Select(a => a.GetMethod).Union(
-                        allProperties.Where(a => a.SetMethod != null).Select(a => a.SetMethod));
+                    allProperties.Where(a => a.SetMethod != null).Select(a => a.SetMethod))
+                    .Where(a => !ignoreDeclaringType.Contains(a.DeclaringType));
+        }
+
+        /// <summary>
+        /// Retorna os métodos que não sejam de propriedades.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <param name="bindingFlags">Filtro.</param>
+        /// <param name="ignoreDeclaringType">Não retorna declarações pertencentes aos itens dessa lista.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<MethodInfo> OnlyMethods(this Type type, BindingFlags bindingFlags, params Type[] ignoreDeclaringType)
+        {
+            return type == null
+                ? new MethodInfo[0]
+                : type.GetMethods(bindingFlags).Where(a => 
+                    !ignoreDeclaringType.Contains(a.DeclaringType) && 
+                    !type.OnlyProperties(bindingFlags).Contains(a));
         }
     }
 }
