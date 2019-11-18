@@ -8,13 +8,62 @@ namespace Cabrones.Utils.Reflection
     public class TestTypeExtensions
     {
         [Theory]
+        [InlineData(typeof(IInterface1), "String Interface1Método()", true)]
+        [InlineData(typeof(IInterface2), "String Interface1Método()", false)]
+        [InlineData(typeof(ClasseNeta), "TTipo[] MétodoGeneric<TTipo>(String, TTipo, TTipo[])", true)]
+        public void ToSignatureCSharp_deve_funcionar_corretamente(Type tipo, string assinatura, bool existe)
+        {
+            // Arrange, Given
+            
+            var allMethods = tipo.AllMethods();
+            
+            // Act, When
+
+            var allSignatures = allMethods.Select(s => s.ToSignatureCSharp());
+            
+            // Assert, Then
+            
+            if (existe)
+            {
+                allSignatures.Should().Contain(assinatura);
+            }
+            else
+            {
+                allSignatures.Should().NotContain(assinatura);
+            }
+        }
+        
+        [Fact]
+        public void GetProperty_deve_funcionar_corretamente()
+        {
+            // Arrange, Given
+
+            var propriedade = typeof(ClassePai).GetProperty("PropriedadeConcorrente");
+            var métodoGetDePropriedade = propriedade?.GetMethod;
+            var métodoSetDePropriedade = propriedade?.SetMethod;
+            var métodoQueNãoÉDePropriedades = typeof(ClassePai).GetMethod("ClassePaiMétodoPúblicoEstático");
+            
+            // Act, When
+
+            var detecçãoParaMétodoGetDePropriedade = métodoGetDePropriedade.GetProperty();
+            var detecçãoParaMétodoSetDePropriedade = métodoSetDePropriedade.GetProperty();
+            var detecçãoParaMétodoQueNãoÉDePropriedades = métodoQueNãoÉDePropriedades.GetProperty();
+            
+            // Assert, Then
+
+            detecçãoParaMétodoGetDePropriedade.Should().BeSameAs(propriedade);
+            detecçãoParaMétodoSetDePropriedade.Should().BeSameAs(propriedade);
+            detecçãoParaMétodoQueNãoÉDePropriedades.Should().BeNull();
+        }
+        
+        [Theory]
         [InlineData(typeof(IInterface1), 4, 4)]
         [InlineData(typeof(IInterface2), 4, 4)]
         [InlineData(typeof(IInterface3), 8, 4)]
         [InlineData(typeof(ClassePai), 16, 8)]
         [InlineData(typeof(ClasseFilha), 32, 20)]
         [InlineData(typeof(ClasseNeta), 38, 26)]
-        public void funcionamento_do_método_AllProperties(Type tipoParaTeste, int declaraçõesEsperadasComInterface, int declaraçõesEsperadasSemInterface)
+        public void AllProperties_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadasComInterface, int declaraçõesEsperadasSemInterface)
         {
             // Arrange, Given
 
@@ -38,8 +87,8 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(IInterface3), 2, 1)]
         [InlineData(typeof(ClassePai), 18, 16)]
         [InlineData(typeof(ClasseFilha), 22, 19)]
-        [InlineData(typeof(ClasseNeta), 22, 19)]
-        public void funcionamento_do_método_AllMethods(Type tipoParaTeste, int declaraçõesEsperadasComInterface, int declaraçõesEsperadasSemInterface)
+        [InlineData(typeof(ClasseNeta), 23, 20)]
+        public void AllMethods_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadasComInterface, int declaraçõesEsperadasSemInterface)
         {
             // Arrange, Given
 
@@ -64,7 +113,7 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClassePai), 8)]
         [InlineData(typeof(ClasseFilha), 12)]
         [InlineData(typeof(ClasseNeta), 6)]
-        public void funcionamento_do_método_MyProperties(Type tipoParaTeste, int declaraçõesEsperadas)
+        public void MyProperties_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
         {
             // Arrange, Given
 
@@ -85,8 +134,8 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(IInterface3), 1)]
         [InlineData(typeof(ClassePai), 8)]
         [InlineData(typeof(ClasseFilha), 3)]
-        [InlineData(typeof(ClasseNeta), 0)]
-        public void funcionamento_do_método_MyMethods(Type tipoParaTeste, int declaraçõesEsperadas)
+        [InlineData(typeof(ClasseNeta), 1)]
+        public void MyMethods_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
         {
             // Arrange, Given
 
@@ -102,35 +151,13 @@ namespace Cabrones.Utils.Reflection
         }
 
         [Theory]
-        [InlineData(typeof(IInterface1), 1)]
-        [InlineData(typeof(IInterface2), 1)]
-        [InlineData(typeof(IInterface3), 1)]
-        [InlineData(typeof(ClassePai), 6)]
-        [InlineData(typeof(ClasseFilha), 0)]
-        [InlineData(typeof(ClasseNeta), 0)]
-        public void funcionamento_do_método_MyOwnMethods(Type tipoParaTeste, int declaraçõesEsperadas)
-        {
-            // Arrange, Given
-
-            var tipo = tipoParaTeste;
-
-            // Act, When
-
-            var métodos = tipo.MyOwnMethods().Select(a => a.ToString()).ToList();
-
-            // Assert, Then
-
-            métodos.Should().HaveCount(declaraçõesEsperadas);
-        }
-
-        [Theory]
         [InlineData(typeof(IInterface1), 4)]
         [InlineData(typeof(IInterface2), 4)]
         [InlineData(typeof(IInterface3), 4)]
         [InlineData(typeof(ClassePai), 0)]
         [InlineData(typeof(ClasseFilha), 8)]
         [InlineData(typeof(ClasseNeta), 6)]
-        public void funcionamento_do_método_MyOwnProperties(Type tipoParaTeste, int declaraçõesEsperadas)
+        public void MyOwnProperties_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
         {
             // Arrange, Given
 
@@ -139,6 +166,28 @@ namespace Cabrones.Utils.Reflection
             // Act, When
 
             var métodos = tipo.MyOwnProperties().Select(a => a.ToString()).ToList();
+
+            // Assert, Then
+
+            métodos.Should().HaveCount(declaraçõesEsperadas);
+        }
+
+        [Theory]
+        [InlineData(typeof(IInterface1), 1)]
+        [InlineData(typeof(IInterface2), 1)]
+        [InlineData(typeof(IInterface3), 1)]
+        [InlineData(typeof(ClassePai), 6)]
+        [InlineData(typeof(ClasseFilha), 0)]
+        [InlineData(typeof(ClasseNeta), 1)]
+        public void MyOwnMethods_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            var métodos = tipo.MyOwnMethods().Select(a => a.ToString()).ToList();
 
             // Assert, Then
 

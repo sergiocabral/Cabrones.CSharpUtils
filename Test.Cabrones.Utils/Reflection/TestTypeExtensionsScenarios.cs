@@ -93,5 +93,7 @@ namespace Cabrones.Utils.Reflection
         }
 
         private static int ClasseNetaPropriedadePrivadaEstática { get; }
+        
+        public TTipo[] MétodoGeneric<TTipo>(string param1, TTipo param2, TTipo[] param3) => default;
     }
 }
