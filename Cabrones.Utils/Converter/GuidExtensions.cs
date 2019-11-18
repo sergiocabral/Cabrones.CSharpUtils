@@ -34,8 +34,8 @@ namespace Cabrones.Utils.Converter
         /// <param name="guid">Guid.</param>
         /// <returns>Valor para banco de dados.</returns>
         public static object ToDatabaseText(this Guid guid) =>
-            guid != Guid.Empty ? 
-                (object)guid.ToString("") : 
-                DBNull.Value;
+            guid != Guid.Empty
+                ? (object) guid.ToString("")
+                : DBNull.Value;
     }
 }

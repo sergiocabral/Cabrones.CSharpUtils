@@ -1,6 +1,7 @@
 ﻿// ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMember.Local
+// ReSharper disable UnassignedGetOnlyAutoProperty
 
 namespace Cabrones.Utils.Reflection
 {
@@ -55,6 +56,8 @@ namespace Cabrones.Utils.Reflection
         private static string ClassePaiMétodoPrivateEstático() => string.Empty;
         
         protected abstract string ClassePaiMétodoAbstrato();
+        
+        public abstract string ClassePaiMétodoAbstratoPúblico();
     }
 
     internal class ClasseFilha : ClassePai, IInterface3
@@ -66,6 +69,8 @@ namespace Cabrones.Utils.Reflection
         public new byte PropriedadeConcorrente { get; set; }
 
         protected override string ClassePaiMétodoAbstrato() => string.Empty;
+        
+        public override string ClassePaiMétodoAbstratoPúblico() => string.Empty;
         
         public int ClasseFilhaPropriedadePúblicaInstância { get; set; }
         
@@ -82,8 +87,11 @@ namespace Cabrones.Utils.Reflection
         
         public static int ClasseNetaPropriedadePúblicaEstática { get; set; }
         
-        private int ClasseNetaPropriedadePrivadaInstância { get; set; }
-        
-        private static int ClasseNetaPropriedadePrivadaEstática { get; set; }
+        private int ClasseNetaPropriedadePrivadaInstância
+        {
+            set => throw new System.NotImplementedException();
+        }
+
+        private static int ClasseNetaPropriedadePrivadaEstática { get; }
     }
 }

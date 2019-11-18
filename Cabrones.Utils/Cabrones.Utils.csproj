@@ -3,10 +3,10 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
         <IsPackable>true</IsPackable>
-        <Version>2.0.0.73</Version>
+        <Version>2.1.0.88</Version>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>2.0.0.73</PackageVersion>
+        <PackageVersion>2.1.0.88</PackageVersion>
         <Title>Cabrones.Utils</Title>
         <Authors>sergio@cabral.br.com</Authors>
         <Description>Utils for general use para .NET Core</Description>

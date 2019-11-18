@@ -18,6 +18,8 @@ namespace Cabrones.Utils.Reflection
         /// <returns>Lista.</returns>
         public static IEnumerable<MethodInfo> AllProperties(this Type type, bool includeInterfaces = false)
         {
+            if (type == null) return new MethodInfo[0];
+
             var result = new List<MethodInfo>();
             
             var index = 0;
@@ -33,7 +35,8 @@ namespace Cabrones.Utils.Reflection
                             BindingFlags.Static |
                             BindingFlags.Instance |
                             BindingFlags.DeclaredOnly)
-                        .SelectMany(a => new[] {a.GetMethod, a.SetMethod}));
+                        .SelectMany(a => new[] {a.GetMethod, a.SetMethod})
+                        .Where(a => a != null));
 
                 if (type.BaseType != null && !types.Contains(type.BaseType)) types.Add(type.BaseType);
                 if (!includeInterfaces) continue;
@@ -41,8 +44,7 @@ namespace Cabrones.Utils.Reflection
                     if (!types.Contains(typeInterface))
                         types.Add(typeInterface);
             }
-
-            result.RemoveAll(a => a == null);
+            
             return result;
         }
         
@@ -54,6 +56,8 @@ namespace Cabrones.Utils.Reflection
         /// <returns>Lista.</returns>
         public static IEnumerable<MethodInfo> AllMethods(this Type type, bool includeInterfaces = false)
         {
+            if (type == null) return new MethodInfo[0];
+
             var result = new List<MethodInfo>();
             
             var allProperties = AllProperties(type, includeInterfaces).ToList();
@@ -90,6 +94,8 @@ namespace Cabrones.Utils.Reflection
         /// <returns>Lista.</returns>
         public static IEnumerable<MethodInfo> MyProperties(this Type type)
         {
+            if (type == null) return new MethodInfo[0];
+
             return type.GetProperties(
                     BindingFlags.Public |
                     BindingFlags.NonPublic |
@@ -97,7 +103,7 @@ namespace Cabrones.Utils.Reflection
                     BindingFlags.Instance |
                     BindingFlags.DeclaredOnly)
                 .SelectMany(a => new[] {a.GetMethod, a.SetMethod})
-                .Where(a => a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
+                .Where(a => a != null && a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
                 .ToList();
         }
         
@@ -108,6 +114,8 @@ namespace Cabrones.Utils.Reflection
         /// <returns>Lista.</returns>
         public static IEnumerable<MethodInfo> MyMethods(this Type type)
         {
+            if (type == null) return new MethodInfo[0];
+            
             var myProperties = MyProperties(type).ToList();
             
             return type.GetMethods(
@@ -119,6 +127,47 @@ namespace Cabrones.Utils.Reflection
                 .Where(method => !myProperties.Contains(method))
                 .Where(a => a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
                 .ToList();
+        }
+
+        /// <summary>
+        /// Retorna todos os métodos declaradas no tipo que não sejam herdados apenas das propriedades.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<MethodInfo> MyOwnProperties(this Type type) =>
+            type.MyOwn(MyProperties, AllProperties);
+        
+        /// <summary>
+        /// Retorna todos os métodos declaradas no tipo que não sejam herdados e que não sejam de propriedades.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<MethodInfo> MyOwnMethods(this Type type) =>
+            type.MyOwn(MyMethods, AllMethods);
+
+        /// <summary>
+        /// Retorna todos os métodos declaradas no tipo que não sejam herdados e que não sejam de propriedades.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <param name="methodMy">MyProperties ou MyMethods</param>
+        /// <param name="methodAll">AllProperties ou AllMethods</param>
+        /// <returns>Lista.</returns>
+        private static IEnumerable<MethodInfo> MyOwn(this Type type, Func<Type, IEnumerable<MethodInfo>> methodMy, Func<Type, bool, IEnumerable<MethodInfo>> methodAll)
+        {
+            if (type == null) return new MethodInfo[0];
+            
+            var inAncestral = new List<string>();
+            foreach (var baseType in type.GetInterfaces().Union(new[] {type.BaseType}))
+            {
+                inAncestral.AddRange(methodAll(baseType, true).Select(a => a.ToString()));
+            }
+            var own = methodMy(type)
+                .Where(a => 
+                    !a.Name.Contains(".") &&
+                    !inAncestral.Contains(a.ToString()))
+                .ToList();
+            
+            return own;
         }
     }
 }
