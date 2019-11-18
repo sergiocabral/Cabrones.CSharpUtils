@@ -13,12 +13,12 @@ namespace Cabrones.Utils.Converter
         /// </summary>
         /// <param name="value">Valor qualquer.</param>
         /// <returns>Guid.</returns>
-        public static Guid ToGuid(this object value)
+        public static Guid ToGuid(this object? value)
         {
             if (value == null || value == DBNull.Value) return Guid.Empty;
             try
             {
-                return Guid.Parse(value.ToString());
+                return Guid.Parse(value.ToString()!);
             }
             catch
             {

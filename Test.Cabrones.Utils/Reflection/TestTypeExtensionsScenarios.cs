@@ -3,6 +3,8 @@
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnassignedGetOnlyAutoProperty
 
+using System.Collections.Generic;
+
 namespace Cabrones.Utils.Reflection
 {
     // Este arquivo agrupa cenários envolvendo relacionados entre classes e interface para realização de testes.
@@ -95,5 +97,7 @@ namespace Cabrones.Utils.Reflection
         private static int ClasseNetaPropriedadePrivadaEstática { get; }
         
         public TTipo[] MétodoGeneric<TTipo>(string param1, TTipo param2, TTipo[] param3) => default;
+        
+        public IDictionary<string[,],string[][][]> PropriedadeComplicada { get; set; }
     }
 }
