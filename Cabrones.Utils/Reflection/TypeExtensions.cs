@@ -107,7 +107,7 @@ namespace Cabrones.Utils.Reflection
         {
             if (type == null) return new Type[0];
 
-            var result = new List<Type>();
+            var result = new List<Type?>();
             
             while (type != null)
             {
@@ -119,7 +119,7 @@ namespace Cabrones.Utils.Reflection
 
             result = result.Where(a => a != null).Distinct().ToList();
 
-            return result;
+            return result!;
         }
         
         /// <summary>
@@ -230,9 +230,13 @@ namespace Cabrones.Utils.Reflection
             if (type == null) return new Type[0];
 
             var baseImplementations = AllImplementations(type.BaseType);
-            var myOwnImplementations = AllImplementations(type).Except(baseImplementations).ToList();
+            var myOwnImplementations = AllImplementations(type)
+                .Except(baseImplementations)
+                .Union(new[] {type.BaseType})
+                .Where(a => a != null && a.Assembly == type.Assembly)
+                .ToList();
             
-            return myOwnImplementations;
+            return myOwnImplementations!;
         }
     }
 }

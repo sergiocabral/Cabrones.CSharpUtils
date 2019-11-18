@@ -86,6 +86,8 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1), typeof(object))]
         [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1))]
         [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha))]
+        [InlineData(typeof(ClasseSozinha), true, typeof(object))]
+        [InlineData(typeof(ClasseSozinha), false)]
         public void AllImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto, params Type[] implementaçõesEsperadas)
         {
             // Arrange, Given
@@ -158,6 +160,8 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1), typeof(object))]
         [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1))]
         [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha))]
+        [InlineData(typeof(ClasseSozinha), false, typeof(object))]
+        [InlineData(typeof(ClasseSozinha), true)]
         public void MyImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto, params Type[] implementaçõesEsperadas)
         {
             // Arrange, Given
@@ -230,6 +234,8 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1), typeof(object))]
         [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1))]
         [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha))]
+        [InlineData(typeof(ClasseSozinha), false, typeof(object))]
+        [InlineData(typeof(ClasseSozinha), true)]
         public void MyOwnImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto, params Type[] implementaçõesEsperadas)
         {
             // Arrange, Given
