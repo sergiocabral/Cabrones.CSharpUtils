@@ -99,6 +99,30 @@ namespace Cabrones.Utils.Reflection
         }
         
         /// <summary>
+        /// Retorna todas as interfaces e classe ancestral.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<Type> AllImplementations(this Type? type)
+        {
+            if (type == null) return new Type[0];
+
+            var result = new List<Type>();
+            
+            while (type != null)
+            {
+                result.AddRange(type.GetInterfaces());
+                result.Add(type.BaseType);
+
+                type = type.BaseType;
+            }
+
+            result = result.Where(a => a != null).Distinct().ToList();
+
+            return result;
+        }
+        
+        /// <summary>
         /// Retorna todos os métodos declaradas no tipo apenas das propriedades.
         /// </summary>
         /// <param name="type">Tipo.</param>
@@ -138,6 +162,21 @@ namespace Cabrones.Utils.Reflection
                 .Where(method => !myProperties.Contains(method))
                 .Where(a => a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
                 .ToList();
+        }
+        
+        /// <summary>
+        /// Retorna todas as interfaces e classe ancestral no mesmo assembly que o tipo.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<Type> MyImplementations(this Type? type)
+        {
+            if (type == null) return new Type[0];
+
+            var allImplementations = AllImplementations(type)
+                .Where(a => a.Assembly == type.Assembly).ToList();
+            
+            return allImplementations;
         }
 
         /// <summary>
@@ -179,6 +218,21 @@ namespace Cabrones.Utils.Reflection
                 .ToList();
             
             return own;
+        }
+        
+        /// <summary>
+        /// Retorna todas as interfaces e classe ancestral somente no tipo.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<Type> MyOwnImplementations(this Type? type)
+        {
+            if (type == null) return new Type[0];
+
+            var baseImplementations = AllImplementations(type.BaseType);
+            var myOwnImplementations = AllImplementations(type).Except(baseImplementations).ToList();
+            
+            return myOwnImplementations;
         }
     }
 }

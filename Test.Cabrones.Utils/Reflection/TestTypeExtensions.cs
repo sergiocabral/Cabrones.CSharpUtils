@@ -79,6 +79,34 @@ namespace Cabrones.Utils.Reflection
             métodosSemInterfaces.Should().HaveCount(declaraçõesEsperadasSemInterface);
             métodosComInterfaces.Should().HaveCount(declaraçõesEsperadasComInterface);
         }
+
+        [Theory]
+        [InlineData(typeof(IInterface1), true)]
+        [InlineData(typeof(IInterface2), false, typeof(object))]
+        [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1), typeof(object))]
+        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1))]
+        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha))]
+        public void AllImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto, params Type[] implementaçõesEsperadas)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            var implementations = tipo.AllImplementations().ToList();
+
+            // Assert, Then
+
+            if (estáCoreto)
+            {
+                implementations.Should().BeEquivalentTo(implementaçõesEsperadas.ToList());
+            }
+            else
+            {
+                implementations.Should().NotBeEquivalentTo(implementaçõesEsperadas.ToList());
+            }
+        }
         
         [Theory]
         [InlineData(typeof(IInterface1), 4)]
@@ -125,6 +153,34 @@ namespace Cabrones.Utils.Reflection
         }
 
         [Theory]
+        [InlineData(typeof(IInterface1), true)]
+        [InlineData(typeof(IInterface2), false, typeof(object))]
+        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1), typeof(object))]
+        [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1))]
+        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha))]
+        public void MyImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto, params Type[] implementaçõesEsperadas)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            var implementations = tipo.MyImplementations().ToList();
+
+            // Assert, Then
+
+            if (estáCoreto)
+            {
+                implementations.Should().BeEquivalentTo(implementaçõesEsperadas.ToList());
+            }
+            else
+            {
+                implementations.Should().NotBeEquivalentTo(implementaçõesEsperadas.ToList());
+            }
+        }
+
+        [Theory]
         [InlineData(typeof(IInterface1), 4)]
         [InlineData(typeof(IInterface2), 4)]
         [InlineData(typeof(IInterface3), 4)]
@@ -166,6 +222,34 @@ namespace Cabrones.Utils.Reflection
             // Assert, Then
 
             métodos.Should().HaveCount(declaraçõesEsperadas);
+        }
+
+        [Theory]
+        [InlineData(typeof(IInterface1), true)]
+        [InlineData(typeof(IInterface2), false, typeof(object))]
+        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1), typeof(object))]
+        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1))]
+        [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha))]
+        public void MyOwnImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto, params Type[] implementaçõesEsperadas)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            var implementations = tipo.MyOwnImplementations().ToList();
+
+            // Assert, Then
+
+            if (estáCoreto)
+            {
+                implementations.Should().BeEquivalentTo(implementaçõesEsperadas.ToList());
+            }
+            else
+            {
+                implementations.Should().NotBeEquivalentTo(implementaçõesEsperadas.ToList());
+            }
         }
     }
 }
