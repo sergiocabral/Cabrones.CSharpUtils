@@ -229,7 +229,7 @@ namespace Cabrones.Utils.Reflection
         {
             if (type == null) return new Type[0];
 
-            var baseImplementations = AllImplementations(type.BaseType);
+            var baseImplementations = type.GetInterfaces().SelectMany(AllImplementations).Union(AllImplementations(type.BaseType));
             var myOwnImplementations = AllImplementations(type)
                 .Except(baseImplementations)
                 .Union(new[] {type.BaseType})
