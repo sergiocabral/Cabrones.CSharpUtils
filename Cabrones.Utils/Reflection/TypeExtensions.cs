@@ -14,52 +14,73 @@ namespace Cabrones.Utils.Reflection
         /// Retorna todos os métodos apenas das propriedades.
         /// </summary>
         /// <param name="type">Tipo.</param>
+        /// <param name="includeInterfaces">Inclui métodos das interfaces</param>
         /// <returns>Lista.</returns>
-        public static IEnumerable<MethodInfo> AllProperties(this Type type)
+        public static IEnumerable<MethodInfo> AllProperties(this Type type, bool includeInterfaces = false)
         {
-            while (true)
+            var result = new List<MethodInfo>();
+            
+            var index = 0;
+            var types = new List<Type>{ type };
+            while (index < types.Count)
             {
-                if (type == null) yield break;
+                type = types[index++];
 
-                foreach (var property in type.GetProperties(
-                    BindingFlags.Public | 
-                    BindingFlags.NonPublic | 
-                    BindingFlags.Static | 
-                    BindingFlags.Instance |
-                    BindingFlags.DeclaredOnly))
-                {
-                    if (property.CanRead) yield return property.GetMethod;
-                    if (property.CanWrite) yield return property.SetMethod;
-                }
+                result.AddRange(
+                    type.GetProperties(
+                            BindingFlags.Public |
+                            BindingFlags.NonPublic |
+                            BindingFlags.Static |
+                            BindingFlags.Instance |
+                            BindingFlags.DeclaredOnly)
+                        .SelectMany(a => new[] {a.GetMethod, a.SetMethod}));
 
-                type = type.BaseType;
+                if (type.BaseType != null && !types.Contains(type.BaseType)) types.Add(type.BaseType);
+                if (!includeInterfaces) continue;
+                foreach (var typeInterface in type.GetInterfaces())
+                    if (!types.Contains(typeInterface))
+                        types.Add(typeInterface);
             }
+
+            result.RemoveAll(a => a == null);
+            return result;
         }
         
         /// <summary>
         /// Retorna todos os métodos que não sejam de propriedades.
         /// </summary>
         /// <param name="type">Tipo.</param>
+        /// <param name="includeInterfaces">Inclui métodos das interfaces</param>
         /// <returns>Lista.</returns>
-        public static IEnumerable<MethodInfo> AllMethods(this Type type)
+        public static IEnumerable<MethodInfo> AllMethods(this Type type, bool includeInterfaces = false)
         {
-            var allProperties = AllProperties(type).ToList();
-            while (true)
+            var result = new List<MethodInfo>();
+            
+            var allProperties = AllProperties(type, includeInterfaces).ToList();
+            
+            var index = 0;
+            var types = new List<Type>{ type };
+            while (index < types.Count)
             {
-                if (type == null) yield break;
+                type = types[index++];
 
-                foreach (var method in type.GetMethods(
-                    BindingFlags.Public | 
-                    BindingFlags.NonPublic | 
-                    BindingFlags.Static | 
-                    BindingFlags.Instance |
-                    BindingFlags.DeclaredOnly))
-                {
-                    if (!allProperties.Contains(method)) yield return method;
-                }
+                result.AddRange(
+                    type.GetMethods(
+                        BindingFlags.Public | 
+                        BindingFlags.NonPublic | 
+                        BindingFlags.Static | 
+                        BindingFlags.Instance | 
+                        BindingFlags.DeclaredOnly)
+                        .Where(method => !allProperties.Contains(method)));
 
-                type = type.BaseType;
+                if (type.BaseType != null && !types.Contains(type.BaseType)) types.Add(type.BaseType);
+                if (!includeInterfaces) continue;
+                foreach (var typeInterface in type.GetInterfaces())
+                    if (!types.Contains(typeInterface))
+                        types.Add(typeInterface);
             }
+
+            return result;
         }
     }
 }
