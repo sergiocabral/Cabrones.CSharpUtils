@@ -22,13 +22,14 @@ namespace Cabrones.Utils.Reflection
 
             // Act, When
 
-            var propriedadesComInterfaces = tipo.AllProperties(true).Select(a => a.ToString()).ToList();
+            // ReSharper disable once RedundantArgumentDefaultValue
             var propriedadesSemInterfaces = tipo.AllProperties(false).Select(a => a.ToString()).ToList();
+            var propriedadesComInterfaces = tipo.AllProperties(true).Select(a => a.ToString()).ToList();
 
             // Assert, Then
 
-            propriedadesComInterfaces.Should().HaveCount(declaraçõesEsperadasComInterface);
             propriedadesSemInterfaces.Should().HaveCount(declaraçõesEsperadasSemInterface);
+            propriedadesComInterfaces.Should().HaveCount(declaraçõesEsperadasComInterface);
         }
 
         [Theory]
@@ -46,13 +47,58 @@ namespace Cabrones.Utils.Reflection
 
             // Act, When
 
-            var métodosComInterfaces = tipo.AllMethods(true).Select(a => a.ToString()).ToList();
+            // ReSharper disable once RedundantArgumentDefaultValue
             var métodosSemInterfaces = tipo.AllMethods(false).Select(a => a.ToString()).ToList();
+            var métodosComInterfaces = tipo.AllMethods(true).Select(a => a.ToString()).ToList();
 
             // Assert, Then
 
-            métodosComInterfaces.Should().HaveCount(declaraçõesEsperadasComInterface);
             métodosSemInterfaces.Should().HaveCount(declaraçõesEsperadasSemInterface);
+            métodosComInterfaces.Should().HaveCount(declaraçõesEsperadasComInterface);
+        }
+        
+        [Theory]
+        [InlineData(typeof(IInterface1), 4)]
+        [InlineData(typeof(IInterface2), 4)]
+        [InlineData(typeof(IInterface3), 4)]
+        [InlineData(typeof(ClassePai), 8)]
+        [InlineData(typeof(ClasseFilha), 12)]
+        [InlineData(typeof(ClasseNeta), 8)]
+        public void funcionamento_do_método_MyProperties(Type tipoParaTeste, int declaraçõesEsperadas)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            var propriedades = tipo.MyProperties().Select(a => a.ToString()).ToList();
+
+            // Assert, Then
+
+            propriedades.Should().HaveCount(declaraçõesEsperadas);
+        }
+
+        [Theory]
+        [InlineData(typeof(IInterface1), 1)]
+        [InlineData(typeof(IInterface2), 1)]
+        [InlineData(typeof(IInterface3), 1)]
+        [InlineData(typeof(ClassePai), 7)]
+        [InlineData(typeof(ClasseFilha), 2)]
+        [InlineData(typeof(ClasseNeta), 0)]
+        public void funcionamento_do_método_MyMethods(Type tipoParaTeste, int declaraçõesEsperadas)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            var métodos = tipo.MyMethods().Select(a => a.ToString()).ToList();
+
+            // Assert, Then
+
+            métodos.Should().HaveCount(declaraçõesEsperadas);
         }
     }
 }

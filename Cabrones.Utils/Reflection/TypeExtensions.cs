@@ -82,5 +82,43 @@ namespace Cabrones.Utils.Reflection
 
             return result;
         }
+        
+        /// <summary>
+        /// Retorna todos os métodos declaradas no tipo apenas das propriedades.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<MethodInfo> MyProperties(this Type type)
+        {
+            return type.GetProperties(
+                    BindingFlags.Public |
+                    BindingFlags.NonPublic |
+                    BindingFlags.Static |
+                    BindingFlags.Instance |
+                    BindingFlags.DeclaredOnly)
+                .SelectMany(a => new[] {a.GetMethod, a.SetMethod})
+                .Where(a => a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
+                .ToList();
+        }
+        
+        /// <summary>
+        /// Retorna todos os métodos declaradas no tipo que não sejam de propriedades.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<MethodInfo> MyMethods(this Type type)
+        {
+            var myProperties = MyProperties(type).ToList();
+            
+            return type.GetMethods(
+                    BindingFlags.Public | 
+                    BindingFlags.NonPublic | 
+                    BindingFlags.Static | 
+                    BindingFlags.Instance | 
+                    BindingFlags.DeclaredOnly)
+                .Where(method => !myProperties.Contains(method))
+                .Where(a => a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
+                .ToList();
+        }
     }
 }
