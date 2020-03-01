@@ -3,6 +3,7 @@
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnassignedGetOnlyAutoProperty
 
+using System;
 using System.Collections.Generic;
 
 namespace Cabrones.Utils.Reflection
@@ -104,5 +105,11 @@ namespace Cabrones.Utils.Reflection
     internal class ClasseSozinha
     {
         
+    }
+
+    internal static class ClasseEstática
+    {
+        public static DateTime Agora() =>
+            DateTime.Now;
     }
 }

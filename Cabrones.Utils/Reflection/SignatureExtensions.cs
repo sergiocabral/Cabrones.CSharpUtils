@@ -70,6 +70,11 @@ namespace Cabrones.Utils.Reflection
             var parameters = method.GetParameters().ToList();
 
             var result = new StringBuilder();
+            
+            if (method.IsStatic)
+            {
+                result.Append("static ");
+            }
 
             result.Append($"{method.ReturnType.ToSignatureCSharp()} {method.Name}");
 
@@ -95,6 +100,11 @@ namespace Cabrones.Utils.Reflection
         {
             var result = new StringBuilder();
 
+            if ((property.GetMethod ?? property.SetMethod ?? throw new ArgumentException()).IsStatic)
+            {
+                result.Append("static ");
+            }
+                
             result.Append($"{property.PropertyType.ToSignatureCSharp()} {property.Name} {{ ");
             if (property.CanRead) result.Append("get; ");
             if (property.CanWrite) result.Append("set; ");
