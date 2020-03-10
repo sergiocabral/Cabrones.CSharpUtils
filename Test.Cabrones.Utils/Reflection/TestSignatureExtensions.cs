@@ -25,14 +25,15 @@ namespace Cabrones.Utils.Reflection
 
             assinatura.Should().Be(assinaturaEsperada);
         }
-        
+
         [Theory]
         [InlineData(typeof(IInterface1), "String Interface1Método()", true)]
         [InlineData(typeof(IInterface2), "String Interface1Método()", false)]
         [InlineData(typeof(ClasseNeta), "TTipo[] MétodoGeneric<TTipo>(String, TTipo, TTipo[])", true)]
         [InlineData(typeof(ClasseEstática), "DateTime Agora()", false)]
         [InlineData(typeof(ClasseEstática), "static DateTime Agora()", true)]
-        public void ToSignatureCSharp_para_MethodInfo_deve_funcionar_corretamente(Type tipo, string assinatura, bool existe)
+        public void ToSignatureCSharp_para_MethodInfo_deve_funcionar_corretamente(Type tipo, string assinatura,
+            bool existe)
         {
             // Arrange, Given
 
@@ -45,21 +46,21 @@ namespace Cabrones.Utils.Reflection
             // Assert, Then
 
             if (existe)
-            {
                 assinaturas.Should().Contain(assinatura);
-            }
             else
-            {
                 assinaturas.Should().NotContain(assinatura);
-            }
         }
-        
+
         [Theory]
         [InlineData(typeof(IInterface1), "Interface1Propriedade", "Int32 Interface1Propriedade { get; set; }")]
-        [InlineData(typeof(ClasseNeta), "ClasseNetaPropriedadePrivadaEstática", "static Int32 ClasseNetaPropriedadePrivadaEstática { get; }")]
-        [InlineData(typeof(ClasseNeta), "ClasseNetaPropriedadePrivadaInstância", "Int32 ClasseNetaPropriedadePrivadaInstância { set; }")]
-        [InlineData(typeof(ClasseNeta), "PropriedadeComplicada", "IDictionary<String[,], String[][][]> PropriedadeComplicada { get; set; }")]
-        public void ToSignatureCSharp_para_PropertyInfo_deve_funcionar_corretamente(Type tipo, string nomeDaPropriedade, string assinaturaEsperada)
+        [InlineData(typeof(ClasseNeta), "ClasseNetaPropriedadePrivadaEstática",
+            "static Int32 ClasseNetaPropriedadePrivadaEstática { get; }")]
+        [InlineData(typeof(ClasseNeta), "ClasseNetaPropriedadePrivadaInstância",
+            "Int32 ClasseNetaPropriedadePrivadaInstância { set; }")]
+        [InlineData(typeof(ClasseNeta), "PropriedadeComplicada",
+            "IDictionary<String[,], String[][][]> PropriedadeComplicada { get; set; }")]
+        public void ToSignatureCSharp_para_PropertyInfo_deve_funcionar_corretamente(Type tipo, string nomeDaPropriedade,
+            string assinaturaEsperada)
         {
             // Arrange, Given
 

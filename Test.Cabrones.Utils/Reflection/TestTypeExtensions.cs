@@ -7,29 +7,6 @@ namespace Cabrones.Utils.Reflection
 {
     public class TestTypeExtensions
     {
-        [Fact]
-        public void GetProperty_deve_funcionar_corretamente()
-        {
-            // Arrange, Given
-
-            var propriedade = typeof(ClassePai).GetProperty("PropriedadeConcorrente");
-            var métodoGetDePropriedade = propriedade?.GetMethod;
-            var métodoSetDePropriedade = propriedade?.SetMethod;
-            var métodoQueNãoÉDePropriedades = typeof(ClassePai).GetMethod("ClassePaiMétodoPúblicoEstático");
-            
-            // Act, When
-
-            var detecçãoParaMétodoGetDePropriedade = métodoGetDePropriedade.GetProperty();
-            var detecçãoParaMétodoSetDePropriedade = métodoSetDePropriedade.GetProperty();
-            var detecçãoParaMétodoQueNãoÉDePropriedades = métodoQueNãoÉDePropriedades.GetProperty();
-            
-            // Assert, Then
-
-            detecçãoParaMétodoGetDePropriedade.Should().BeSameAs(propriedade);
-            detecçãoParaMétodoSetDePropriedade.Should().BeSameAs(propriedade);
-            detecçãoParaMétodoQueNãoÉDePropriedades.Should().BeNull();
-        }
-        
         [Theory]
         [InlineData(typeof(IInterface1), 4, 4)]
         [InlineData(typeof(IInterface2), 4, 4)]
@@ -37,7 +14,8 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClassePai), 16, 8)]
         [InlineData(typeof(ClasseFilha), 32, 20)]
         [InlineData(typeof(ClasseNeta), 40, 28)]
-        public void AllProperties_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadasComInterface, int declaraçõesEsperadasSemInterface)
+        public void AllProperties_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadasComInterface,
+            int declaraçõesEsperadasSemInterface)
         {
             // Arrange, Given
 
@@ -62,7 +40,8 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClassePai), 18, 16)]
         [InlineData(typeof(ClasseFilha), 22, 19)]
         [InlineData(typeof(ClasseNeta), 23, 20)]
-        public void AllMethods_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadasComInterface, int declaraçõesEsperadasSemInterface)
+        public void AllMethods_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadasComInterface,
+            int declaraçõesEsperadasSemInterface)
         {
             // Arrange, Given
 
@@ -83,12 +62,15 @@ namespace Cabrones.Utils.Reflection
         [Theory]
         [InlineData(typeof(IInterface1), true)]
         [InlineData(typeof(IInterface2), false, typeof(object))]
-        [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1), typeof(object))]
-        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1))]
+        [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3),
+            typeof(IInterface2), typeof(IInterface1), typeof(object))]
+        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3),
+            typeof(IInterface2), typeof(IInterface1))]
         [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha))]
         [InlineData(typeof(ClasseSozinha), true, typeof(object))]
         [InlineData(typeof(ClasseSozinha), false)]
-        public void AllImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto, params Type[] implementaçõesEsperadas)
+        public void AllImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto,
+            params Type[] implementaçõesEsperadas)
         {
             // Arrange, Given
 
@@ -101,15 +83,11 @@ namespace Cabrones.Utils.Reflection
             // Assert, Then
 
             if (estáCoreto)
-            {
                 implementations.Should().BeEquivalentTo(implementaçõesEsperadas.ToList());
-            }
             else
-            {
                 implementations.Should().NotBeEquivalentTo(implementaçõesEsperadas.ToList());
-            }
         }
-        
+
         [Theory]
         [InlineData(typeof(IInterface1), 4)]
         [InlineData(typeof(IInterface2), 4)]
@@ -157,12 +135,15 @@ namespace Cabrones.Utils.Reflection
         [Theory]
         [InlineData(typeof(IInterface1), true)]
         [InlineData(typeof(IInterface2), false, typeof(object))]
-        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1), typeof(object))]
-        [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1))]
+        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3),
+            typeof(IInterface2), typeof(IInterface1), typeof(object))]
+        [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3),
+            typeof(IInterface2), typeof(IInterface1))]
         [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha))]
         [InlineData(typeof(ClasseSozinha), false, typeof(object))]
         [InlineData(typeof(ClasseSozinha), true)]
-        public void MyImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto, params Type[] implementaçõesEsperadas)
+        public void MyImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto,
+            params Type[] implementaçõesEsperadas)
         {
             // Arrange, Given
 
@@ -175,13 +156,9 @@ namespace Cabrones.Utils.Reflection
             // Assert, Then
 
             if (estáCoreto)
-            {
                 implementations.Should().BeEquivalentTo(implementaçõesEsperadas.ToList());
-            }
             else
-            {
                 implementations.Should().NotBeEquivalentTo(implementaçõesEsperadas.ToList());
-            }
         }
 
         [Theory]
@@ -231,12 +208,15 @@ namespace Cabrones.Utils.Reflection
         [Theory]
         [InlineData(typeof(IInterface1), true)]
         [InlineData(typeof(IInterface2), false, typeof(object))]
-        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1), typeof(object))]
-        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3), typeof(IInterface2), typeof(IInterface1))]
+        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3),
+            typeof(IInterface2), typeof(IInterface1), typeof(object))]
+        [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha), typeof(ClassePai), typeof(IInterface3),
+            typeof(IInterface2), typeof(IInterface1))]
         [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha))]
         [InlineData(typeof(ClasseSozinha), false, typeof(object))]
         [InlineData(typeof(ClasseSozinha), true)]
-        public void MyOwnImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto, params Type[] implementaçõesEsperadas)
+        public void MyOwnImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto,
+            params Type[] implementaçõesEsperadas)
         {
             // Arrange, Given
 
@@ -249,13 +229,32 @@ namespace Cabrones.Utils.Reflection
             // Assert, Then
 
             if (estáCoreto)
-            {
                 implementations.Should().BeEquivalentTo(implementaçõesEsperadas.ToList());
-            }
             else
-            {
                 implementations.Should().NotBeEquivalentTo(implementaçõesEsperadas.ToList());
-            }
+        }
+
+        [Fact]
+        public void GetProperty_deve_funcionar_corretamente()
+        {
+            // Arrange, Given
+
+            var propriedade = typeof(ClassePai).GetProperty("PropriedadeConcorrente");
+            var métodoGetDePropriedade = propriedade?.GetMethod;
+            var métodoSetDePropriedade = propriedade?.SetMethod;
+            var métodoQueNãoÉDePropriedades = typeof(ClassePai).GetMethod("ClassePaiMétodoPúblicoEstático");
+
+            // Act, When
+
+            var detecçãoParaMétodoGetDePropriedade = métodoGetDePropriedade.GetProperty();
+            var detecçãoParaMétodoSetDePropriedade = métodoSetDePropriedade.GetProperty();
+            var detecçãoParaMétodoQueNãoÉDePropriedades = métodoQueNãoÉDePropriedades.GetProperty();
+
+            // Assert, Then
+
+            detecçãoParaMétodoGetDePropriedade.Should().BeSameAs(propriedade);
+            detecçãoParaMétodoSetDePropriedade.Should().BeSameAs(propriedade);
+            detecçãoParaMétodoQueNãoÉDePropriedades.Should().BeNull();
         }
     }
 }
