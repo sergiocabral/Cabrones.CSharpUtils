@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoFixture;
 using Cabrones.Test;
 using FluentAssertions;
 using Xunit;
@@ -25,6 +26,24 @@ namespace Cabrones.Utils.Converter
             // Assert, Then
 
             guid.ToString("D").Should().Be(guidEsperado);
+        }
+        
+        [Fact]
+        public void a_geração_de_Guid_baseada_no_valor_do_objeto_deve_ser_única_para_o_mesmo_valor()
+        {
+            // Arrange, Given
+
+            var valor = this.Fixture<string>();
+            
+            // Act, When
+
+            var guid1 = valor.ToGuid(true);
+            var guid2 = valor.ToGuid(true);
+
+            // Assert, Then
+
+            guid1.Should().NotBeEmpty();
+            guid1.Should().Be(guid2);
         }
         
         [Fact]

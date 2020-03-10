@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Cabrones.Utils.Converter
 {
@@ -12,10 +14,19 @@ namespace Cabrones.Utils.Converter
         /// Para valores inválidos será usado Guid.Empty.
         /// </summary>
         /// <param name="value">Valor qualquer.</param>
+        /// <param name="generate">Quando true gera um Guid baseado no valor.</param>
         /// <returns>Guid.</returns>
-        public static Guid ToGuid(this object? value)
+        public static Guid ToGuid(this object? value, bool generate = false)
         {
             if (value == null || value == DBNull.Value) return Guid.Empty;
+            
+            if (generate)
+            {
+                using var hashAlgorithm = MD5.Create();
+                var hash = hashAlgorithm.ComputeHash(Encoding.Default.GetBytes(value.ToString()));
+                return new Guid(hash);
+            }
+            
             try
             {
                 return Guid.Parse(value.ToString()!);
