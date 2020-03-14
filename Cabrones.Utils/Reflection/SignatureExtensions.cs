@@ -44,12 +44,12 @@ namespace Cabrones.Utils.Reflection
                 return result.ToString();
             }
 
-            string RemoveLongNames(string text)
+            static string RemoveLongNames(string text)
             {
                 return Regex.Replace(text, @"(\w+\.|`\d+)", string.Empty);
             }
 
-            string SeparateComma(string text)
+            static string SeparateComma(string text)
             {
                 return Regex.Replace(text, @",(?=\w)", ", ");
             }
