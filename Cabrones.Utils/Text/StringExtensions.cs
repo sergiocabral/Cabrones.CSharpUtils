@@ -58,7 +58,7 @@ namespace Cabrones.Utils.Text
         /// <param name="text">Texto.</param>
         /// <param name="args">Argumentos.</param>
         /// <returns>Texto com argumentos substituidos.</returns>
-        public static string QueryString(this string text, params object[] args)
+        public static string QueryString(this string text, params object?[] args)
         {
             if (string.IsNullOrWhiteSpace(text) || args == null || args.Length == 0) return text;
 
