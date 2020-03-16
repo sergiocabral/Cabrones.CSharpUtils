@@ -39,5 +39,33 @@ namespace Cabrones.Utils.Text
 
             valor.Should().Be(textoEsperado);
         }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData("", "")]
+        [InlineData("  ", "  ")]
+        [InlineData("Texto Comum", "Texto Comum")]
+        [InlineData(null, null, 1, 2, 3, 4)]
+        [InlineData("", "", 1, 2, 3, 4)]
+        [InlineData("  ", "  ", 1, 2, 3, 4)]
+        [InlineData("Texto Comum", "Texto Comum", 1, 2, 3, 4)]
+        [InlineData("Variável {0}", "Variável Aqui", "Aqui")]
+        [InlineData("Variável {0} ou {aqui}", "Variável Aqui ou Aqui Também", "Aqui", "Aqui Também")]
+        [InlineData("Variável {0} ou {aqui} mas aqui {{não}, {não}}, {{não}}, {}, {{}}",
+            "Variável Aqui ou Aqui Também mas aqui {{não}, {não}}, {{não}}, {}, {{}}", "Aqui", "Aqui Também")]
+        [InlineData("Variável {zero}, {um} e {dois}", "Variável ok, {um} e {dois}", "ok")]
+        [InlineData("Variável {0}, {1} e {2}", "Variável ok, {1} e {2}", "ok")]
+        public void método_QueryString_deve_substituir_argumentos_no_texto(string máscara, string textoEsperado,
+            params object[] args)
+        {
+            // Arrange, Given
+            // Act, When
+
+            var valor = máscara.QueryString(args);
+
+            // Assert, Then
+
+            valor.Should().Be(textoEsperado);
+        }
     }
 }

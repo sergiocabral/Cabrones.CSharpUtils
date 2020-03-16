@@ -51,5 +51,32 @@ namespace Cabrones.Utils.Text
 
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
+
+        /// <summary>
+        ///     Substitui argumentos em uma string.
+        /// </summary>
+        /// <param name="text">Texto.</param>
+        /// <param name="args">Argumentos.</param>
+        /// <returns>Texto com argumentos substituidos.</returns>
+        public static string QueryString(this string text, params object[] args)
+        {
+            if (string.IsNullOrWhiteSpace(text) || args == null || args.Length == 0) return text;
+
+            // Localiza trechos como {0} ou {nome}. Mas rejeita {{0}}, {{0}, {0}}, {}, {{}}  
+            const string regex = @"(?<!\{)\{[^\{\}]+\}(?!\})";
+
+            var matches = Regex.Matches(text, regex, RegexOptions.Singleline);
+            var result = new StringBuilder(text);
+            for (var i = matches.Count - 1; i >= 0; i--)
+            {
+                if (i >= args.Length) continue;
+
+                var match = matches[i];
+                result.Remove(match.Index, match.Length);
+                result.Insert(match.Index, $"{args[i]}");
+            }
+
+            return result.ToString();
+        }
     }
 }
