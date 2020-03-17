@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.Common;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Cabrones.Utils.Database
@@ -18,27 +19,35 @@ namespace Cabrones.Utils.Database
         /// <returns>Consulta SQL.</returns>
         public static string ExtractSqlQuery(this DbCommand command)
         {
-            static string FromString(object value) => 
-                $"'{$"{value}".Replace("'", "''")}'";
-            
-            static string FromDateTime(object value) => 
-                $"'{(DateTime)value:yyyy-MM-dd HH:mm:ss}'";
-            
-            static string FromDecimal(object value) => 
-                $"{((decimal)value).ToString("0.00", CultureInfo.InvariantCulture)}";
-            
-            static string FromInteger(object value) => 
-                $"{value}";
-            
-            static string FromBoolean(object value) => 
-                (bool) value ? "1" : "0";
-            
+            static string FromString(object value)
+            {
+                return $"'{$"{value}".Replace("'", "''")}'";
+            }
+
+            static string FromDateTime(object value)
+            {
+                return $"'{(DateTime) value:yyyy-MM-dd HH:mm:ss}'";
+            }
+
+            static string FromDecimal(object value)
+            {
+                return $"{((decimal) value).ToString("0.00", CultureInfo.InvariantCulture)}";
+            }
+
+            static string FromInteger(object value)
+            {
+                return $"{value}";
+            }
+
+            static string FromBoolean(object value)
+            {
+                return (bool) value ? "1" : "0";
+            }
+
             var sql = new StringBuilder(command.CommandText);
 
-            foreach (var p in command.Parameters)
+            foreach (var parameter in command.Parameters.Cast<DbParameter>())
             {
-                if (!(p is DbParameter parameter)) continue;
-
                 var value = parameter.DbType switch
                 {
                     DbType.AnsiStringFixedLength => FromString(parameter.Value),

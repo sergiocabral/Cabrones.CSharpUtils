@@ -37,8 +37,6 @@ namespace Cabrones.Utils.Reflection
                             result.Remove(match.Index, 1);
                             result.Insert(match.Index, ">");
                             break;
-                        default:
-                            throw new NotImplementedException();
                     }
 
                 return result.ToString();

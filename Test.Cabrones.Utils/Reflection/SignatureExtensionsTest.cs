@@ -32,6 +32,22 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClasseNeta), "TTipo[] MétodoGeneric<TTipo>(String, TTipo, TTipo[])", true)]
         [InlineData(typeof(ClasseEstática), "DateTime Agora()", false)]
         [InlineData(typeof(ClasseEstática), "static DateTime Agora()", true)]
+        [InlineData(typeof(ClasseComGenerics<,>), "TMetodo MétodoComGenerics1<TMetodo>(TMetodo)", true)]
+        [InlineData(typeof(ClasseComGenerics<string, int>), "TMetodo MétodoComGenerics1<TMetodo>(TMetodo)", true)]
+        [InlineData(typeof(ClasseComGenerics<,>), "TClasse1 MétodoComGenerics2<TClasse1>(TClasse1)", true)]
+        [InlineData(typeof(ClasseComGenerics<string, int>), "TClasse1 MétodoComGenerics2<TClasse1>(TClasse1)", true)]
+        [InlineData(typeof(ClasseComGenerics<,>), "TClasse1 MétodoComGenerics3(TClasse1)", true)]
+        [InlineData(typeof(ClasseComGenerics<string, int>), "String MétodoComGenerics3(String)", true)]
+        [InlineData(typeof(ClasseComGenerics<,>), "Void MétodoComGenerics4<TMetodo1, TMetodo2>(TMetodo1, TMetodo2)",
+            true)]
+        [InlineData(typeof(ClasseComGenerics<string, int>),
+            "Void MétodoComGenerics4<TMetodo1, TMetodo2>(TMetodo1, TMetodo2)", true)]
+        [InlineData(typeof(ClasseComGenerics<,>), "Void MétodoComGenerics5<TClasse1, TClasse2>(TClasse1, TClasse2)",
+            true)]
+        [InlineData(typeof(ClasseComGenerics<string, int>),
+            "Void MétodoComGenerics5<TClasse1, TClasse2>(TClasse1, TClasse2)", true)]
+        [InlineData(typeof(ClasseComGenerics<,>), "Void MétodoComGenerics6(TClasse1, TClasse2)", true)]
+        [InlineData(typeof(ClasseComGenerics<string, int>), "Void MétodoComGenerics6(String, Int32)", true)]
         public void ToSignatureCSharp_para_MethodInfo_deve_funcionar_corretamente(Type tipo, string assinatura,
             bool existe)
         {
@@ -59,6 +75,10 @@ namespace Cabrones.Utils.Reflection
             "Int32 ClasseNetaPropriedadePrivadaInstância { set; }")]
         [InlineData(typeof(ClasseNeta), "PropriedadeComplicada",
             "IDictionary<String[,], String[][][]> PropriedadeComplicada { get; set; }")]
+        [InlineData(typeof(ClasseComGenerics<,>), "PropriedadeComGenerics",
+            "TClasse1 PropriedadeComGenerics { get; set; }")]
+        [InlineData(typeof(ClasseComGenerics<string, int>), "PropriedadeComGenerics",
+            "String PropriedadeComGenerics { get; set; }")]
         public void ToSignatureCSharp_para_PropertyInfo_deve_funcionar_corretamente(Type tipo, string nomeDaPropriedade,
             string assinaturaEsperada)
         {

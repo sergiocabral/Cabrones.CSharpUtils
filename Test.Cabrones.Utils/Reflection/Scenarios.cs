@@ -5,6 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
+#pragma warning disable 693
 
 namespace Cabrones.Utils.Reflection
 {
@@ -34,6 +37,7 @@ namespace Cabrones.Utils.Reflection
         string Interface3Método();
     }
 
+    [ExcludeFromCodeCoverage]
     internal abstract class ClassePai : IInterface1, IInterface2
     {
         public string Interface1Método()
@@ -79,6 +83,7 @@ namespace Cabrones.Utils.Reflection
         public abstract string ClassePaiMétodoAbstratoPúblico();
     }
 
+    [ExcludeFromCodeCoverage]
     internal class ClasseFilha : ClassePai, IInterface3
     {
         public int ClasseFilhaPropriedadePúblicaInstância { get; set; }
@@ -109,6 +114,7 @@ namespace Cabrones.Utils.Reflection
         }
     }
 
+    [ExcludeFromCodeCoverage]
     internal class ClasseNeta : ClasseFilha
     {
         public int ClasseNetaPropriedadePúblicaInstância { get; set; }
@@ -130,15 +136,50 @@ namespace Cabrones.Utils.Reflection
         }
     }
 
+    [ExcludeFromCodeCoverage]
     internal class ClasseSozinha
     {
     }
 
+    [ExcludeFromCodeCoverage]
     internal static class ClasseEstática
     {
         public static DateTime Agora()
         {
             return DateTime.Now;
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ClasseComGenerics<TClasse1, TClasse2>
+    {
+        public TClasse1 PropriedadeComGenerics { get; set; }
+
+        public TMetodo MétodoComGenerics1<TMetodo>(TMetodo arg)
+        {
+            return arg;
+        }
+
+        public TClasse1 MétodoComGenerics2<TClasse1>(TClasse1 arg)
+        {
+            return arg;
+        }
+
+        public TClasse1 MétodoComGenerics3(TClasse1 arg)
+        {
+            return arg;
+        }
+
+        public void MétodoComGenerics4<TMetodo1, TMetodo2>(TMetodo1 arg1, TMetodo2 arg2)
+        {
+        }
+
+        public void MétodoComGenerics5<TClasse1, TClasse2>(TClasse1 arg1, TClasse2 arg2)
+        {
+        }
+
+        public void MétodoComGenerics6(TClasse1 arg1, TClasse2 arg2)
+        {
         }
     }
 }

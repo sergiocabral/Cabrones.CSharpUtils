@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,12 @@ namespace Cabrones.Utils.Text
     /// </summary>
     public static class StringExtensions
     {
+        /// <summary>
+        ///     Expressão regular para QueryString
+        ///     Localiza trechos como {0} ou {nome}. Mas rejeita {{0}}, {{0}, {0}}, {}, {{}}
+        /// </summary>
+        private const string RegexForQueryString = @"(?<!\{)\{[^\{\}]+\}(?!\})";
+
         /// <summary>
         ///     Converte um texto para o formato slug: minúscula, sem acento, espaço e caracteres especiais.
         /// </summary>
@@ -53,12 +58,6 @@ namespace Cabrones.Utils.Text
 
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
-
-        /// <summary>
-        /// Expressão regular para QueryString
-        /// Localiza trechos como {0} ou {nome}. Mas rejeita {{0}}, {{0}, {0}}, {}, {{}}
-        /// </summary>
-        private const string RegexForQueryString = @"(?<!\{)\{[^\{\}]+\}(?!\})";
 
         /// <summary>
         ///     Substitui argumentos em uma string.

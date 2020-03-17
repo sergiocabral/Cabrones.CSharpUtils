@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using FluentAssertions;
 using Xunit;
 
@@ -95,6 +96,7 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClassePai), 8)]
         [InlineData(typeof(ClasseFilha), 12)]
         [InlineData(typeof(ClasseNeta), 8)]
+        [InlineData(null, 0)]
         public void MyProperties_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
         {
             // Arrange, Given
@@ -117,6 +119,7 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClassePai), 8)]
         [InlineData(typeof(ClasseFilha), 3)]
         [InlineData(typeof(ClasseNeta), 1)]
+        [InlineData(null, 0)]
         public void MyMethods_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
         {
             // Arrange, Given
@@ -142,6 +145,7 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClasseNeta), false, typeof(ClasseFilha))]
         [InlineData(typeof(ClasseSozinha), false, typeof(object))]
         [InlineData(typeof(ClasseSozinha), true)]
+        [InlineData(null, true)]
         public void MyImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto,
             params Type[] implementaçõesEsperadas)
         {
@@ -168,6 +172,7 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClassePai), 0)]
         [InlineData(typeof(ClasseFilha), 8)]
         [InlineData(typeof(ClasseNeta), 8)]
+        [InlineData(null, 0)]
         public void MyOwnProperties_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
         {
             // Arrange, Given
@@ -190,6 +195,7 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClassePai), 6)]
         [InlineData(typeof(ClasseFilha), 0)]
         [InlineData(typeof(ClasseNeta), 1)]
+        [InlineData(null, 0)]
         public void MyOwnMethods_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
         {
             // Arrange, Given
@@ -215,6 +221,7 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(ClasseNeta), true, typeof(ClasseFilha))]
         [InlineData(typeof(ClasseSozinha), false, typeof(object))]
         [InlineData(typeof(ClasseSozinha), true)]
+        [InlineData(null, true)]
         public void MyOwnImplementations_deve_funcionar_corretamente(Type tipoParaTeste, bool estáCoreto,
             params Type[] implementaçõesEsperadas)
         {
@@ -240,18 +247,21 @@ namespace Cabrones.Utils.Reflection
             // Arrange, Given
 
             var propriedade = typeof(ClassePai).GetProperty("PropriedadeConcorrente");
+            var métodoNulo = (MethodInfo) null;
             var métodoGetDePropriedade = propriedade?.GetMethod;
             var métodoSetDePropriedade = propriedade?.SetMethod;
             var métodoQueNãoÉDePropriedades = typeof(ClassePai).GetMethod("ClassePaiMétodoPúblicoEstático");
 
             // Act, When
 
+            var detecçãoParaMétodoNulo = métodoNulo.GetProperty();
             var detecçãoParaMétodoGetDePropriedade = métodoGetDePropriedade.GetProperty();
             var detecçãoParaMétodoSetDePropriedade = métodoSetDePropriedade.GetProperty();
             var detecçãoParaMétodoQueNãoÉDePropriedades = métodoQueNãoÉDePropriedades.GetProperty();
 
             // Assert, Then
 
+            detecçãoParaMétodoNulo.Should().BeNull();
             detecçãoParaMétodoGetDePropriedade.Should().BeSameAs(propriedade);
             detecçãoParaMétodoSetDePropriedade.Should().BeSameAs(propriedade);
             detecçãoParaMétodoQueNãoÉDePropriedades.Should().BeNull();

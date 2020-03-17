@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using FluentAssertions;
 using Xunit;
@@ -57,7 +57,8 @@ namespace Cabrones.Utils.Text
             "Variável Aqui ou Aqui Também mas aqui {{não}, {não}}, {{não}}, {}, {{}}", "Aqui", "Aqui Também")]
         [InlineData("Variável {zero}, {um} e {dois}", "Variável ok, {um} e {dois}", "ok")]
         [InlineData("Variável {0}, {1} e {2}", "Variável ok, {1} e {2}", "ok")]
-        public void método_QueryString_por_array_deve_substituir_argumentos_no_texto(string máscara, string textoEsperado,
+        public void método_QueryString_por_array_deve_substituir_argumentos_no_texto(string máscara,
+            string textoEsperado,
             params object[] args)
         {
             // Arrange, Given
@@ -83,15 +84,16 @@ namespace Cabrones.Utils.Text
         [InlineData("Variável {aqui}", "Variável Aqui", "aqui=Aqui")]
         [InlineData("Variável {aqui-não}", "Variável {aqui-não}", "aqui=Aqui")]
         [InlineData("Variável {var1} - {var2}", "Variável {var1} - hahaha", "var2=hahaha", "var3=rsrsrs")]
-        public void método_QueryString_por_dicionário_deve_substituir_argumentos_no_texto(string máscara, string textoEsperado,
+        public void método_QueryString_por_dicionário_deve_substituir_argumentos_no_texto(string máscara,
+            string textoEsperado,
             params string[] args)
         {
             // Arrange, Given
 
             var dicionário = args.ToDictionary(
-                key => key.Substring(0, key.IndexOf("=")),
-                value => value.Substring(value.IndexOf("=") + 1));
-            
+                key => key.Substring(0, key.IndexOf("=", StringComparison.Ordinal)),
+                value => value.Substring(value.IndexOf("=", StringComparison.Ordinal) + 1));
+
             // Act, When
 
             var valor = máscara.QueryString(dicionário);
