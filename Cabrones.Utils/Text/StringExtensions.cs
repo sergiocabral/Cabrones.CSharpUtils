@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -53,6 +55,12 @@ namespace Cabrones.Utils.Text
         }
 
         /// <summary>
+        /// Expressão regular para QueryString
+        /// Localiza trechos como {0} ou {nome}. Mas rejeita {{0}}, {{0}, {0}}, {}, {{}}
+        /// </summary>
+        private const string RegexForQueryString = @"(?<!\{)\{[^\{\}]+\}(?!\})";
+
+        /// <summary>
         ///     Substitui argumentos em uma string.
         /// </summary>
         /// <param name="text">Texto.</param>
@@ -62,10 +70,7 @@ namespace Cabrones.Utils.Text
         {
             if (string.IsNullOrWhiteSpace(text) || args == null || args.Length == 0) return text;
 
-            // Localiza trechos como {0} ou {nome}. Mas rejeita {{0}}, {{0}, {0}}, {}, {{}}  
-            const string regex = @"(?<!\{)\{[^\{\}]+\}(?!\})";
-
-            var matches = Regex.Matches(text, regex, RegexOptions.Singleline);
+            var matches = Regex.Matches(text, RegexForQueryString, RegexOptions.Singleline);
             var result = new StringBuilder(text);
             for (var i = matches.Count - 1; i >= 0; i--)
             {
@@ -74,6 +79,32 @@ namespace Cabrones.Utils.Text
                 var match = matches[i];
                 result.Remove(match.Index, match.Length);
                 result.Insert(match.Index, $"{args[i]}");
+            }
+
+            return result.ToString();
+        }
+
+        /// <summary>
+        ///     Substitui argumentos em uma string baseado em nomes de dicionário.
+        /// </summary>
+        /// <param name="text">Texto.</param>
+        /// <param name="args">Argumentos.</param>
+        /// <returns>Texto com argumentos substituidos.</returns>
+        public static string QueryString(this string text, IDictionary args)
+        {
+            if (string.IsNullOrWhiteSpace(text) || args == null || args.Count == 0) return text;
+
+            var matches = Regex.Matches(text, RegexForQueryString, RegexOptions.Singleline);
+            var result = new StringBuilder(text);
+            for (var i = matches.Count - 1; i >= 0; i--)
+            {
+                var match = matches[i];
+                var key = match.Value.Substring(1, match.Value.Length - 2);
+
+                if (!args.Contains(key)) continue;
+
+                result.Remove(match.Index, match.Length);
+                result.Insert(match.Index, $"{args[key]}");
             }
 
             return result.ToString();
