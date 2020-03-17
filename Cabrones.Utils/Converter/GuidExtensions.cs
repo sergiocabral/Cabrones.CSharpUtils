@@ -23,7 +23,7 @@ namespace Cabrones.Utils.Converter
             if (generate)
             {
                 using var hashAlgorithm = MD5.Create();
-                var hash = hashAlgorithm.ComputeHash(Encoding.Default.GetBytes(value.ToString()));
+                var hash = hashAlgorithm.ComputeHash(Encoding.Default.GetBytes($"{value}"));
                 return new Guid(hash);
             }
 
