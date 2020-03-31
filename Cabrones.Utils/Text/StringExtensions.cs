@@ -30,11 +30,11 @@ namespace Cabrones.Utils.Text
             // Minúsculo
             text = text.ToLower();
 
-            // Troca espaços por traço.   
-            text = Regex.Replace(text, @"(\s+|-+)", "-"); // hyphens   
+            // Tudo que não for letras, números e traços é substituído por traço.   
+            text = Regex.Replace(text, @"[^a-z0-9]+", "-"); // hyphens   
 
-            // Mantem apenas: letras, números e traços. Remove traços iniciais e finais.           
-            text = Regex.Replace(text, @"([^a-z0-9\s-]|^-|-$)", string.Empty);
+            // Remove traços das extremidades.           
+            text = Regex.Replace(text, @"(^-+|-+$)", string.Empty);   
 
             return text;
         }

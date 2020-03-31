@@ -10,11 +10,12 @@ namespace Cabrones.Utils.Text
         [Theory]
         [InlineData("teste", "teste")]
         [InlineData("forçação", "forcacao")]
-        [InlineData("forçação de barra", "forcacao-de-barra")]
+        [InlineData("FORÇAÇÃO de barra", "forcacao-de-barra")]
         [InlineData("    forçação     de     barra    ", "forcacao-de-barra")]
         [InlineData("forcacao-de-barra", "forcacao-de-barra")]
         [InlineData("--forcacao--de--barra--", "forcacao-de-barra")]
         [InlineData("!forcacao de barra?", "forcacao-de-barra")]
+        [InlineData("nome.de.arquivo!.exe", "nome-de-arquivo-exe")]
         public void método_Slug_deve_converter_um_texto_para_slug(string valor, string slugEsperado)
         {
             // Arrange, Given
