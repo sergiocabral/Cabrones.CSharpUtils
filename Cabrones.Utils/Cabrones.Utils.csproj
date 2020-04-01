@@ -2,11 +2,11 @@
 
     <PropertyGroup>
         <IsPackable>true</IsPackable>
-        <Version>2.2.3.297</Version>
+        <Version>2.3.0.304</Version>
         <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>2.2.3.297</PackageVersion>
+        <PackageVersion>2.3.0.304</PackageVersion>
         <Title>Cabrones.Utils</Title>
         <Authors>sergio@cabral.br.com</Authors>
         <Description>Utils for general use para .NET Core</Description>
@@ -15,7 +15,8 @@
         <PackageLicenseUrl>https://raw.githubusercontent.com/sergiocabral/Cabrones.CSharpUtils/master/LICENSE</PackageLicenseUrl>
         <PackageIconUrl>https://pt.gravatar.com/userimage/18417969/ae2007509611fb5b97b831bfc7e24ccd.jpeg</PackageIconUrl>
         <RepositoryUrl>https://github.com/sergiocabral/Cabrones.CSharpUtils</RepositoryUrl>
-        <TargetFrameworks>netstandard2.1;netcoreapp3.1</TargetFrameworks>
+        <TargetFrameworks>net472;netstandard2.1;netcoreapp3.1</TargetFrameworks>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
