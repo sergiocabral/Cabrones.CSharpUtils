@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <IsPackable>false</IsPackable>
-        <Version>1.0.0.301</Version>
+        <Version>1.0.0.302</Version>
         <RootNamespace>Cabrones.Utils</RootNamespace>
         <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     </PropertyGroup>
@@ -12,12 +12,12 @@
     </Target>
 
     <ItemGroup>
-        <PackageReference Include="Cabrones.Test" Version="1.4.0.713" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+        <PackageReference Include="Cabrones.Test" Version="1.5.0.764" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.0-preview-20200318-01" />
         <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
-        <PackageReference Include="coverlet.collector" Version="1.1.0" />
+        <PackageReference Include="coverlet.collector" Version="1.2.0" />
     </ItemGroup>
 
     <ItemGroup>
