@@ -47,6 +47,11 @@ namespace Cabrones.Utils.Reflection
                 return Regex.Replace(text, @"(\w+\.|`\d+)", string.Empty);
             }
 
+            static string AdjustChildMember(string text)
+            {
+                return text.Replace("+", ".");
+            }
+
             static string SeparateComma(string text)
             {
                 return Regex.Replace(text, @",(?=\w)", ", ");
@@ -54,9 +59,10 @@ namespace Cabrones.Utils.Reflection
 
             return
                 SeparateComma(
-                    RemoveLongNames(
-                        AdjustGeneric(
-                            type.ToString())));
+                    AdjustChildMember(
+                        RemoveLongNames(
+                            AdjustGeneric(
+                                type.ToString()))));
         }
 
         /// <summary>

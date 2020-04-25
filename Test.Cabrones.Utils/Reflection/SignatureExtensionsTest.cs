@@ -48,6 +48,8 @@ namespace Cabrones.Utils.Reflection
             "Void MétodoComGenerics5<TClasse1, TClasse2>(TClasse1, TClasse2)", true)]
         [InlineData(typeof(ClasseComGenerics<,>), "Void MétodoComGenerics6(TClasse1, TClasse2)", true)]
         [InlineData(typeof(ClasseComGenerics<string, int>), "Void MétodoComGenerics6(String, Int32)", true)]
+        [InlineData(typeof(ClasseComMembrosFilhos), "ClasseComMembrosFilhos.Listagem GetLista(ClasseComMembrosFilhos.Listagem, ClasseComMembrosFilhos.Listagem[])", true)]
+        [InlineData(typeof(ClasseComMembrosFilhos), "ClasseComMembrosFilhos+Listagem GetLista(ClasseComMembrosFilhos+Listagem, ClasseComMembrosFilhos+Listagem[])", false)]
         public void ToSignatureCSharp_para_MethodInfo_deve_funcionar_corretamente(Type tipo, string assinatura,
             bool existe)
         {
@@ -79,6 +81,8 @@ namespace Cabrones.Utils.Reflection
             "TClasse1 PropriedadeComGenerics { get; set; }")]
         [InlineData(typeof(ClasseComGenerics<string, int>), "PropriedadeComGenerics",
             "String PropriedadeComGenerics { get; set; }")]
+        [InlineData(typeof(ClasseComMembrosFilhos), "Lista",
+            "ClasseComMembrosFilhos.Listagem Lista { get; set; }")]
         public void ToSignatureCSharp_para_PropertyInfo_deve_funcionar_corretamente(Type tipo, string nomeDaPropriedade,
             string assinaturaEsperada)
         {

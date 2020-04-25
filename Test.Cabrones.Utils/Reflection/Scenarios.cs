@@ -182,4 +182,21 @@ namespace Cabrones.Utils.Reflection
         {
         }
     }
+
+    [ExcludeFromCodeCoverage]
+    public class ClasseComMembrosFilhos
+    {
+        public enum Listagem
+        {
+            Valor1,
+            Valor2
+        }
+
+        public Listagem Lista { get; set; }
+
+        public Listagem GetLista(Listagem valor, Listagem[] valores)
+        {
+            return Listagem.Valor1;
+        }
+    }
 }
