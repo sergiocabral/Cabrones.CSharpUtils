@@ -36,7 +36,6 @@ namespace Cabrones.Utils.Reflection
             var except = new List<string>();
 
             const BindingFlags bindingFlags = BindingFlags.Public |
-                                              BindingFlags.NonPublic |
                                               BindingFlags.Static |
                                               BindingFlags.Instance |
                                               BindingFlags.DeclaredOnly;
@@ -213,7 +212,6 @@ namespace Cabrones.Utils.Reflection
 
             return type.GetEvents(
                     BindingFlags.Public |
-                    BindingFlags.NonPublic |
                     BindingFlags.Static |
                     BindingFlags.Instance |
                     BindingFlags.DeclaredOnly)

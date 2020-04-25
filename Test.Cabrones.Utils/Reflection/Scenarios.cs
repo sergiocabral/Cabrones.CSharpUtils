@@ -3,6 +3,7 @@
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnassignedGetOnlyAutoProperty
 // ReSharper disable EventNeverSubscribedTo.Global
+// ReSharper disable EventNeverSubscribedTo.Local
 #pragma warning disable 67
 #pragma warning disable 693
 
@@ -227,5 +228,7 @@ namespace Cabrones.Utils.Reflection
         public event Action EventoDaInstância;
         public static event Func<string, int> EventoEstático;
         public event Action EventoDaInterface;
+        private event Action EventoPrivado;
+        protected event Action EventoProtegido;
     }
 }

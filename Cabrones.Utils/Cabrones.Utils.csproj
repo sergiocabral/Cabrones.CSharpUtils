@@ -2,11 +2,11 @@
 
     <PropertyGroup>
         <IsPackable>true</IsPackable>
-        <Version>2.5.0.429</Version>
+        <Version>2.5.1.441</Version>
         <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>2.5.0.429</PackageVersion>
+        <PackageVersion>2.5.1.441</PackageVersion>
         <Title>Cabrones.Utils</Title>
         <Authors>sergio@cabral.br.com</Authors>
         <Description>Utils for general use para .NET Core</Description>
