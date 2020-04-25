@@ -23,6 +23,82 @@ namespace Cabrones.Utils.Reflection
         }
 
         /// <summary>
+        ///     Retorna todos os eventos.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <param name="includeInterfaces">Inclui métodos das interfaces</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<EventInfo> AllEvents(this Type? type, bool includeInterfaces = false)
+        {
+            if (type == null) return new EventInfo[0];
+
+            var result = new List<EventInfo>();
+            var except = new List<string>();
+
+            const BindingFlags bindingFlags = BindingFlags.Public |
+                                              BindingFlags.NonPublic |
+                                              BindingFlags.Static |
+                                              BindingFlags.Instance |
+                                              BindingFlags.DeclaredOnly;
+
+            var index = 0;
+            var types = new List<Type> {type};
+            while (index < types.Count)
+            {
+                type = types[index++];
+
+                result.AddRange(type.GetEvents(bindingFlags));
+
+                if (type.BaseType != null && !types.Contains(type.BaseType)) types.Add(type.BaseType);
+                if (includeInterfaces) continue;
+
+                except.AddRange(
+                    type.GetInterfaces().SelectMany(typeInterface => 
+                        typeInterface.GetEvents(bindingFlags).Select(a => $"{a}")));
+            }
+
+            return result.Where(a => !except.Contains($"{a}")).ToArray();
+        }
+
+        /// <summary>
+        ///     Retorna todos os métodos apenas dos eventos.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <param name="includeInterfaces">Inclui métodos das interfaces</param>
+        /// <returns>Lista.</returns>
+        private static IEnumerable<MethodInfo> AllEventsMethods(this Type? type, bool includeInterfaces = false)
+        {
+            if (type == null) return new MethodInfo[0];
+
+            var result = new List<MethodInfo?>();
+
+            var index = 0;
+            var types = new List<Type> {type};
+            while (index < types.Count)
+            {
+                type = types[index++];
+
+                result.AddRange(
+                    type.GetEvents(
+                            BindingFlags.Public |
+                            BindingFlags.NonPublic |
+                            BindingFlags.Static |
+                            BindingFlags.Instance |
+                            BindingFlags.DeclaredOnly)
+                        .SelectMany(a => new[] {a.AddMethod, a.RemoveMethod, a.RaiseMethod})
+                        .Where(a => a != null));
+
+                if (type.BaseType != null && !types.Contains(type.BaseType)) types.Add(type.BaseType);
+                if (!includeInterfaces) continue;
+                foreach (var typeInterface in type.GetInterfaces())
+                    if (!types.Contains(typeInterface))
+                        types.Add(typeInterface);
+            }
+
+            return result!;
+        }
+
+        /// <summary>
         ///     Retorna todos os métodos apenas das propriedades.
         /// </summary>
         /// <param name="type">Tipo.</param>
@@ -72,7 +148,8 @@ namespace Cabrones.Utils.Reflection
 
             var result = new List<MethodInfo>();
 
-            var allProperties = AllProperties(type, includeInterfaces).ToList();
+            var allPropertiesMethods = AllProperties(type, includeInterfaces).ToArray();
+            var allEventsMethods = AllEventsMethods(type, includeInterfaces).ToArray();
 
             var index = 0;
             var types = new List<Type> {type};
@@ -87,7 +164,9 @@ namespace Cabrones.Utils.Reflection
                             BindingFlags.Static |
                             BindingFlags.Instance |
                             BindingFlags.DeclaredOnly)
-                        .Where(method => !allProperties.Contains(method)));
+                        .Where(method => 
+                            !allPropertiesMethods.Contains(method) &&
+                            !allEventsMethods.Contains(method)));
 
                 if (type.BaseType != null && !types.Contains(type.BaseType)) types.Add(type.BaseType);
                 if (!includeInterfaces) continue;
@@ -124,6 +203,45 @@ namespace Cabrones.Utils.Reflection
         }
 
         /// <summary>
+        ///     Retorna todos os eventos declarados no tipo apenas das propriedades.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<EventInfo> MyEvents(this Type? type)
+        {
+            if (type == null) return new EventInfo[0];
+
+            return type.GetEvents(
+                    BindingFlags.Public |
+                    BindingFlags.NonPublic |
+                    BindingFlags.Static |
+                    BindingFlags.Instance |
+                    BindingFlags.DeclaredOnly)
+                .Where(a => a != null && a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
+                .ToArray()!;
+        }
+
+        /// <summary>
+        ///     Retorna todos os métodos declaradas no tipo apenas dos evento.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        private static IEnumerable<MethodInfo> MyEventsMethods(this Type? type)
+        {
+            if (type == null) return new MethodInfo[0];
+
+            return type.GetEvents(
+                    BindingFlags.Public |
+                    BindingFlags.NonPublic |
+                    BindingFlags.Static |
+                    BindingFlags.Instance |
+                    BindingFlags.DeclaredOnly)
+                .SelectMany(a => new[] {a.AddMethod, a.RemoveMethod, a.RaiseMethod})
+                .Where(a => a != null && a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
+                .ToArray()!;
+        }
+
+        /// <summary>
         ///     Retorna todos os métodos declaradas no tipo apenas das propriedades.
         /// </summary>
         /// <param name="type">Tipo.</param>
@@ -140,7 +258,7 @@ namespace Cabrones.Utils.Reflection
                     BindingFlags.DeclaredOnly)
                 .SelectMany(a => new[] {a.GetMethod, a.SetMethod})
                 .Where(a => a != null && a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
-                .ToList()!;
+                .ToArray()!;
         }
 
         /// <summary>
@@ -152,7 +270,8 @@ namespace Cabrones.Utils.Reflection
         {
             if (type == null) return new MethodInfo[0];
 
-            var myProperties = MyProperties(type).ToList();
+            var myPropertiesMethods = MyProperties(type).ToArray();
+            var myEventsMethods = MyEventsMethods(type).ToArray();
 
             return type.GetMethods(
                     BindingFlags.Public |
@@ -160,9 +279,11 @@ namespace Cabrones.Utils.Reflection
                     BindingFlags.Static |
                     BindingFlags.Instance |
                     BindingFlags.DeclaredOnly)
-                .Where(method => !myProperties.Contains(method))
+                .Where(method => 
+                    !myPropertiesMethods.Contains(method) &&
+                    !myEventsMethods.Contains(method))
                 .Where(a => a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
-                .ToList();
+                .ToArray();
         }
 
         /// <summary>
@@ -175,9 +296,25 @@ namespace Cabrones.Utils.Reflection
             if (type == null) return new Type[0];
 
             var allImplementations = AllImplementations(type)
-                .Where(a => a.Assembly == type.Assembly).ToList();
+                .Where(a => a.Assembly == type.Assembly).ToArray();
 
             return allImplementations;
+        }
+
+        /// <summary>
+        ///     Retorna todos os eventos no tipo que não sejam herdados.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<EventInfo> MyOwnEvents(this Type? type)
+        {
+            if (type == null) return new EventInfo[0];
+            
+            var myEvents = MyEvents(type);
+            var eventsOfInterfaces = 
+                type.GetInterfaces().SelectMany(a => a.GetEvents().Select(a => $"{a}"));
+
+            return myEvents.Where(a => !eventsOfInterfaces.Contains(a.ToString())).ToArray();
         }
 
         /// <summary>
@@ -219,7 +356,7 @@ namespace Cabrones.Utils.Reflection
                 .Where(a =>
                     !a.Name.Contains(".") &&
                     !inAncestral.Contains(a.ToString()))
-                .ToList();
+                .ToArray();
 
             return own;
         }
@@ -239,7 +376,7 @@ namespace Cabrones.Utils.Reflection
                 .Except(baseImplementations)
                 .Union(new[] {type.BaseType})
                 .Where(a => a != null && a.Assembly == type.Assembly)
-                .ToList();
+                .ToArray();
 
             return myOwnImplementations!;
         }

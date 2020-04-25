@@ -133,7 +133,7 @@ namespace Cabrones.Utils.Reflection
             if ((@event.AddMethod ?? @event.RemoveMethod ?? throw new ArgumentException()).IsStatic)
                 result.Append("static ");
 
-            result.Append($"{@event.EventHandlerType.ToSignatureCSharp()} {@event.Name}");
+            result.Append($"{@event.EventHandlerType!.ToSignatureCSharp()} {@event.Name}");
 
             return result.ToString();
         }

@@ -9,6 +9,28 @@ namespace Cabrones.Utils.Reflection
     public class TypeExtensionsTest
     {
         [Theory]
+        [InlineData(typeof(ClasseComEvento), 3, 2)]
+        [InlineData(typeof(InterfaceComEvento), 1, 1)]
+        public void AllEvents_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadasComInterface,
+            int declaraçõesEsperadasSemInterface)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            // ReSharper disable once RedundantArgumentDefaultValue
+            var eventosSemInterfaces = tipo.AllEvents(false).Select(a => a.ToString()).ToList();
+            var eventosComInterfaces = tipo.AllEvents(true).Select(a => a.ToString()).ToList();
+
+            // Assert, Then
+
+            eventosSemInterfaces.Should().HaveCount(declaraçõesEsperadasSemInterface);
+            eventosComInterfaces.Should().HaveCount(declaraçõesEsperadasComInterface);
+        }
+        
+        [Theory]
         [InlineData(typeof(IInterface1), 4, 4)]
         [InlineData(typeof(IInterface2), 4, 4)]
         [InlineData(typeof(IInterface3), 8, 4)]
@@ -90,6 +112,25 @@ namespace Cabrones.Utils.Reflection
         }
 
         [Theory]
+        [InlineData(typeof(ClasseComEvento), 3)]
+        [InlineData(typeof(InterfaceComEvento), 1)]
+        [InlineData(null, 0)]
+        public void MyEvents_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            var eventos = tipo.MyEvents().Select(a => a.ToString()).ToList();
+
+            // Assert, Then
+
+            eventos.Should().HaveCount(declaraçõesEsperadas);
+        }
+
+        [Theory]
         [InlineData(typeof(IInterface1), 4)]
         [InlineData(typeof(IInterface2), 4)]
         [InlineData(typeof(IInterface3), 4)]
@@ -163,6 +204,25 @@ namespace Cabrones.Utils.Reflection
                 implementations.Should().BeEquivalentTo(implementaçõesEsperadas.ToList());
             else
                 implementations.Should().NotBeEquivalentTo(implementaçõesEsperadas.ToList());
+        }
+
+        [Theory]
+        [InlineData(typeof(ClasseComEvento), 2)]
+        [InlineData(typeof(InterfaceComEvento), 1)]
+        [InlineData(null, 0)]
+        public void MyOwnEvents_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            var eventos = tipo.MyOwnEvents().Select(a => a.ToString()).ToList();
+
+            // Assert, Then
+
+            eventos.Should().HaveCount(declaraçõesEsperadas);
         }
 
         [Theory]

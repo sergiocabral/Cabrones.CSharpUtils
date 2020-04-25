@@ -2,12 +2,13 @@
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnassignedGetOnlyAutoProperty
+// ReSharper disable EventNeverSubscribedTo.Global
+#pragma warning disable 67
+#pragma warning disable 693
 
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-
-#pragma warning disable 693
 
 namespace Cabrones.Utils.Reflection
 {
@@ -214,11 +215,17 @@ namespace Cabrones.Utils.Reflection
         public int PropriedadeGetInternal { internal get; set; }
         public int PropriedadeSetProtected { get; protected set; }
     }
+
+    public interface InterfaceComEvento
+    {
+        public event Action EventoDaInterface;
+    }
     
     [ExcludeFromCodeCoverage]
-    public class ClasseComEvento
+    public class ClasseComEvento: InterfaceComEvento
     {
         public event Action EventoDaInstância;
         public static event Func<string, int> EventoEstático;
+        public event Action EventoDaInterface;
     }
 }
