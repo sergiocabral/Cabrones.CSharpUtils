@@ -125,8 +125,15 @@ namespace Cabrones.Utils.Reflection
         {
             set => throw new NotImplementedException();
         }
+        
+        public int ClasseNetaPropriedadePrivadaInstânciaPublic
+        {
+            set => throw new NotImplementedException();
+        }
 
         private static int ClasseNetaPropriedadePrivadaEstática { get; }
+        
+        public static int ClasseNetaPropriedadePrivadaEstáticaPublic { get; }
 
         public IDictionary<string[,], string[][][]> PropriedadeComplicada { get; set; }
 
@@ -198,5 +205,13 @@ namespace Cabrones.Utils.Reflection
         {
             return Listagem.Valor1;
         }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ClasseComModificadoresDeAcesso
+    {
+        public int PropriedadeSetPrivate { get; private set; }
+        public int PropriedadeGetInternal { internal get; set; }
+        public int PropriedadeSetProtected { get; protected set; }
     }
 }

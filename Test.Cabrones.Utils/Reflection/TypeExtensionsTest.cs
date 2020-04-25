@@ -14,7 +14,7 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(IInterface3), 8, 4)]
         [InlineData(typeof(ClassePai), 16, 8)]
         [InlineData(typeof(ClasseFilha), 32, 20)]
-        [InlineData(typeof(ClasseNeta), 40, 28)]
+        [InlineData(typeof(ClasseNeta), 42, 30)]
         public void AllProperties_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadasComInterface,
             int declaraçõesEsperadasSemInterface)
         {
@@ -95,7 +95,7 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(IInterface3), 4)]
         [InlineData(typeof(ClassePai), 8)]
         [InlineData(typeof(ClasseFilha), 12)]
-        [InlineData(typeof(ClasseNeta), 8)]
+        [InlineData(typeof(ClasseNeta), 10)]
         [InlineData(null, 0)]
         public void MyProperties_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
         {
@@ -171,7 +171,7 @@ namespace Cabrones.Utils.Reflection
         [InlineData(typeof(IInterface3), 4)]
         [InlineData(typeof(ClassePai), 0)]
         [InlineData(typeof(ClasseFilha), 8)]
-        [InlineData(typeof(ClasseNeta), 8)]
+        [InlineData(typeof(ClasseNeta), 10)]
         [InlineData(null, 0)]
         public void MyOwnProperties_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
         {

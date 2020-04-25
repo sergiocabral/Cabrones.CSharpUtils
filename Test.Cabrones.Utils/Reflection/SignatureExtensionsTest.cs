@@ -71,10 +71,10 @@ namespace Cabrones.Utils.Reflection
 
         [Theory]
         [InlineData(typeof(IInterface1), "Interface1Propriedade", "Int32 Interface1Propriedade { get; set; }")]
-        [InlineData(typeof(ClasseNeta), "ClasseNetaPropriedadePrivadaEstática",
-            "static Int32 ClasseNetaPropriedadePrivadaEstática { get; }")]
-        [InlineData(typeof(ClasseNeta), "ClasseNetaPropriedadePrivadaInstância",
-            "Int32 ClasseNetaPropriedadePrivadaInstância { set; }")]
+        [InlineData(typeof(ClasseNeta), "ClasseNetaPropriedadePrivadaEstáticaPublic",
+            "static Int32 ClasseNetaPropriedadePrivadaEstáticaPublic { get; }")]
+        [InlineData(typeof(ClasseNeta), "ClasseNetaPropriedadePrivadaInstânciaPublic",
+            "Int32 ClasseNetaPropriedadePrivadaInstânciaPublic { set; }")]
         [InlineData(typeof(ClasseNeta), "PropriedadeComplicada",
             "IDictionary<String[,], String[][][]> PropriedadeComplicada { get; set; }")]
         [InlineData(typeof(ClasseComGenerics<,>), "PropriedadeComGenerics",
@@ -83,6 +83,9 @@ namespace Cabrones.Utils.Reflection
             "String PropriedadeComGenerics { get; set; }")]
         [InlineData(typeof(ClasseComMembrosFilhos), "Lista",
             "ClasseComMembrosFilhos.Listagem Lista { get; set; }")]
+        [InlineData(typeof(ClasseComModificadoresDeAcesso), "PropriedadeSetPrivate", "Int32 PropriedadeSetPrivate { get; }")]
+        [InlineData(typeof(ClasseComModificadoresDeAcesso), "PropriedadeGetInternal", "Int32 PropriedadeGetInternal { set; }")]
+        [InlineData(typeof(ClasseComModificadoresDeAcesso), "PropriedadeSetProtected", "Int32 PropriedadeSetProtected { get; }")]
         public void ToSignatureCSharp_para_PropertyInfo_deve_funcionar_corretamente(Type tipo, string nomeDaPropriedade,
             string assinaturaEsperada)
         {

@@ -105,8 +105,17 @@ namespace Cabrones.Utils.Reflection
                 result.Append("static ");
 
             result.Append($"{property.PropertyType.ToSignatureCSharp()} {property.Name} {{ ");
-            if (property.CanRead) result.Append("get; ");
-            if (property.CanWrite) result.Append("set; ");
+            
+            if (property.CanRead && 
+                (property.GetMethod?.Attributes & MethodAttributes.Private) != MethodAttributes.Private &&
+                (property.GetMethod?.Attributes & MethodAttributes.FamANDAssem) == MethodAttributes.FamANDAssem) 
+                result.Append("get; ");
+            
+            if (property.CanWrite && 
+                (property.SetMethod?.Attributes & MethodAttributes.Private) != MethodAttributes.Private &&
+                (property.SetMethod?.Attributes & MethodAttributes.FamANDAssem) == MethodAttributes.FamANDAssem) 
+                result.Append("set; ");
+            
             result.Append("}");
 
             return result.ToString();
