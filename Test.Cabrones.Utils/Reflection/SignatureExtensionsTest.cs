@@ -102,5 +102,25 @@ namespace Cabrones.Utils.Reflection
 
             assinatura.Should().Be(assinaturaEsperada);
         }
+
+        [Theory]
+        [InlineData(typeof(ClasseComEvento), "EventoDaInstância", "Action EventoDaInstância")]
+        [InlineData(typeof(ClasseComEvento), "EventoEstático", "static Func<String, Int32> EventoEstático")]
+        public void ToSignatureCSharp_para_EventInfo_deve_funcionar_corretamente(Type tipo, string nomeDoEvento,
+            string assinaturaEsperada)
+        {
+            // Arrange, Given
+
+            var evento = tipo.GetEvent(nomeDoEvento,
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+
+            // Act, When
+
+            var assinatura = evento.ToSignatureCSharp();
+
+            // Assert, Then
+
+            assinatura.Should().Be(assinaturaEsperada);
+        }
     }
 }

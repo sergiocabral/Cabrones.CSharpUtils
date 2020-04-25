@@ -120,5 +120,22 @@ namespace Cabrones.Utils.Reflection
 
             return result.ToString();
         }
+        
+        /// <summary>
+        ///     Formata o objeto em uma assinatura C#
+        /// </summary>
+        /// <param name="event">Evento.</param>
+        /// <returns>Assinatura.</returns>
+        public static string ToSignatureCSharp(this EventInfo @event)
+        {
+            var result = new StringBuilder();
+
+            if ((@event.AddMethod ?? @event.RemoveMethod ?? throw new ArgumentException()).IsStatic)
+                result.Append("static ");
+
+            result.Append($"{@event.EventHandlerType.ToSignatureCSharp()} {@event.Name}");
+
+            return result.ToString();
+        }
     }
 }

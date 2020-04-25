@@ -214,4 +214,11 @@ namespace Cabrones.Utils.Reflection
         public int PropriedadeGetInternal { internal get; set; }
         public int PropriedadeSetProtected { get; protected set; }
     }
+    
+    [ExcludeFromCodeCoverage]
+    public class ClasseComEvento
+    {
+        public event Action EventoDaInstância;
+        public static event Func<string, int> EventoEstático;
+    }
 }
