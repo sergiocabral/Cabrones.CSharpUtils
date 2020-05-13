@@ -6,6 +6,11 @@
     public enum PermissionMapCharset
     {
         /// <summary>
+        ///     Especifica um texto customizado.
+        /// </summary>
+        Custom,
+
+        /// <summary>
         ///     Texto como número binário.
         /// </summary>
         Binary,
@@ -53,11 +58,6 @@
         /// <summary>
         ///     Texto como caracteres Unicode visíveis.
         /// </summary>
-        Unicode,
-
-        /// <summary>
-        ///     Especifica um texto customizado.
-        /// </summary>
-        Custom
+        Unicode
     }
 }

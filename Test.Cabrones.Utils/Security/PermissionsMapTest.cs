@@ -251,5 +251,30 @@ namespace Cabrones.Utils.Security
 
             sut.CharsetValue.Should().Be(charsetEsperado);
         }
+
+        [Fact]
+        public void verificar_valores_das_propriedades()
+        {
+            // Arrange, Given
+
+            var valorParaPermissions = this.FixtureMany<string>();
+            var valorParaSecurables = this.FixtureMany<string>();
+            var valorParaCharset = this.Fixture<PermissionMapCharset>();
+
+            if (valorParaCharset == PermissionMapCharset.Custom) valorParaCharset++;
+
+            // Act, When
+
+            var sut = new PermissionMap(
+                valorParaPermissions,
+                valorParaSecurables,
+                valorParaCharset);
+
+            // Assert, Then
+
+            sut.Permissions.Should().BeSameAs(valorParaPermissions);
+            sut.Securables.Should().BeSameAs(valorParaSecurables);
+            sut.Charset.Should().Be(valorParaCharset);
+        }
     }
 }
