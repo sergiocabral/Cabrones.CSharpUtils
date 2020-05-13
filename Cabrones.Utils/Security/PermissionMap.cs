@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Cabrones.Utils.Math;
 using Cabrones.Utils.Text;
 
 namespace Cabrones.Utils.Security
@@ -9,51 +10,69 @@ namespace Cabrones.Utils.Security
     /// <summary>
     ///     Faz um mapeamento de permissões e securables para string, e vice-versa
     /// </summary>
-    public class PermissionMap
+    public class PermissionMap<TSecurable, TPermission>
+        where TSecurable : notnull
+        where TPermission : notnull
     {
+        /// <summary>
+        ///     Tamanho máximo do bloco binário.
+        /// </summary>
+        private const int ChunkBinarySize = sizeof(long) * 8;
+
+        /// <summary>
+        ///     Comprimento máximo do bloco.
+        /// </summary>
+        private readonly int _chunkSize;
+
         /// <summary>
         ///     Construtor.
         /// </summary>
-        /// <param name="permissions">Lista de todas as permissões possíveis.</param>
         /// <param name="securables">Lista de todos os itens do sistema que tem permissão associada.</param>
+        /// <param name="permissions">Lista de todas as permissões possíveis.</param>
         /// <param name="charset">Modos possíveis do texto puro que representa o mapa de permissões.</param>
         public PermissionMap(
-            IEnumerable permissions,
-            IEnumerable securables,
+            IEnumerable<TSecurable> securables,
+            IEnumerable<TPermission> permissions,
             PermissionMapCharset charset = PermissionMapCharset.NumbersAndLettersCaseSensitive) :
-            this(permissions, securables, charset, null)
+            this(securables, permissions, charset, null)
         {
         }
 
         /// <summary>
         ///     Construtor.
         /// </summary>
-        /// <param name="permissions">Lista de todas as permissões possíveis.</param>
         /// <param name="securables">Lista de todos os itens do sistema que tem permissão associada.</param>
+        /// <param name="permissions">Lista de todas as permissões possíveis.</param>
         /// <param name="charset">Texto customizado para o mapa de permissões.</param>
         public PermissionMap(
-            IEnumerable permissions,
-            IEnumerable securables,
+            IEnumerable<TSecurable> securables,
+            IEnumerable<TPermission> permissions,
             string charset) :
-            this(permissions, securables, PermissionMapCharset.Custom, charset)
+            this(securables, permissions, PermissionMapCharset.Custom, charset)
         {
         }
 
         /// <summary>
         ///     Construtor privado.
         /// </summary>
-        /// <param name="permissions">Lista de todas as permissões possíveis.</param>
         /// <param name="securables">Lista de todos os itens do sistema que tem permissão associada.</param>
+        /// <param name="permissions">Lista de todas as permissões possíveis.</param>
         /// <param name="charset">Modos possíveis do texto puro que representa o mapa de permissões.</param>
         /// <param name="charsetValue">Texto customizado para o mapa de permissões.</param>
         private PermissionMap(
-            IEnumerable permissions,
-            IEnumerable securables,
+            IEnumerable<TSecurable> securables,
+            IEnumerable<TPermission> permissions,
             PermissionMapCharset charset,
             string? charsetValue)
         {
-            Permissions = permissions;
-            Securables = securables;
+            Permissions = permissions
+                .OrderBy(a => $"{a}")
+                .ToArray();
+
+            Securables = securables
+                .OrderBy(a => $"{a}")
+                .ToArray();
+
             Charset = charset;
 
             switch (charset)
@@ -114,6 +133,10 @@ namespace Cabrones.Utils.Security
                 default:
                     throw new ArgumentOutOfRangeException(nameof(charset), charset, null);
             }
+
+            var maxValueBinary = new string('1', ChunkBinarySize);
+            var maxValueInteger = Convert.ToUInt64(maxValueBinary, 2);
+            _chunkSize = maxValueInteger.ConvertToNumericBase(CharsetValue.ToCharArray()).Length;
         }
 
         /// <summary>
@@ -127,13 +150,76 @@ namespace Cabrones.Utils.Security
         public string CharsetValue { get; }
 
         /// <summary>
-        ///     Lista de todas as permissões possíveis.
-        /// </summary>
-        public IEnumerable Permissions { get; }
-
-        /// <summary>
         ///     Lista de todos os itens do sistema que tem permissão associada.
         /// </summary>
-        public IEnumerable Securables { get; }
+        public TSecurable[] Securables { get; }
+
+        /// <summary>
+        ///     Lista de todas as permissões possíveis.
+        /// </summary>
+        public TPermission[] Permissions { get; }
+
+        /// <summary>
+        ///     Gera o mapa.
+        /// </summary>
+        /// <returns>Mapa de bits.</returns>
+        public string Generate(IDictionary<TSecurable, IList<TPermission>> securableAndPermissions)
+        {
+            var bits = new byte[Permissions.Length * Securables.Length];
+
+            var index = 0;
+            foreach (var securable in Securables)
+            {
+                var securableIsPresent = securableAndPermissions.ContainsKey(securable);
+                foreach (var permission in Permissions)
+                {
+                    var permissionIsPresent =
+                        securableIsPresent &&
+                        securableAndPermissions[securable].Contains(permission);
+                    bits[index] = permissionIsPresent ? (byte) 1 : (byte) 0;
+
+                    index++;
+                }
+            }
+
+            var bitsAsText = new string(bits.Select(a => $"{a}"[0]).ToArray());
+
+            return ConvertFromBinary(bitsAsText);
+        }
+
+
+        /// <summary>
+        ///     Converte o texto de binário para o formato de saída.
+        /// </summary>
+        /// <param name="bits">Mapa de bits.</param>
+        /// <returns>Mapa de bits no formato esperado.</returns>
+        private string ConvertFromBinary(string bits)
+        {
+            var chunksBinary = Enumerable
+                .Range(0, (int) System.Math.Ceiling((double) bits.Length / ChunkBinarySize))
+                .Select(i => bits
+                    .PadLeft(ChunkBinarySize, '0')
+                    .Substring(i * ChunkBinarySize, ChunkBinarySize))
+                .ToArray();
+
+            var chunksDecimal = chunksBinary
+                .Select(a => (ulong) Convert.ToInt64(a, 2))
+                .ToArray();
+
+            var chunks = chunksDecimal
+                .Select(a => a
+                    .ConvertToNumericBase(CharsetValue.ToCharArray())
+                    .PadLeft(_chunkSize, CharsetValue[0]))
+                .ToArray();
+
+            var map = string.Join(string.Empty, chunks);
+
+            var i = 0;
+            while (i < map.Length && map[i] == CharsetValue[0]) i++;
+
+            map = map.Substring(i);
+
+            return map;
+        }
     }
 }

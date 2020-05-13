@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Cabrones.Test;
@@ -18,7 +19,7 @@ namespace Cabrones.Utils.Security
             // Arrange, Given
             // Act, When
 
-            Func<PermissionMap> criar = () => new PermissionMap(
+            Func<PermissionMap<string, string>> criar = () => new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 charset);
@@ -40,7 +41,7 @@ namespace Cabrones.Utils.Security
             // Arrange, Given
             // Act, When
 
-            Func<PermissionMap> criar = () => new PermissionMap(
+            Func<PermissionMap<string, string>> criar = () => new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 charset);
@@ -58,7 +59,7 @@ namespace Cabrones.Utils.Security
 
             // Act, When
 
-            Func<PermissionMap> criar = () => new PermissionMap(
+            Func<PermissionMap<string, string>> criar = () => new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 PermissionMapCharset.Custom);
@@ -74,7 +75,7 @@ namespace Cabrones.Utils.Security
             // Arrange, Given
             // Act, When
 
-            Func<PermissionMap> criar = () => new PermissionMap(
+            Func<PermissionMap<string, string>> criar = () => new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 (PermissionMapCharset) int.MaxValue);
@@ -85,12 +86,45 @@ namespace Cabrones.Utils.Security
         }
 
         [Fact]
+        public void o_resultado_do_mapa_sempre_é_vazio_se_as_permissões_estiverem_vazias()
+        {
+            foreach (var charset in Enum.GetValues(typeof(PermissionMapCharset)).OfType<PermissionMapCharset>())
+            {
+                // Arrange, Given
+
+                var valorParaSecurables = this.FixtureMany<string>(10).ToArray();
+                var valorParaPermissions = this.FixtureMany<string>(2).ToArray();
+
+                var nenhumaPermissão = new Dictionary<string, IList<string>>();
+
+                var sut =
+                    charset != PermissionMapCharset.Custom
+                        ? new PermissionMap<string, string>(
+                            valorParaSecurables,
+                            valorParaPermissions,
+                            charset)
+                        : new PermissionMap<string, string>(
+                            valorParaSecurables,
+                            valorParaPermissions,
+                            "abcd");
+
+                // Act, When
+
+                var mapa = sut.Generate(nenhumaPermissão);
+
+                // Assert, Then
+
+                mapa.Should().BeEmpty();
+            }
+        }
+
+        [Fact]
         public void verificar_charset_Ascii()
         {
             // Arrange, Given
             // Act, When
 
-            var sut = new PermissionMap(
+            var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 PermissionMapCharset.Ascii);
@@ -107,7 +141,7 @@ namespace Cabrones.Utils.Security
             // Arrange, Given
             // Act, When
 
-            var sut = new PermissionMap(
+            var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 PermissionMapCharset.Binary);
@@ -123,7 +157,7 @@ namespace Cabrones.Utils.Security
             // Arrange, Given
             // Act, When
 
-            var sut = new PermissionMap(
+            var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 PermissionMapCharset.Decimal);
@@ -139,7 +173,7 @@ namespace Cabrones.Utils.Security
             // Arrange, Given
             // Act, When
 
-            var sut = new PermissionMap(
+            var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 PermissionMapCharset.Hexadecimal);
@@ -155,7 +189,7 @@ namespace Cabrones.Utils.Security
             // Arrange, Given
             // Act, When
 
-            var sut = new PermissionMap(
+            var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 PermissionMapCharset.Letters);
@@ -171,7 +205,7 @@ namespace Cabrones.Utils.Security
             // Arrange, Given
             // Act, When
 
-            var sut = new PermissionMap(
+            var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 PermissionMapCharset.LettersCaseSensitive);
@@ -187,7 +221,7 @@ namespace Cabrones.Utils.Security
             // Arrange, Given
             // Act, When
 
-            var sut = new PermissionMap(
+            var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 PermissionMapCharset.NumbersAndLetters);
@@ -203,7 +237,7 @@ namespace Cabrones.Utils.Security
             // Arrange, Given
             // Act, When
 
-            var sut = new PermissionMap(
+            var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>());
 
@@ -218,7 +252,7 @@ namespace Cabrones.Utils.Security
             // Arrange, Given
             // Act, When
 
-            var sut = new PermissionMap(
+            var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 PermissionMapCharset.Octal);
@@ -242,7 +276,7 @@ namespace Cabrones.Utils.Security
 
             // Act, When
 
-            var sut = new PermissionMap(
+            var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
                 PermissionMapCharset.Unicode);
@@ -257,23 +291,31 @@ namespace Cabrones.Utils.Security
         {
             // Arrange, Given
 
-            var valorParaPermissions = this.FixtureMany<string>();
-            var valorParaSecurables = this.FixtureMany<string>();
+            var valorParaSecurables = this.FixtureMany<DateTime>().ToArray();
+            var valorParaPermissions = this.FixtureMany<DateTime>().ToArray();
             var valorParaCharset = this.Fixture<PermissionMapCharset>();
 
             if (valorParaCharset == PermissionMapCharset.Custom) valorParaCharset++;
 
             // Act, When
 
-            var sut = new PermissionMap(
-                valorParaPermissions,
+            var sut = new PermissionMap<DateTime, DateTime>(
                 valorParaSecurables,
+                valorParaPermissions,
                 valorParaCharset);
 
             // Assert, Then
 
-            sut.Permissions.Should().BeSameAs(valorParaPermissions);
-            sut.Securables.Should().BeSameAs(valorParaSecurables);
+            sut.Permissions.Should().BeEquivalentTo(
+                valorParaPermissions
+                    .OrderBy(a => $"{a}"),
+                options => options.WithStrictOrdering());
+
+            sut.Securables.Should().BeEquivalentTo(
+                valorParaSecurables
+                    .OrderBy(a => $"{a}"),
+                options => options.WithStrictOrdering());
+
             sut.Charset.Should().Be(valorParaCharset);
         }
     }
