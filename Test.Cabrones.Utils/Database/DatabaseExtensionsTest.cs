@@ -10,7 +10,7 @@ namespace Cabrones.Utils.Database
     public class DatabaseExtensionsTest
     {
         [Fact]
-        public void método_ExtractSqlQuery_deve_transformar_DbCommand_em_texto()
+        public void método_ExtractSqlQuery_deve_transformar_IDbCommand_em_texto()
         {
             // Arrange, Given
 

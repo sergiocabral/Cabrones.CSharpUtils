@@ -17,7 +17,7 @@ namespace Cabrones.Utils.Database
         /// </summary>
         /// <param name="command">Comando.</param>
         /// <returns>Consulta SQL.</returns>
-        public static string ExtractSqlQuery(this DbCommand command)
+        public static string ExtractSqlQuery(this IDbCommand command)
         {
             static string FromString(object value)
             {
