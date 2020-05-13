@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace Cabrones.Utils.Math
 {
@@ -86,7 +87,7 @@ namespace Cabrones.Utils.Math
                     if (baseChars[nextCharIndex] == next)
                         break;
 
-                result += (ulong) (System.Math.Pow(baseChars.Length, number.Length - 1 - currentChar) * nextCharIndex);
+                result += (ulong) (BigInteger.Pow(baseChars.Length, number.Length - 1 - currentChar) * nextCharIndex);
             }
 
             return result;

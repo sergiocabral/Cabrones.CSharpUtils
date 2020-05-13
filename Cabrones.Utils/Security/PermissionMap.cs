@@ -25,6 +25,11 @@ namespace Cabrones.Utils.Security
         private readonly int _chunkSize;
 
         /// <summary>
+        ///     Comprimento máximo do mapa.
+        /// </summary>
+        private readonly int _mapSize;
+
+        /// <summary>
         ///     Construtor.
         /// </summary>
         /// <param name="securables">Lista de todos os itens do sistema que tem permissão associada.</param>
@@ -136,7 +141,11 @@ namespace Cabrones.Utils.Security
 
             var maxValueBinary = new string('1', ChunkBinarySize);
             var maxValueInteger = Convert.ToUInt64(maxValueBinary, 2);
-            _chunkSize = maxValueInteger.ConvertToNumericBase(CharsetValue.ToCharArray()).Length;
+            var maxValue = maxValueInteger.ConvertToNumericBase(CharsetValue.ToCharArray());
+            _chunkSize = maxValue.Length;
+            _mapSize = maxValue.Length *
+                       (int) System.Math.Ceiling(Permissions.Length * Securables.Length /
+                                                 (double) maxValueBinary.Length);
         }
 
         /// <summary>
@@ -187,12 +196,74 @@ namespace Cabrones.Utils.Security
             return ConvertFromBinary(bitsAsText);
         }
 
+        /// <summary>
+        ///     Restaura as permissões a partir do mapa.
+        /// </summary>
+        /// <param name="map">Mapa de bits.</param>
+        /// <returns>Estrutura de permissões.</returns>
+        public IDictionary<TSecurable, IEnumerable<TPermission>> Restore(string map)
+        {
+            var securableAndPermissions = new Dictionary<TSecurable, IEnumerable<TPermission>>();
+
+            var bits = ConvertToBinary(map).Select(a => a - '0').ToArray();
+
+            var index = 0;
+            foreach (var securable in Securables)
+            foreach (var permission in Permissions)
+            {
+                if (bits[index] == 1)
+                {
+                    if (!securableAndPermissions.ContainsKey(securable))
+                        securableAndPermissions[securable] = new List<TPermission>();
+
+                    ((List<TPermission>) securableAndPermissions[securable]).Add(permission);
+                }
+
+                index++;
+            }
+
+
+            return securableAndPermissions;
+        }
 
         /// <summary>
-        ///     Converte o texto de binário para o formato de saída.
+        ///     Converte o mapa de saída para o mapa binário.
+        /// </summary>
+        /// <param name="map">Mapa de saída.</param>
+        /// <returns>Mapa de bits.</returns>
+        private string ConvertToBinary(string map)
+        {
+            var missingPadding = _mapSize - map.Length;
+            map = new string(CharsetValue[0], missingPadding) + map;
+
+            var chunks = Enumerable
+                .Range(0, map.Length / _chunkSize)
+                .Select(i => map.Substring(i * _chunkSize, _chunkSize))
+                .ToArray();
+
+            var chunksDecimal = chunks
+                .Select(a => a.ConvertFromNumericBase(CharsetValue.ToCharArray()))
+                .ToArray();
+
+            var chunksBinary = chunksDecimal
+                .Select(a => Convert
+                    .ToString((long) a, 2)
+                    .PadLeft(ChunkBinarySize, '0'))
+                .ToArray();
+
+            var bits = string.Join(string.Empty, chunksBinary);
+
+            var extraPadding = bits.Length - Permissions.Length * Securables.Length;
+            bits = bits.Substring(extraPadding);
+
+            return bits;
+        }
+
+        /// <summary>
+        ///     Converte o mapa binário para o mapa de saída.
         /// </summary>
         /// <param name="bits">Mapa de bits.</param>
-        /// <returns>Mapa de bits no formato esperado.</returns>
+        /// <returns>Mapa de saída.</returns>
         private string ConvertFromBinary(string bits)
         {
             var missingPadding = ChunkBinarySize - bits.Length % ChunkBinarySize;

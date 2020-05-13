@@ -29,6 +29,8 @@ namespace Cabrones.Utils.Math
         }
 
         [Theory]
+        [InlineData("lYGhA16ahyf", "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            18446744073709551615)]
         [InlineData("baadce", "abcde", 3214)]
         [InlineData("211435", "12345", 3214)]
         [InlineData("C3",

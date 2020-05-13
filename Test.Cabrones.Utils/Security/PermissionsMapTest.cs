@@ -84,7 +84,7 @@ namespace Cabrones.Utils.Security
 
                 // Assert, Then
 
-                mapa.Should().BeEmpty();
+                mapa.Should().BeEmpty(charset.ToString());
             }
         }
 
@@ -122,7 +122,62 @@ namespace Cabrones.Utils.Security
 
                 // Assert, Then
 
-                mapa.Should().NotBeEmpty();
+                mapa.Should().NotBeEmpty(charset.ToString());
+            }
+        }
+
+        [Theory]
+        [InlineData(10, 2)]
+        [InlineData(300, 5)]
+        public void deve_ser_possível_fazer_a_operação_de_ida_e_volta(int securables, int permissions)
+        {
+            foreach (var charset in Enum.GetValues(typeof(PermissionMapCharset)).OfType<PermissionMapCharset>())
+            {
+                // Arrange, Given
+
+                var valorParaSecurables = this.FixtureMany<string>(securables).ToArray();
+                var valorParaPermissions = this.FixtureMany<string>(permissions).ToArray();
+
+                var todasAsPermissão = valorParaSecurables
+                    .ToDictionary(
+                        a => a,
+                        a => valorParaPermissions.AsEnumerable());
+
+                var sut =
+                    charset != PermissionMapCharset.Custom
+                        ? new PermissionMap<string, string>(
+                            valorParaSecurables,
+                            valorParaPermissions,
+                            charset)
+                        : new PermissionMap<string, string>(
+                            valorParaSecurables,
+                            valorParaPermissions,
+                            "abcd");
+
+                // Act, When
+
+                var mapa = sut.Generate(todasAsPermissão);
+                var permissoes = sut.Restore(mapa);
+
+                // Assert, Then
+
+                static string[] ConverteParaLista(IDictionary<string, IEnumerable<string>> dicionário)
+                {
+                    return
+                        dicionário
+                            .SelectMany(a => a
+                                .Value
+                                .Select(b => $"{a.Key}-{b}"))
+                            .OrderBy(a => a)
+                            .ToArray();
+                }
+
+                var permissõesDeEntrada = ConverteParaLista(todasAsPermissão);
+                var permissõesDeSaída = ConverteParaLista(permissoes);
+
+                permissõesDeSaída.Should()
+                    .BeEquivalentTo(permissõesDeEntrada, options => options.WithStrictOrdering(),
+                        charset.ToString());
             }
         }
 
