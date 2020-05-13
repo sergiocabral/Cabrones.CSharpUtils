@@ -52,6 +52,80 @@ namespace Cabrones.Utils.Security
             else criar.Should().NotThrow();
         }
 
+        [Theory]
+        [InlineData(10, 2)]
+        [InlineData(300, 5)]
+        public void o_resultado_do_mapa_sempre_é_vazio_se_as_permissões_estiverem_vazias(int securables,
+            int permissions)
+        {
+            foreach (var charset in Enum.GetValues(typeof(PermissionMapCharset)).OfType<PermissionMapCharset>())
+            {
+                // Arrange, Given
+
+                var valorParaSecurables = this.FixtureMany<string>(securables).ToArray();
+                var valorParaPermissions = this.FixtureMany<string>(permissions).ToArray();
+
+                var nenhumaPermissão = new Dictionary<string, IEnumerable<string>>();
+
+                var sut =
+                    charset != PermissionMapCharset.Custom
+                        ? new PermissionMap<string, string>(
+                            valorParaSecurables,
+                            valorParaPermissions,
+                            charset)
+                        : new PermissionMap<string, string>(
+                            valorParaSecurables,
+                            valorParaPermissions,
+                            "abcd");
+
+                // Act, When
+
+                var mapa = sut.Generate(nenhumaPermissão);
+
+                // Assert, Then
+
+                mapa.Should().BeEmpty();
+            }
+        }
+
+        [Theory]
+        [InlineData(10, 2)]
+        [InlineData(300, 5)]
+        public void verifica_o_resultado_do_mapa_para_as_permissões_informadas(int securables, int permissions)
+        {
+            foreach (var charset in Enum.GetValues(typeof(PermissionMapCharset)).OfType<PermissionMapCharset>())
+            {
+                // Arrange, Given
+
+                var valorParaSecurables = this.FixtureMany<string>(securables).ToArray();
+                var valorParaPermissions = this.FixtureMany<string>(permissions).ToArray();
+
+                var todasAsPermissão = valorParaSecurables
+                    .ToDictionary(
+                        a => a,
+                        a => valorParaPermissions.AsEnumerable());
+
+                var sut =
+                    charset != PermissionMapCharset.Custom
+                        ? new PermissionMap<string, string>(
+                            valorParaSecurables,
+                            valorParaPermissions,
+                            charset)
+                        : new PermissionMap<string, string>(
+                            valorParaSecurables,
+                            valorParaPermissions,
+                            "abcd");
+
+                // Act, When
+
+                var mapa = sut.Generate(todasAsPermissão);
+
+                // Assert, Then
+
+                mapa.Should().NotBeEmpty();
+            }
+        }
+
         [Fact]
         public void falhar_se_charset_Custom_não_informar_o_texto()
         {
@@ -83,39 +157,6 @@ namespace Cabrones.Utils.Security
             // Assert, Then
 
             criar.Should().ThrowExactly<ArgumentOutOfRangeException>();
-        }
-
-        [Fact]
-        public void o_resultado_do_mapa_sempre_é_vazio_se_as_permissões_estiverem_vazias()
-        {
-            foreach (var charset in Enum.GetValues(typeof(PermissionMapCharset)).OfType<PermissionMapCharset>())
-            {
-                // Arrange, Given
-
-                var valorParaSecurables = this.FixtureMany<string>(10).ToArray();
-                var valorParaPermissions = this.FixtureMany<string>(2).ToArray();
-
-                var nenhumaPermissão = new Dictionary<string, IList<string>>();
-
-                var sut =
-                    charset != PermissionMapCharset.Custom
-                        ? new PermissionMap<string, string>(
-                            valorParaSecurables,
-                            valorParaPermissions,
-                            charset)
-                        : new PermissionMap<string, string>(
-                            valorParaSecurables,
-                            valorParaPermissions,
-                            "abcd");
-
-                // Act, When
-
-                var mapa = sut.Generate(nenhumaPermissão);
-
-                // Assert, Then
-
-                mapa.Should().BeEmpty();
-            }
         }
 
         [Fact]

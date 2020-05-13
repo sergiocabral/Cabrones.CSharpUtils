@@ -163,7 +163,7 @@ namespace Cabrones.Utils.Security
         ///     Gera o mapa.
         /// </summary>
         /// <returns>Mapa de bits.</returns>
-        public string Generate(IDictionary<TSecurable, IList<TPermission>> securableAndPermissions)
+        public string Generate(IDictionary<TSecurable, IEnumerable<TPermission>> securableAndPermissions)
         {
             var bits = new byte[Permissions.Length * Securables.Length];
 
@@ -195,11 +195,12 @@ namespace Cabrones.Utils.Security
         /// <returns>Mapa de bits no formato esperado.</returns>
         private string ConvertFromBinary(string bits)
         {
+            var missingPadding = ChunkBinarySize - bits.Length % ChunkBinarySize;
+            bits = new string('0', missingPadding) + bits;
+
             var chunksBinary = Enumerable
                 .Range(0, (int) System.Math.Ceiling((double) bits.Length / ChunkBinarySize))
-                .Select(i => bits
-                    .PadLeft(ChunkBinarySize, '0')
-                    .Substring(i * ChunkBinarySize, ChunkBinarySize))
+                .Select(i => bits.Substring(i * ChunkBinarySize, ChunkBinarySize))
                 .ToArray();
 
             var chunksDecimal = chunksBinary
