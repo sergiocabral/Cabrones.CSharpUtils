@@ -83,31 +83,31 @@ namespace Cabrones.Utils.Security
             switch (charset)
             {
                 case PermissionMapCharset.Binary:
-                    CharsetValue = "01";
+                    CharsetValue = "01".ToCharArray();
                     break;
                 case PermissionMapCharset.Octal:
-                    CharsetValue = "01234567";
+                    CharsetValue = "01234567".ToCharArray();
                     break;
                 case PermissionMapCharset.Decimal:
-                    CharsetValue = "0123456789";
+                    CharsetValue = "0123456789".ToCharArray();
                     break;
                 case PermissionMapCharset.Hexadecimal:
-                    CharsetValue = "0123456789abcdef";
+                    CharsetValue = "0123456789abcdef".ToCharArray();
                     break;
                 case PermissionMapCharset.Letters:
-                    CharsetValue = "abcdefghijklmnopqrstuvwxyz";
+                    CharsetValue = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
                     break;
                 case PermissionMapCharset.NumbersAndLetters:
-                    CharsetValue = "0123456789abcdefghijklmnopqrstuvwxyz";
+                    CharsetValue = "0123456789abcdefghijklmnopqrstuvwxyz".ToCharArray();
                     break;
                 case PermissionMapCharset.LettersCaseSensitive:
-                    CharsetValue = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                    CharsetValue = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
                     break;
                 case PermissionMapCharset.NumbersAndLettersCaseSensitive:
-                    CharsetValue = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                    CharsetValue = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
                     break;
                 case PermissionMapCharset.Ascii:
-                    CharsetValue = new string(Encoding
+                    CharsetValue = Encoding
                         .ASCII
                         .GetAllEncodedStrings()
                         .Where(a =>
@@ -116,24 +116,26 @@ namespace Cabrones.Utils.Security
                             a.Value.Length == 1 &&
                             !string.IsNullOrWhiteSpace(a.Value))
                         .Select(a => a.Value[0])
-                        .ToArray());
+                        .ToArray();
                     break;
                 case PermissionMapCharset.Unicode:
-                    CharsetValue = new string(Encoding
+                    CharsetValue = Encoding
                         .UTF8
                         .GetAllEncodedStrings()
                         .Where(a => a.Key > 32 && a.Value.Length == 1)
                         .Select(a => a.Value[0])
-                        .ToArray());
+                        .ToArray();
                     break;
                 case PermissionMapCharset.Custom:
                     if (charsetValue == null || charsetValue.Length < 2)
                         throw new ArgumentNullException(nameof(charset));
 
-                    if (charsetValue.ToCharArray().Distinct().Count() != charsetValue.Length)
+                    var charsetValueArray = charsetValue.ToCharArray();
+
+                    if (charsetValueArray.Distinct().Count() != charsetValue.Length)
                         throw new ArgumentException($"Duplications found in the {nameof(charset)}.");
 
-                    CharsetValue = charsetValue;
+                    CharsetValue = charsetValueArray;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(charset), charset, null);
@@ -141,11 +143,10 @@ namespace Cabrones.Utils.Security
 
             var maxValueBinary = new string('1', ChunkBinarySize);
             var maxValueInteger = Convert.ToUInt64(maxValueBinary, 2);
-            var maxValue = maxValueInteger.ConvertToNumericBase(CharsetValue.ToCharArray());
+            var maxValue = maxValueInteger.ConvertToNumericBase(CharsetValue);
             _chunkSize = maxValue.Length;
-            _mapSize = maxValue.Length *
-                       (int) System.Math.Ceiling(Permissions.Length * Securables.Length /
-                                                 (double) maxValueBinary.Length);
+            _mapSize = maxValue.Length * (int) System.Math.Ceiling(
+                Permissions.Length * Securables.Length / (double) maxValueBinary.Length);
         }
 
         /// <summary>
@@ -156,7 +157,7 @@ namespace Cabrones.Utils.Security
         /// <summary>
         ///     Texto que representa o mapa de permissões.
         /// </summary>
-        public string CharsetValue { get; }
+        public char[] CharsetValue { get; }
 
         /// <summary>
         ///     Lista de todos os itens do sistema que tem permissão associada.
@@ -174,7 +175,7 @@ namespace Cabrones.Utils.Security
         /// <returns>Mapa de bits.</returns>
         public string Generate(IDictionary<TSecurable, IEnumerable<TPermission>> securableAndPermissions)
         {
-            var bits = new byte[Permissions.Length * Securables.Length];
+            var bits = new char[Permissions.Length * Securables.Length];
 
             var index = 0;
             foreach (var securable in Securables)
@@ -185,15 +186,12 @@ namespace Cabrones.Utils.Security
                     var permissionIsPresent =
                         securableIsPresent &&
                         securableAndPermissions[securable].Contains(permission);
-                    bits[index] = permissionIsPresent ? (byte) 1 : (byte) 0;
 
-                    index++;
+                    bits[index++] = permissionIsPresent ? '1' : '0';
                 }
             }
 
-            var bitsAsText = new string(bits.Select(a => $"{a}"[0]).ToArray());
-
-            return ConvertFromBinary(bitsAsText);
+            return ConvertFromBinary(bits);
         }
 
         /// <summary>
@@ -205,21 +203,18 @@ namespace Cabrones.Utils.Security
         {
             var securableAndPermissions = new Dictionary<TSecurable, IEnumerable<TPermission>>();
 
-            var bits = ConvertToBinary(map).Select(a => a - '0').ToArray();
+            var bits = ConvertToBinary(map);
 
             var index = 0;
             foreach (var securable in Securables)
             foreach (var permission in Permissions)
             {
-                if (bits[index] == 1)
-                {
-                    if (!securableAndPermissions.ContainsKey(securable))
-                        securableAndPermissions[securable] = new List<TPermission>();
+                if (bits[index++] != '1') continue;
 
-                    ((List<TPermission>) securableAndPermissions[securable]).Add(permission);
-                }
+                if (!securableAndPermissions.ContainsKey(securable))
+                    securableAndPermissions[securable] = new List<TPermission>();
 
-                index++;
+                ((List<TPermission>) securableAndPermissions[securable]).Add(permission);
             }
 
 
@@ -231,7 +226,7 @@ namespace Cabrones.Utils.Security
         /// </summary>
         /// <param name="map">Mapa de saída.</param>
         /// <returns>Mapa de bits.</returns>
-        private string ConvertToBinary(string map)
+        private char[] ConvertToBinary(string map)
         {
             var missingPadding = _mapSize - map.Length;
             map = new string(CharsetValue[0], missingPadding) + map;
@@ -242,7 +237,7 @@ namespace Cabrones.Utils.Security
                 .ToArray();
 
             var chunksDecimal = chunks
-                .Select(a => a.ConvertFromNumericBase(CharsetValue.ToCharArray()))
+                .Select(a => a.ConvertFromNumericBase(CharsetValue))
                 .ToArray();
 
             var chunksBinary = chunksDecimal
@@ -251,10 +246,12 @@ namespace Cabrones.Utils.Security
                     .PadLeft(ChunkBinarySize, '0'))
                 .ToArray();
 
-            var bits = string.Join(string.Empty, chunksBinary);
+            var bitsAsText = string.Join(string.Empty, chunksBinary);
 
-            var extraPadding = bits.Length - Permissions.Length * Securables.Length;
-            bits = bits.Substring(extraPadding);
+            var extraPadding = bitsAsText.Length - Permissions.Length * Securables.Length;
+            bitsAsText = bitsAsText.Substring(extraPadding);
+
+            var bits = bitsAsText.ToCharArray();
 
             return bits;
         }
@@ -264,14 +261,16 @@ namespace Cabrones.Utils.Security
         /// </summary>
         /// <param name="bits">Mapa de bits.</param>
         /// <returns>Mapa de saída.</returns>
-        private string ConvertFromBinary(string bits)
+        private string ConvertFromBinary(char[] bits)
         {
-            var missingPadding = ChunkBinarySize - bits.Length % ChunkBinarySize;
-            bits = new string('0', missingPadding) + bits;
+            var bitAsText = new string(bits);
+
+            var missingPadding = ChunkBinarySize - bitAsText.Length % ChunkBinarySize;
+            bitAsText = new string('0', missingPadding) + bitAsText;
 
             var chunksBinary = Enumerable
-                .Range(0, (int) System.Math.Ceiling((double) bits.Length / ChunkBinarySize))
-                .Select(i => bits.Substring(i * ChunkBinarySize, ChunkBinarySize))
+                .Range(0, (int) System.Math.Ceiling((double) bitAsText.Length / ChunkBinarySize))
+                .Select(a => bitAsText.Substring(a * ChunkBinarySize, ChunkBinarySize))
                 .ToArray();
 
             var chunksDecimal = chunksBinary
@@ -280,7 +279,7 @@ namespace Cabrones.Utils.Security
 
             var chunks = chunksDecimal
                 .Select(a => a
-                    .ConvertToNumericBase(CharsetValue.ToCharArray())
+                    .ConvertToNumericBase(CharsetValue)
                     .PadLeft(_chunkSize, CharsetValue[0]))
                 .ToArray();
 

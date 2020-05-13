@@ -138,10 +138,19 @@ namespace Cabrones.Utils.Security
                 var valorParaSecurables = this.FixtureMany<string>(securables).ToArray();
                 var valorParaPermissions = this.FixtureMany<string>(permissions).ToArray();
 
-                var todasAsPermissão = valorParaSecurables
+                var todasAsPermissões = valorParaSecurables
                     .ToDictionary(
                         a => a,
                         a => valorParaPermissions.AsEnumerable());
+
+                var random = new Random(DateTime.Now.Millisecond);
+                var algumasPermissões = todasAsPermissões
+                    .Where(permissão => random.Next(1, 2) == 1)
+                    .ToDictionary<KeyValuePair<string, IEnumerable<string>>, string, IEnumerable<string>>(
+                        permissão => permissão.Key,
+                        permissão =>
+                            permissão.Value.Take(random.Next(0, permissão.Value.Count())).ToArray());
+
 
                 var sut =
                     charset != PermissionMapCharset.Custom
@@ -156,8 +165,11 @@ namespace Cabrones.Utils.Security
 
                 // Act, When
 
-                var mapa = sut.Generate(todasAsPermissão);
-                var permissoes = sut.Restore(mapa);
+                var mapaTodas = sut.Generate(todasAsPermissões);
+                var permissoesTodas = sut.Restore(mapaTodas);
+
+                var mapaAlgumas = sut.Generate(algumasPermissões);
+                var permissoesAlgumas = sut.Restore(mapaAlgumas);
 
                 // Assert, Then
 
@@ -172,11 +184,18 @@ namespace Cabrones.Utils.Security
                             .ToArray();
                 }
 
-                var permissõesDeEntrada = ConverteParaLista(todasAsPermissão);
-                var permissõesDeSaída = ConverteParaLista(permissoes);
+                var permissõesDeEntradaTodas = ConverteParaLista(todasAsPermissões);
+                var permissõesDeSaídaTodas = ConverteParaLista(permissoesTodas);
 
-                permissõesDeSaída.Should()
-                    .BeEquivalentTo(permissõesDeEntrada, options => options.WithStrictOrdering(),
+                var permissõesDeEntradaAlgumas = ConverteParaLista(algumasPermissões);
+                var permissõesDeSaídaAlgumas = ConverteParaLista(permissoesAlgumas);
+
+                permissõesDeSaídaTodas.Should()
+                    .BeEquivalentTo(permissõesDeEntradaTodas, options => options.WithStrictOrdering(),
+                        charset.ToString());
+
+                permissõesDeSaídaAlgumas.Should()
+                    .BeEquivalentTo(permissõesDeEntradaAlgumas, options => options.WithStrictOrdering(),
                         charset.ToString());
             }
         }
@@ -227,7 +246,7 @@ namespace Cabrones.Utils.Security
 
             // Assert, Then
 
-            sut.CharsetValue.Should()
+            new string(sut.CharsetValue).Should()
                 .Be(@"!""#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
         }
 
@@ -244,7 +263,7 @@ namespace Cabrones.Utils.Security
 
             // Assert, Then
 
-            sut.CharsetValue.Should().Be("01");
+            new string(sut.CharsetValue).Should().Be("01");
         }
 
         [Fact]
@@ -260,7 +279,7 @@ namespace Cabrones.Utils.Security
 
             // Assert, Then
 
-            sut.CharsetValue.Should().Be("0123456789");
+            new string(sut.CharsetValue).Should().Be("0123456789");
         }
 
         [Fact]
@@ -276,7 +295,7 @@ namespace Cabrones.Utils.Security
 
             // Assert, Then
 
-            sut.CharsetValue.Should().Be("0123456789abcdef");
+            new string(sut.CharsetValue).Should().Be("0123456789abcdef");
         }
 
         [Fact]
@@ -292,7 +311,7 @@ namespace Cabrones.Utils.Security
 
             // Assert, Then
 
-            sut.CharsetValue.Should().Be("abcdefghijklmnopqrstuvwxyz");
+            new string(sut.CharsetValue).Should().Be("abcdefghijklmnopqrstuvwxyz");
         }
 
         [Fact]
@@ -308,7 +327,7 @@ namespace Cabrones.Utils.Security
 
             // Assert, Then
 
-            sut.CharsetValue.Should().Be("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+            new string(sut.CharsetValue).Should().Be("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
         }
 
         [Fact]
@@ -324,7 +343,7 @@ namespace Cabrones.Utils.Security
 
             // Assert, Then
 
-            sut.CharsetValue.Should().Be("0123456789abcdefghijklmnopqrstuvwxyz");
+            new string(sut.CharsetValue).Should().Be("0123456789abcdefghijklmnopqrstuvwxyz");
         }
 
         [Fact]
@@ -339,7 +358,7 @@ namespace Cabrones.Utils.Security
 
             // Assert, Then
 
-            sut.CharsetValue.Should().Be("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+            new string(sut.CharsetValue).Should().Be("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
         }
 
         [Fact]
@@ -355,7 +374,7 @@ namespace Cabrones.Utils.Security
 
             // Assert, Then
 
-            sut.CharsetValue.Should().Be("01234567");
+            new string(sut.CharsetValue).Should().Be("01234567");
         }
 
         [Fact]
@@ -379,7 +398,7 @@ namespace Cabrones.Utils.Security
 
             // Assert, Then
 
-            sut.CharsetValue.Should().Be(charsetEsperado);
+            new string(sut.CharsetValue).Should().Be(charsetEsperado);
         }
 
         [Fact]

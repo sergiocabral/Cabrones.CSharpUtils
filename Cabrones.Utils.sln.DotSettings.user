@@ -1,10 +1,4 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4856b317_002Dd17c_002D4780_002D8281_002D7599cd8cd8f7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="deve_ser_possível_fazer_a_operação_de_ida_e_volta" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::6AB38F58-4707-4579-86F9-D830EC4E2E3A::.NETCoreApp,Version=v3.1::Cabrones.Utils.Security.PermissionsMapTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::6AB38F58-4707-4579-86F9-D830EC4E2E3A::.NETCoreApp,Version=v3.1::Cabrones.Utils.Math.MathExtensionsTest.testar_ConvertFromNumericBase_convertendo_de_bases_desconhecidas_para_inteiro&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=95a601ad_002Dc04a_002D4621_002D9260_002D87a377d106a3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5b9233d5_002Dc4a3_002D43b6_002D818b_002Dfa1b86cdbd57/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

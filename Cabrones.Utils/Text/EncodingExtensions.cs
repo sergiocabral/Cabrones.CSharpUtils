@@ -12,7 +12,7 @@ namespace Cabrones.Utils.Text
         /// <summary>
         ///     Cache para resultados do método GetAllCodes.
         /// </summary>
-        private static readonly Dictionary<string, IReadOnlyDictionary<int, string>> _cacheForGetAllCodes =
+        private static readonly Dictionary<string, IReadOnlyDictionary<int, string>> CacheForGetAllCodes =
             new Dictionary<string, IReadOnlyDictionary<int, string>>();
 
         /// <summary>
@@ -60,14 +60,15 @@ namespace Cabrones.Utils.Text
                 .Select(a => $"{a.Key}-{a.Value}")
                 .Aggregate(string.Empty, (acc, cur) => $"{acc},{cur}");
 
-            if (_cacheForGetAllCodes.ContainsKey(rangeHash)) return _cacheForGetAllCodes[rangeHash];
+            if (CacheForGetAllCodes.ContainsKey(rangeHash)) return CacheForGetAllCodes[rangeHash];
 
             var codes = new Dictionary<int, string>();
+            // ReSharper disable once UseDeconstruction
             foreach (var range in ranges)
                 for (var i = range.Key; i <= range.Value; i++)
                     codes[i] = char.ConvertFromUtf32(i);
 
-            return _cacheForGetAllCodes[rangeHash] = codes;
+            return CacheForGetAllCodes[rangeHash] = codes;
         }
     }
 }

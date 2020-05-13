@@ -52,7 +52,7 @@ namespace Cabrones.Utils.Reflection
                 if (includeInterfaces) continue;
 
                 except.AddRange(
-                    type.GetInterfaces().SelectMany(typeInterface => 
+                    type.GetInterfaces().SelectMany(typeInterface =>
                         typeInterface.GetEvents(bindingFlags).Select(a => $"{a}")));
             }
 
@@ -163,7 +163,7 @@ namespace Cabrones.Utils.Reflection
                             BindingFlags.Static |
                             BindingFlags.Instance |
                             BindingFlags.DeclaredOnly)
-                        .Where(method => 
+                        .Where(method =>
                             !allPropertiesMethods.Contains(method) &&
                             !allEventsMethods.Contains(method)));
 
@@ -277,7 +277,7 @@ namespace Cabrones.Utils.Reflection
                     BindingFlags.Static |
                     BindingFlags.Instance |
                     BindingFlags.DeclaredOnly)
-                .Where(method => 
+                .Where(method =>
                     !myPropertiesMethods.Contains(method) &&
                     !myEventsMethods.Contains(method))
                 .Where(a => a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
@@ -307,10 +307,10 @@ namespace Cabrones.Utils.Reflection
         public static IEnumerable<EventInfo> MyOwnEvents(this Type? type)
         {
             if (type == null) return new EventInfo[0];
-            
+
             var myEvents = MyEvents(type);
-            var eventsOfInterfaces = 
-                type.GetInterfaces().SelectMany(a => a.GetEvents().Select(a => $"{a}"));
+            var eventsOfInterfaces =
+                type.GetInterfaces().SelectMany(a => a.GetEvents().Select(b => $"{b}"));
 
             return myEvents.Where(a => !eventsOfInterfaces.Contains(a.ToString())).ToArray();
         }

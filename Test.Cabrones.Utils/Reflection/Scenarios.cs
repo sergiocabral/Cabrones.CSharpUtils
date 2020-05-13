@@ -4,12 +4,18 @@
 // ReSharper disable UnassignedGetOnlyAutoProperty
 // ReSharper disable EventNeverSubscribedTo.Global
 // ReSharper disable EventNeverSubscribedTo.Local
+
 #pragma warning disable 67
 #pragma warning disable 693
 
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+
+// ReSharper disable EventNeverInvoked.Global
+
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedAutoPropertyAccessor.Local
 
 namespace Cabrones.Utils.Reflection
 {
@@ -127,14 +133,14 @@ namespace Cabrones.Utils.Reflection
         {
             set => throw new NotImplementedException();
         }
-        
+
         public int ClasseNetaPropriedadePrivadaInstânciaPublic
         {
             set => throw new NotImplementedException();
         }
 
         private static int ClasseNetaPropriedadePrivadaEstática { get; }
-        
+
         public static int ClasseNetaPropriedadePrivadaEstáticaPublic { get; }
 
         public IDictionary<string[,], string[][][]> PropriedadeComplicada { get; set; }
@@ -221,13 +227,13 @@ namespace Cabrones.Utils.Reflection
     {
         public event Action EventoDaInterface;
     }
-    
+
     [ExcludeFromCodeCoverage]
-    public class ClasseComEvento: InterfaceComEvento
+    public class ClasseComEvento : InterfaceComEvento
     {
+        public event Action EventoDaInterface;
         public event Action EventoDaInstância;
         public static event Func<string, int> EventoEstático;
-        public event Action EventoDaInterface;
         private event Action EventoPrivado;
         protected event Action EventoProtegido;
     }
