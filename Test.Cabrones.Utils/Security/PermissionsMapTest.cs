@@ -11,6 +11,25 @@ namespace Cabrones.Utils.Security
     public class PermissionsMapTest
     {
         [Theory]
+        [InlineData("012345", true)]
+        [InlineData("012340", false)]
+        public void falhar_se_charset_Custom_tiver_caracteres_duplicados(string charset, bool estáCorreto)
+        {
+            // Arrange, Given
+            // Act, When
+
+            Func<PermissionMap> criar = () => new PermissionMap(
+                this.FixtureMany<string>(),
+                this.FixtureMany<string>(),
+                charset);
+
+            // Assert, Then
+
+            if (!estáCorreto) criar.Should().ThrowExactly<ArgumentException>();
+            else criar.Should().NotThrow();
+        }
+
+        [Theory]
         [InlineData(null)]
         [InlineData("")]
         [InlineData("1")]
@@ -19,7 +38,6 @@ namespace Cabrones.Utils.Security
         public void falhar_se_charset_Custom_informar_o_texto_com_comprimento_menor_que_2(string charset)
         {
             // Arrange, Given
-
             // Act, When
 
             Func<PermissionMap> criar = () => new PermissionMap(

@@ -105,6 +105,10 @@ namespace Cabrones.Utils.Security
                 case PermissionMapCharset.Custom:
                     if (charsetValue == null || charsetValue.Length < 2)
                         throw new ArgumentNullException(nameof(charset));
+
+                    if (charsetValue.ToCharArray().Distinct().Count() != charsetValue.Length)
+                        throw new ArgumentException($"Duplications found in the {nameof(charset)}.");
+
                     CharsetValue = charsetValue;
                     break;
                 default:
