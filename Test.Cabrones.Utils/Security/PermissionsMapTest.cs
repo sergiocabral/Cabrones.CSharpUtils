@@ -223,7 +223,7 @@ namespace Cabrones.Utils.Security
                 .UTF8
                 .GetAllEncodedStrings()
                 .Where(a =>
-                    a.Value.Code > 32 &&
+                    a.Value.Code >= 32 &&
                     a.Value.Size >= 1 &&
                     a.Value.Size <= tamanho)
                 .Select(a => a.Value.Text[0])
