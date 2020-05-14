@@ -29,7 +29,8 @@ namespace Cabrones.Utils.Text
 
                 Action consultar = () => encoding.GetAllEncodedStrings();
 
-                Func<IReadOnlyDictionary<int, string>> obterTodosOsCaracteres = () => encoding.GetAllEncodedStrings();
+                Func<IReadOnlyDictionary<int, EncodingCode>> obterTodosOsCaracteres =
+                    () => encoding.GetAllEncodedStrings();
 
                 // Assert, Then
 

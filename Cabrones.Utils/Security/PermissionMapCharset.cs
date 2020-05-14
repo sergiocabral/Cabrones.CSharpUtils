@@ -51,13 +51,28 @@
         NumbersAndLettersCaseSensitive,
 
         /// <summary>
-        ///     Texto como caracteres ASCII.
+        ///     Texto com caracteres ASCII visíveis.
         /// </summary>
-        Ascii,
+        VisibleAscii,
 
         /// <summary>
-        ///     Texto como caracteres Unicode visíveis.
+        ///     Texto como caracteres Unicode até 1 byte de tamanho.
         /// </summary>
-        Unicode
+        UnicodeUpTo1BytesInSize,
+
+        /// <summary>
+        ///     Texto como caracteres Unicode até 2 bytes de tamanho.
+        /// </summary>
+        UnicodeUpTo2BytesInSize,
+
+        /// <summary>
+        ///     Texto como caracteres Unicode até 3 bytes de tamanho.
+        /// </summary>
+        UnicodeUpTo3BytesInSize,
+
+        /// <summary>
+        ///     Texto como caracteres Unicode até 4 bytes de tamanho.
+        /// </summary>
+        UnicodeUpTo4BytesInSize
     }
 }

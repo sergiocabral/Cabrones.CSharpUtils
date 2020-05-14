@@ -38,7 +38,7 @@ namespace Cabrones.Utils.Security
         public PermissionMap(
             IEnumerable<TSecurable> securables,
             IEnumerable<TPermission> permissions,
-            PermissionMapCharset charset = PermissionMapCharset.NumbersAndLettersCaseSensitive) :
+            PermissionMapCharset charset) :
             this(securables, permissions, charset, null)
         {
         }
@@ -80,6 +80,8 @@ namespace Cabrones.Utils.Security
 
             Charset = charset;
 
+            var unicodeUpToBytesInSize = 1;
+
             switch (charset)
             {
                 case PermissionMapCharset.Binary:
@@ -106,24 +108,34 @@ namespace Cabrones.Utils.Security
                 case PermissionMapCharset.NumbersAndLettersCaseSensitive:
                     CharsetValue = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
                     break;
-                case PermissionMapCharset.Ascii:
+                case PermissionMapCharset.VisibleAscii:
                     CharsetValue = Encoding
                         .ASCII
                         .GetAllEncodedStrings()
                         .Where(a =>
-                            a.Key > 32 &&
-                            a.Key < 127 &&
-                            a.Value.Length == 1 &&
-                            !string.IsNullOrWhiteSpace(a.Value))
-                        .Select(a => a.Value[0])
+                            a.Value.Code > 32 &&
+                            a.Value.Code < 127)
+                        .Select(a => a.Value.Text[0])
                         .ToArray();
                     break;
-                case PermissionMapCharset.Unicode:
+                case PermissionMapCharset.UnicodeUpTo4BytesInSize:
+                    unicodeUpToBytesInSize = 4;
+                    goto case PermissionMapCharset.UnicodeUpTo1BytesInSize;
+                case PermissionMapCharset.UnicodeUpTo3BytesInSize:
+                    unicodeUpToBytesInSize = 3;
+                    goto case PermissionMapCharset.UnicodeUpTo1BytesInSize;
+                case PermissionMapCharset.UnicodeUpTo2BytesInSize:
+                    unicodeUpToBytesInSize = 2;
+                    goto case PermissionMapCharset.UnicodeUpTo1BytesInSize;
+                case PermissionMapCharset.UnicodeUpTo1BytesInSize:
                     CharsetValue = Encoding
                         .UTF8
                         .GetAllEncodedStrings()
-                        .Where(a => a.Key > 32 && a.Value.Length == 1)
-                        .Select(a => a.Value[0])
+                        .Where(a =>
+                            a.Value.Code > 32 &&
+                            a.Value.Size >= 1 &&
+                            a.Value.Size <= unicodeUpToBytesInSize)
+                        .Select(a => a.Value.Text[0])
                         .ToArray();
                     break;
                 case PermissionMapCharset.Custom:

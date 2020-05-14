@@ -12,8 +12,8 @@ namespace Cabrones.Utils.Text
         /// <summary>
         ///     Cache para resultados do método GetAllCodes.
         /// </summary>
-        private static readonly Dictionary<string, IReadOnlyDictionary<int, string>> CacheForGetAllCodes =
-            new Dictionary<string, IReadOnlyDictionary<int, string>>();
+        private static readonly Dictionary<string, IReadOnlyDictionary<int, EncodingCode>> CacheForGetAllCodes =
+            new Dictionary<string, IReadOnlyDictionary<int, EncodingCode>>();
 
         /// <summary>
         ///     Retorna todos os códigos e caracteres possíveis para um encoding.
@@ -24,7 +24,7 @@ namespace Cabrones.Utils.Text
         ///     Se não especificado usa o padrão para Unicode 0..0xD7FF e 0xE000..0x10FFFF.
         /// </param>
         /// <returns>Lista de caracteres.</returns>
-        public static IReadOnlyDictionary<int, string> GetAllEncodedStrings(this Encoding encoding,
+        public static IReadOnlyDictionary<int, EncodingCode> GetAllEncodedStrings(this Encoding encoding,
             params KeyValuePair<int, int>[] ranges)
         {
             encoding = Encoding.GetEncoding(
@@ -62,11 +62,11 @@ namespace Cabrones.Utils.Text
 
             if (CacheForGetAllCodes.ContainsKey(rangeHash)) return CacheForGetAllCodes[rangeHash];
 
-            var codes = new Dictionary<int, string>();
+            var codes = new Dictionary<int, EncodingCode>();
             // ReSharper disable once UseDeconstruction
             foreach (var range in ranges)
                 for (var i = range.Key; i <= range.Value; i++)
-                    codes[i] = char.ConvertFromUtf32(i);
+                    codes[i] = new EncodingCode(encoding, i);
 
             return CacheForGetAllCodes[rangeHash] = codes;
         }

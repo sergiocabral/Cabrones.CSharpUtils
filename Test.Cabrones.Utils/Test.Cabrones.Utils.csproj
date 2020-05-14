@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <IsPackable>false</IsPackable>
-        <Version>1.0.0.488</Version>
+        <Version>1.0.0.501</Version>
         <RootNamespace>Cabrones.Utils</RootNamespace>
         <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     </PropertyGroup>
@@ -23,5 +23,4 @@
     <ItemGroup>
       <ProjectReference Include="..\Cabrones.Utils\Cabrones.Utils.csproj" />
     </ItemGroup>
-
 </Project>

@@ -200,6 +200,47 @@ namespace Cabrones.Utils.Security
             }
         }
 
+        [Theory]
+        [InlineData(PermissionMapCharset.UnicodeUpTo1BytesInSize)]
+        [InlineData(PermissionMapCharset.UnicodeUpTo2BytesInSize)]
+        [InlineData(PermissionMapCharset.UnicodeUpTo3BytesInSize)]
+        [InlineData(PermissionMapCharset.UnicodeUpTo4BytesInSize)]
+        public void verificar_charset_Unicode(PermissionMapCharset tipoUnicode)
+        {
+            // Arrange, Given
+
+            // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+            var tamanho = tipoUnicode switch
+            {
+                PermissionMapCharset.UnicodeUpTo1BytesInSize => 1,
+                PermissionMapCharset.UnicodeUpTo2BytesInSize => 2,
+                PermissionMapCharset.UnicodeUpTo3BytesInSize => 3,
+                PermissionMapCharset.UnicodeUpTo4BytesInSize => 4,
+                _ => throw new Exception()
+            };
+
+            var charsetEsperado = new string(Encoding
+                .UTF8
+                .GetAllEncodedStrings()
+                .Where(a =>
+                    a.Value.Code > 32 &&
+                    a.Value.Size >= 1 &&
+                    a.Value.Size <= tamanho)
+                .Select(a => a.Value.Text[0])
+                .ToArray());
+
+            // Act, When
+
+            var sut = new PermissionMap<string, string>(
+                this.FixtureMany<string>(),
+                this.FixtureMany<string>(),
+                tipoUnicode);
+
+            // Assert, Then
+
+            new string(sut.CharsetValue).Should().Be(charsetEsperado);
+        }
+
         [Fact]
         public void falhar_se_charset_Custom_não_informar_o_texto()
         {
@@ -242,7 +283,7 @@ namespace Cabrones.Utils.Security
             var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
                 this.FixtureMany<string>(),
-                PermissionMapCharset.Ascii);
+                PermissionMapCharset.VisibleAscii);
 
             // Assert, Then
 
@@ -354,7 +395,8 @@ namespace Cabrones.Utils.Security
 
             var sut = new PermissionMap<string, string>(
                 this.FixtureMany<string>(),
-                this.FixtureMany<string>());
+                this.FixtureMany<string>(),
+                PermissionMapCharset.NumbersAndLettersCaseSensitive);
 
             // Assert, Then
 
@@ -375,30 +417,6 @@ namespace Cabrones.Utils.Security
             // Assert, Then
 
             new string(sut.CharsetValue).Should().Be("01234567");
-        }
-
-        [Fact]
-        public void verificar_charset_Unicode()
-        {
-            // Arrange, Given
-
-            var charsetEsperado = new string(Encoding
-                .UTF8
-                .GetAllEncodedStrings()
-                .Where(a => a.Key > 32 && a.Value.Length == 1)
-                .Select(a => a.Value[0])
-                .ToArray());
-
-            // Act, When
-
-            var sut = new PermissionMap<string, string>(
-                this.FixtureMany<string>(),
-                this.FixtureMany<string>(),
-                PermissionMapCharset.Unicode);
-
-            // Assert, Then
-
-            new string(sut.CharsetValue).Should().Be(charsetEsperado);
         }
 
         [Fact]
