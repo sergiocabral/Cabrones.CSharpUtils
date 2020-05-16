@@ -1,25 +1,4 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=246fc0e1_002D03ce_002D4dda_002Db543_002D664430e190bf/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="verificar_charset_Unicode" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::6AB38F58-4707-4579-86F9-D830EC4E2E3A::.NETCoreApp,Version=v3.1::Cabrones.Utils.Security.PermissionsMapTest.verificar_charset_Unicode&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=34e4f289_002D1a55_002D4eba_002Db76f_002D0c191cda2143/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="verificar_charset_Unicode #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::6AB38F58-4707-4579-86F9-D830EC4E2E3A::.NETCoreApp,Version=v3.1::Cabrones.Utils.Security.PermissionsMapTest.verificar_charset_Unicode&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5b9233d5_002Dc4a3_002D43b6_002D818b_002Dfa1b86cdbd57/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7bf77b6a_002D5ed8_002D460b_002Dab01_002D8f40e2691646/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6cef7188_002Da1e2_002D4d41_002Daaf4_002D32f9ca8737f7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="verificar_charset_Unicode #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::6AB38F58-4707-4579-86F9-D830EC4E2E3A::.NETCoreApp,Version=v3.1::Cabrones.Utils.Security.PermissionsMapTest.verificar_charset_Unicode&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a3c5d6c1_002De228_002D45e7_002D9dc3_002D05a743502d02/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="verificar_charset_Unicode #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::6AB38F58-4707-4579-86F9-D830EC4E2E3A::.NETCoreApp,Version=v3.1::Cabrones.Utils.Security.PermissionsMapTest.verificar_charset_Unicode&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::6AB38F58-4707-4579-86F9-D830EC4E2E3A::.NETCoreApp,Version=v3.1::Cabrones.Utils.Text.EncodingCodeTest.ao_criar_deve_carregar_as_informações_do_código_solicitado&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

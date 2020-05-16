@@ -60,6 +60,36 @@ namespace Cabrones.Utils.Reflection
         }
 
         /// <summary>
+        ///     Retorna todos os campos.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<FieldInfo> AllFields(this Type? type)
+        {
+            if (type == null) return new FieldInfo[0];
+
+            var result = new List<FieldInfo>();
+
+            const BindingFlags bindingFlags = BindingFlags.Public |
+                                              BindingFlags.Static |
+                                              BindingFlags.Instance |
+                                              BindingFlags.DeclaredOnly;
+
+            var index = 0;
+            var types = new List<Type> {type};
+            while (index < types.Count)
+            {
+                type = types[index++];
+
+                result.AddRange(type.GetFields(bindingFlags));
+
+                if (type.BaseType != null && !types.Contains(type.BaseType)) types.Add(type.BaseType);
+            }
+
+            return result.ToArray();
+        }
+
+        /// <summary>
         ///     Retorna todos os métodos apenas dos eventos.
         /// </summary>
         /// <param name="type">Tipo.</param>
@@ -211,6 +241,24 @@ namespace Cabrones.Utils.Reflection
             if (type == null) return new EventInfo[0];
 
             return type.GetEvents(
+                    BindingFlags.Public |
+                    BindingFlags.Static |
+                    BindingFlags.Instance |
+                    BindingFlags.DeclaredOnly)
+                .Where(a => a != null && a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
+                .ToArray()!;
+        }
+
+        /// <summary>
+        ///     Retorna todos os campos declarados no tipo.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<FieldInfo> MyFields(this Type? type)
+        {
+            if (type == null) return new FieldInfo[0];
+
+            return type.GetFields(
                     BindingFlags.Public |
                     BindingFlags.Static |
                     BindingFlags.Instance |

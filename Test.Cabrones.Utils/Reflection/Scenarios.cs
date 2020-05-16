@@ -12,6 +12,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
+#pragma warning disable 108,114
+#pragma warning disable 649
+#pragma warning disable 169
+
 // ReSharper disable EventNeverInvoked.Global
 
 // ReSharper disable InconsistentNaming
@@ -166,7 +170,7 @@ namespace Cabrones.Utils.Reflection
     }
 
     [ExcludeFromCodeCoverage]
-    public class ClasseComGenerics<TClasse1, TClasse2>
+    internal class ClasseComGenerics<TClasse1, TClasse2>
     {
         public TClasse1 PropriedadeComGenerics { get; set; }
 
@@ -199,7 +203,7 @@ namespace Cabrones.Utils.Reflection
     }
 
     [ExcludeFromCodeCoverage]
-    public class ClasseComMembrosFilhos
+    internal class ClasseComMembrosFilhos
     {
         public enum Listagem
         {
@@ -216,7 +220,7 @@ namespace Cabrones.Utils.Reflection
     }
 
     [ExcludeFromCodeCoverage]
-    public class ClasseComModificadoresDeAcesso
+    internal class ClasseComModificadoresDeAcesso
     {
         public int PropriedadeSetPrivate { get; private set; }
         public int PropriedadeGetInternal { internal get; set; }
@@ -229,12 +233,39 @@ namespace Cabrones.Utils.Reflection
     }
 
     [ExcludeFromCodeCoverage]
-    public class ClasseComEvento : InterfaceComEvento
+    internal class ClasseComEvento : InterfaceComEvento
     {
         public event Action EventoDaInterface;
         public event Action EventoDaInstância;
         public static event Func<string, int> EventoEstático;
         private event Action EventoPrivado;
         protected event Action EventoProtegido;
+    }
+
+    [ExcludeFromCodeCoverage]
+    internal class Classe1ComCampo : Classe2ComCampo
+    {
+        private static string CampoPrivadoEstático;
+        public static string CampoPúblicoEstático;
+        private string CampoPrivado;
+        public string CampoPúblico;
+    }
+
+    [ExcludeFromCodeCoverage]
+    internal class Classe2ComCampo : Classe3ComCampo
+    {
+        private static string CampoPrivadoEstático;
+        public static string CampoPúblicoEstático;
+        private static string Campo2PrivadoEstático;
+        public static string Campo2PúblicoEstático;
+
+        private string Campo2Privado;
+        public string Campo2Público;
+        private string CampoPrivado;
+        public string CampoPúblico;
+    }
+
+    internal class Classe3ComCampo
+    {
     }
 }

@@ -118,9 +118,6 @@ namespace Cabrones.Utils.Security
                         .Select(a => a.Value.Text[0])
                         .ToArray();
                     break;
-                case PermissionMapCharset.UnicodeUpTo4BytesInSize:
-                    unicodeUpToBytesInSize = 4;
-                    goto case PermissionMapCharset.UnicodeUpTo1BytesInSize;
                 case PermissionMapCharset.UnicodeUpTo3BytesInSize:
                     unicodeUpToBytesInSize = 3;
                     goto case PermissionMapCharset.UnicodeUpTo1BytesInSize;

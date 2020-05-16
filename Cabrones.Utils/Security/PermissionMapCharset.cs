@@ -68,11 +68,6 @@
         /// <summary>
         ///     Texto como caracteres Unicode até 3 bytes de tamanho.
         /// </summary>
-        UnicodeUpTo3BytesInSize,
-
-        /// <summary>
-        ///     Texto como caracteres Unicode até 4 bytes de tamanho.
-        /// </summary>
-        UnicodeUpTo4BytesInSize
+        UnicodeUpTo3BytesInSize
     }
 }

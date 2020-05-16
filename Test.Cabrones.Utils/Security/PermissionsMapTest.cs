@@ -149,8 +149,7 @@ namespace Cabrones.Utils.Security
                     .ToDictionary<KeyValuePair<string, IEnumerable<string>>, string, IEnumerable<string>>(
                         permissão => permissão.Key,
                         permissão =>
-                            permissão.Value.Take(random.Next(0, permissão.Value.Count())).ToArray());
-
+                            permissão.Value.Take(random.Next(1, permissão.Value.Count())).ToArray());
 
                 var sut =
                     charset != PermissionMapCharset.Custom
@@ -204,7 +203,6 @@ namespace Cabrones.Utils.Security
         [InlineData(PermissionMapCharset.UnicodeUpTo1BytesInSize)]
         [InlineData(PermissionMapCharset.UnicodeUpTo2BytesInSize)]
         [InlineData(PermissionMapCharset.UnicodeUpTo3BytesInSize)]
-        [InlineData(PermissionMapCharset.UnicodeUpTo4BytesInSize)]
         public void verificar_charset_Unicode(PermissionMapCharset tipoUnicode)
         {
             // Arrange, Given
@@ -215,7 +213,6 @@ namespace Cabrones.Utils.Security
                 PermissionMapCharset.UnicodeUpTo1BytesInSize => 1,
                 PermissionMapCharset.UnicodeUpTo2BytesInSize => 2,
                 PermissionMapCharset.UnicodeUpTo3BytesInSize => 3,
-                PermissionMapCharset.UnicodeUpTo4BytesInSize => 4,
                 _ => throw new Exception()
             };
 

@@ -29,7 +29,7 @@ namespace Cabrones.Utils.Reflection
             eventosSemInterfaces.Should().HaveCount(declaraçõesEsperadasSemInterface);
             eventosComInterfaces.Should().HaveCount(declaraçõesEsperadasComInterface);
         }
-        
+
         [Theory]
         [InlineData(typeof(IInterface1), 4, 4)]
         [InlineData(typeof(IInterface2), 4, 4)]
@@ -54,6 +54,27 @@ namespace Cabrones.Utils.Reflection
 
             propriedadesSemInterfaces.Should().HaveCount(declaraçõesEsperadasSemInterface);
             propriedadesComInterfaces.Should().HaveCount(declaraçõesEsperadasComInterface);
+        }
+
+        [Theory]
+        [InlineData(typeof(Classe1ComCampo), 6)]
+        [InlineData(typeof(Classe2ComCampo), 4)]
+        [InlineData(typeof(Classe3ComCampo), 0)]
+        [InlineData(null, 0)]
+        public void AllFields_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            // ReSharper disable once RedundantArgumentDefaultValue
+            var campos = tipo.AllFields().Select(a => a.ToString()).ToList();
+
+            // Assert, Then
+
+            campos.Should().HaveCount(declaraçõesEsperadas);
         }
 
         [Theory]
@@ -109,6 +130,26 @@ namespace Cabrones.Utils.Reflection
                 implementations.Should().BeEquivalentTo(implementaçõesEsperadas.ToList());
             else
                 implementations.Should().NotBeEquivalentTo(implementaçõesEsperadas.ToList());
+        }
+
+        [Theory]
+        [InlineData(typeof(Classe1ComCampo), 2)]
+        [InlineData(typeof(Classe2ComCampo), 4)]
+        [InlineData(typeof(Classe3ComCampo), 0)]
+        [InlineData(null, 0)]
+        public void MyFields_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            var eventos = tipo.MyFields().Select(a => a.ToString()).ToList();
+
+            // Assert, Then
+
+            eventos.Should().HaveCount(declaraçõesEsperadas);
         }
 
         [Theory]
