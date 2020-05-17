@@ -133,26 +133,6 @@ namespace Cabrones.Utils.Reflection
         }
 
         [Theory]
-        [InlineData(typeof(Classe1ComCampo), 2)]
-        [InlineData(typeof(Classe2ComCampo), 4)]
-        [InlineData(typeof(Classe3ComCampo), 0)]
-        [InlineData(null, 0)]
-        public void MyFields_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
-        {
-            // Arrange, Given
-
-            var tipo = tipoParaTeste;
-
-            // Act, When
-
-            var eventos = tipo.MyFields().Select(a => a.ToString()).ToList();
-
-            // Assert, Then
-
-            eventos.Should().HaveCount(declaraçõesEsperadas);
-        }
-
-        [Theory]
         [InlineData(typeof(ClasseComEvento), 3)]
         [InlineData(typeof(InterfaceComEvento), 1)]
         [InlineData(null, 0)]
@@ -287,6 +267,26 @@ namespace Cabrones.Utils.Reflection
             // Assert, Then
 
             métodos.Should().HaveCount(declaraçõesEsperadas);
+        }
+
+        [Theory]
+        [InlineData(typeof(Classe1ComCampo), 2)]
+        [InlineData(typeof(Classe2ComCampo), 4)]
+        [InlineData(typeof(Classe3ComCampo), 0)]
+        [InlineData(null, 0)]
+        public void MyOwnFields_deve_funcionar_corretamente(Type tipoParaTeste, int declaraçõesEsperadas)
+        {
+            // Arrange, Given
+
+            var tipo = tipoParaTeste;
+
+            // Act, When
+
+            var eventos = tipo.MyOwnFields().Select(a => a.ToString()).ToList();
+
+            // Assert, Then
+
+            eventos.Should().HaveCount(declaraçõesEsperadas);
         }
 
         [Theory]

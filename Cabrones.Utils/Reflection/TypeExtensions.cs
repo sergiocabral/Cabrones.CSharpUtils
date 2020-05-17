@@ -250,24 +250,6 @@ namespace Cabrones.Utils.Reflection
         }
 
         /// <summary>
-        ///     Retorna todos os campos declarados no tipo.
-        /// </summary>
-        /// <param name="type">Tipo.</param>
-        /// <returns>Lista.</returns>
-        public static IEnumerable<FieldInfo> MyFields(this Type? type)
-        {
-            if (type == null) return new FieldInfo[0];
-
-            return type.GetFields(
-                    BindingFlags.Public |
-                    BindingFlags.Static |
-                    BindingFlags.Instance |
-                    BindingFlags.DeclaredOnly)
-                .Where(a => a != null && a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
-                .ToArray()!;
-        }
-
-        /// <summary>
         ///     Retorna todos os métodos declaradas no tipo apenas dos evento.
         /// </summary>
         /// <param name="type">Tipo.</param>
@@ -361,6 +343,24 @@ namespace Cabrones.Utils.Reflection
                 type.GetInterfaces().SelectMany(a => a.GetEvents().Select(b => $"{b}"));
 
             return myEvents.Where(a => !eventsOfInterfaces.Contains(a.ToString())).ToArray();
+        }
+
+        /// <summary>
+        ///     Retorna todos os campos declarados no tipo que não sejam herdados.
+        /// </summary>
+        /// <param name="type">Tipo.</param>
+        /// <returns>Lista.</returns>
+        public static IEnumerable<FieldInfo> MyOwnFields(this Type? type)
+        {
+            if (type == null) return new FieldInfo[0];
+
+            return type.GetFields(
+                    BindingFlags.Public |
+                    BindingFlags.Static |
+                    BindingFlags.Instance |
+                    BindingFlags.DeclaredOnly)
+                .Where(a => a != null && a.DeclaringType == type && a.DeclaringType.Assembly == type.Assembly)
+                .ToArray()!;
         }
 
         /// <summary>
