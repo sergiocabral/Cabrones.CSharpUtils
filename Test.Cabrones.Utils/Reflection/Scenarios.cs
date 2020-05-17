@@ -268,4 +268,14 @@ namespace Cabrones.Utils.Reflection
     internal class Classe3ComCampo
     {
     }
+
+    internal class Classe4ComCamposDeExemplo<TTipo>
+    {
+        private Func<TTipo, string> CampoGenérico2Privado;
+        public Func<TTipo, string> CampoGenérico2Público;
+        public TTipo CampoGenéricoPrivado;
+        public TTipo CampoGenéricoPúblico;
+        public int CampoPrivado;
+        public int CampoPúblico;
+    }
 }

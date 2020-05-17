@@ -105,22 +105,22 @@ namespace Cabrones.Utils.Reflection
                 result.Append("static ");
 
             result.Append($"{property.PropertyType.ToSignatureCSharp()} {property.Name} {{ ");
-            
-            if (property.CanRead && 
+
+            if (property.CanRead &&
                 (property.GetMethod?.Attributes & MethodAttributes.Private) != MethodAttributes.Private &&
-                (property.GetMethod?.Attributes & MethodAttributes.FamANDAssem) == MethodAttributes.FamANDAssem) 
+                (property.GetMethod?.Attributes & MethodAttributes.FamANDAssem) == MethodAttributes.FamANDAssem)
                 result.Append("get; ");
-            
-            if (property.CanWrite && 
+
+            if (property.CanWrite &&
                 (property.SetMethod?.Attributes & MethodAttributes.Private) != MethodAttributes.Private &&
-                (property.SetMethod?.Attributes & MethodAttributes.FamANDAssem) == MethodAttributes.FamANDAssem) 
+                (property.SetMethod?.Attributes & MethodAttributes.FamANDAssem) == MethodAttributes.FamANDAssem)
                 result.Append("set; ");
-            
+
             result.Append("}");
 
             return result.ToString();
         }
-        
+
         /// <summary>
         ///     Formata o objeto em uma assinatura C#
         /// </summary>
@@ -134,6 +134,22 @@ namespace Cabrones.Utils.Reflection
                 result.Append("static ");
 
             result.Append($"{@event.EventHandlerType!.ToSignatureCSharp()} {@event.Name}");
+
+            return result.ToString();
+        }
+
+        /// <summary>
+        ///     Formata o objeto em uma assinatura C#
+        /// </summary>
+        /// <param name="field">Evento.</param>
+        /// <returns>Assinatura.</returns>
+        public static string ToSignatureCSharp(this FieldInfo field)
+        {
+            var result = new StringBuilder();
+
+            if (field.IsStatic) result.Append("static ");
+
+            result.Append($"{field.FieldType.ToSignatureCSharp()} {field.Name}");
 
             return result.ToString();
         }

@@ -48,8 +48,12 @@ namespace Cabrones.Utils.Reflection
             "Void MétodoComGenerics5<TClasse1, TClasse2>(TClasse1, TClasse2)", true)]
         [InlineData(typeof(ClasseComGenerics<,>), "Void MétodoComGenerics6(TClasse1, TClasse2)", true)]
         [InlineData(typeof(ClasseComGenerics<string, int>), "Void MétodoComGenerics6(String, Int32)", true)]
-        [InlineData(typeof(ClasseComMembrosFilhos), "ClasseComMembrosFilhos.Listagem GetLista(ClasseComMembrosFilhos.Listagem, ClasseComMembrosFilhos.Listagem[])", true)]
-        [InlineData(typeof(ClasseComMembrosFilhos), "ClasseComMembrosFilhos+Listagem GetLista(ClasseComMembrosFilhos+Listagem, ClasseComMembrosFilhos+Listagem[])", false)]
+        [InlineData(typeof(ClasseComMembrosFilhos),
+            "ClasseComMembrosFilhos.Listagem GetLista(ClasseComMembrosFilhos.Listagem, ClasseComMembrosFilhos.Listagem[])",
+            true)]
+        [InlineData(typeof(ClasseComMembrosFilhos),
+            "ClasseComMembrosFilhos+Listagem GetLista(ClasseComMembrosFilhos+Listagem, ClasseComMembrosFilhos+Listagem[])",
+            false)]
         public void ToSignatureCSharp_para_MethodInfo_deve_funcionar_corretamente(Type tipo, string assinatura,
             bool existe)
         {
@@ -83,9 +87,12 @@ namespace Cabrones.Utils.Reflection
             "String PropriedadeComGenerics { get; set; }")]
         [InlineData(typeof(ClasseComMembrosFilhos), "Lista",
             "ClasseComMembrosFilhos.Listagem Lista { get; set; }")]
-        [InlineData(typeof(ClasseComModificadoresDeAcesso), "PropriedadeSetPrivate", "Int32 PropriedadeSetPrivate { get; }")]
-        [InlineData(typeof(ClasseComModificadoresDeAcesso), "PropriedadeGetInternal", "Int32 PropriedadeGetInternal { set; }")]
-        [InlineData(typeof(ClasseComModificadoresDeAcesso), "PropriedadeSetProtected", "Int32 PropriedadeSetProtected { get; }")]
+        [InlineData(typeof(ClasseComModificadoresDeAcesso), "PropriedadeSetPrivate",
+            "Int32 PropriedadeSetPrivate { get; }")]
+        [InlineData(typeof(ClasseComModificadoresDeAcesso), "PropriedadeGetInternal",
+            "Int32 PropriedadeGetInternal { set; }")]
+        [InlineData(typeof(ClasseComModificadoresDeAcesso), "PropriedadeSetProtected",
+            "Int32 PropriedadeSetProtected { get; }")]
         public void ToSignatureCSharp_para_PropertyInfo_deve_funcionar_corretamente(Type tipo, string nomeDaPropriedade,
             string assinaturaEsperada)
         {
@@ -117,6 +124,40 @@ namespace Cabrones.Utils.Reflection
             // Act, When
 
             var assinatura = evento.ToSignatureCSharp();
+
+            // Assert, Then
+
+            assinatura.Should().Be(assinaturaEsperada);
+        }
+
+        [Theory]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<bool>), "CampoPúblico", "Int32 CampoPúblico")]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<bool>), "CampoPrivado", "Int32 CampoPrivado")]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<>), "CampoPúblico", "Int32 CampoPúblico")]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<>), "CampoPrivado", "Int32 CampoPrivado")]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<bool>), "CampoGenéricoPúblico", "Boolean CampoGenéricoPúblico")]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<bool>), "CampoGenéricoPrivado", "Boolean CampoGenéricoPrivado")]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<>), "CampoGenéricoPúblico", "TTipo CampoGenéricoPúblico")]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<>), "CampoGenéricoPrivado", "TTipo CampoGenéricoPrivado")]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<bool>), "CampoGenérico2Público",
+            "Func<Boolean, String> CampoGenérico2Público")]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<bool>), "CampoGenérico2Privado",
+            "Func<Boolean, String> CampoGenérico2Privado")]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<>), "CampoGenérico2Público",
+            "Func<TTipo, String> CampoGenérico2Público")]
+        [InlineData(typeof(Classe4ComCamposDeExemplo<>), "CampoGenérico2Privado",
+            "Func<TTipo, String> CampoGenérico2Privado")]
+        public void ToSignatureCSharp_para_FieldInfo_deve_funcionar_corretamente(Type tipo, string nomeDoCampo,
+            string assinaturaEsperada)
+        {
+            // Arrange, Given
+
+            var campo = tipo.GetField(nomeDoCampo,
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+
+            // Act, When
+
+            var assinatura = campo!.ToSignatureCSharp();
 
             // Assert, Then
 

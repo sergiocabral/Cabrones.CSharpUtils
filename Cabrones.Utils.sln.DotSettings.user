@@ -1,9 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7bf77b6a_002D5ed8_002D460b_002Dab01_002D8f40e2691646/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Solution /&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=810f60f3_002D4a72_002D4fe8_002Da917_002D6d9d9df45ed8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TypeExtensionsTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=92cffa2c_002D4bf5_002D40c8_002D85e1_002Da9de120d902b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ToSignatureCSharp_para_FieldInfo_deve_funcionar_corretamente" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::6AB38F58-4707-4579-86F9-D830EC4E2E3A::.NETCoreApp,Version=v3.1::Cabrones.Utils.Reflection.TypeExtensionsTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::6AB38F58-4707-4579-86F9-D830EC4E2E3A::.NETCoreApp,Version=v3.1::Cabrones.Utils.Reflection.SignatureExtensionsTest.ToSignatureCSharp_para_FieldInfo_deve_funcionar_corretamente&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
