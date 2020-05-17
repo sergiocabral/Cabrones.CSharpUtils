@@ -273,9 +273,9 @@ namespace Cabrones.Utils.Reflection
     {
         private Func<TTipo, string> CampoGenérico2Privado;
         public Func<TTipo, string> CampoGenérico2Público;
-        public TTipo CampoGenéricoPrivado;
+        private TTipo CampoGenéricoPrivado;
         public TTipo CampoGenéricoPúblico;
-        public int CampoPrivado;
+        private int CampoPrivado;
         public int CampoPúblico;
     }
 }
