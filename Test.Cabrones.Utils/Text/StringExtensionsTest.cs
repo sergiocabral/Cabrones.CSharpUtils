@@ -8,6 +8,7 @@ namespace Cabrones.Utils.Text
     public class StringExtensionsTest
     {
         [Theory]
+        [InlineData(null, null)]
         [InlineData("teste", "teste")]
         [InlineData("forçação", "forcacao")]
         [InlineData("FORÇAÇÃO de barra", "forcacao-de-barra")]
@@ -16,6 +17,9 @@ namespace Cabrones.Utils.Text
         [InlineData("--forcacao--de--barra--", "forcacao-de-barra")]
         [InlineData("!forcacao de barra?", "forcacao-de-barra")]
         [InlineData("nome.de.arquivo!.exe", "nome-de-arquivo-exe")]
+        [InlineData("MeuNomeÉSergioCabral", "meu-nome-e-sergio-cabral")]
+        [InlineData("ASiglaÉDTO", "a-sigla-e-d-t-o")]
+        [InlineData("ASiglaÉDto", "a-sigla-e-dto")]
         public void método_Slug_deve_converter_um_texto_para_slug(string valor, string slugEsperado)
         {
             // Arrange, Given

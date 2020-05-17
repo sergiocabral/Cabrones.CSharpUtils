@@ -24,8 +24,31 @@ namespace Cabrones.Utils.Text
         /// <returns>Texto como slug.</returns>
         public static string ToSlug(this string text)
         {
+            if (text == null) return null!;
+
             // Remove acento.
             text = text.RemoveAccent();
+
+            var dontHaveSpace = !text.Contains(" ");
+            if (dontHaveSpace)
+            {
+                var hasLowers = text.Any(a => a >= 'a' && a <= 'z');
+                var hasUppers = text.Any(a => a >= 'A' && a <= 'Z');
+                var hasNumbers = text.Any(a => a >= '0' && a <= '9');
+                if (hasLowers && (hasUppers || hasNumbers))
+                {
+                    var positionsToSpace = text
+                        .Select((letter, position) => new {letter, position})
+                        .Where(a => a.letter >= 'A' && a.letter <= 'Z' || a.letter >= '0' && a.letter <= '9')
+                        .Select(a => a.position)
+                        .Reverse()
+                        .ToArray();
+
+                    var stringBuilder = new StringBuilder(text);
+                    foreach (var positionToSpace in positionsToSpace) stringBuilder.Insert(positionToSpace, ' ');
+                    text = stringBuilder.ToString();
+                }
+            }
 
             // Minúsculo
             text = text.ToLower();
@@ -34,7 +57,7 @@ namespace Cabrones.Utils.Text
             text = Regex.Replace(text, @"[^a-z0-9]+", "-"); // hyphens   
 
             // Remove traços das extremidades.           
-            text = Regex.Replace(text, @"(^-+|-+$)", string.Empty);   
+            text = Regex.Replace(text, @"(^-+|-+$)", string.Empty);
 
             return text;
         }
