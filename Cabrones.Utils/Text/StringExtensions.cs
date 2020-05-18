@@ -32,22 +32,22 @@ namespace Cabrones.Utils.Text
             var dontHaveSpace = !text.Contains(" ");
             if (dontHaveSpace)
             {
-                var hasLowers = text.Any(a => a >= 'a' && a <= 'z');
-                var hasUppers = text.Any(a => a >= 'A' && a <= 'Z');
-                var hasNumbers = text.Any(a => a >= '0' && a <= '9');
-                if (hasLowers && (hasUppers || hasNumbers))
-                {
-                    var positionsToSpace = text
-                        .Select((letter, position) => new {letter, position})
-                        .Where(a => a.letter >= 'A' && a.letter <= 'Z' || a.letter >= '0' && a.letter <= '9')
-                        .Select(a => a.position)
-                        .Reverse()
-                        .ToArray();
+                var isGuid =
+                    text.Length == 32 &&
+                    Regex.IsMatch(text, @"^[0-9a-f]{32}$")
+                    ||
+                    text.Length == 36 &&
+                    Regex.IsMatch(text, @"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$");
 
-                    var stringBuilder = new StringBuilder(text);
-                    foreach (var positionToSpace in positionsToSpace) stringBuilder.Insert(positionToSpace, ' ');
-                    text = stringBuilder.ToString();
-                }
+                if (isGuid) return text;
+
+                var positionsToSpace = Regex.Matches(text,
+                    @"([A-Z]|(?<=[^0-9])[0-9]|(?<=[0-9])[a-z])");
+
+                var stringBuilder = new StringBuilder(text);
+                for (var i = positionsToSpace.Count - 1; i >= 0; i--)
+                    stringBuilder.Insert(positionsToSpace[i].Index, ' ');
+                text = stringBuilder.ToString();
             }
 
             // Minúsculo

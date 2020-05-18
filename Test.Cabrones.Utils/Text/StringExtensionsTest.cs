@@ -20,6 +20,11 @@ namespace Cabrones.Utils.Text
         [InlineData("MeuNomeÉSergioCabral", "meu-nome-e-sergio-cabral")]
         [InlineData("ASiglaÉDTO", "a-sigla-e-d-t-o")]
         [InlineData("ASiglaÉDto", "a-sigla-e-dto")]
+        [InlineData("Meu número é 500", "meu-numero-e-500")]
+        [InlineData("Meu id é 6bec80b3-73f9-42e2-8bd3-df690f6c954c", "meu-id-e-6bec80b3-73f9-42e2-8bd3-df690f6c954c")]
+        [InlineData("MeuIdÉ6bec80b3-73f9-42e2-8bd3-df690f6c954c",
+            "meu-id-e-6-bec-80-b-3-73-f-9-42-e-2-8-bd-3-df-690-f-6-c-954-c")]
+        [InlineData("6bec80b3-73f9-42e2-8bd3-df690f6c954c", "6bec80b3-73f9-42e2-8bd3-df690f6c954c")]
         public void método_Slug_deve_converter_um_texto_para_slug(string valor, string slugEsperado)
         {
             // Arrange, Given
